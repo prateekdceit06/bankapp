@@ -12,7 +12,7 @@ public class Main {
         Connection connection = null;
         try {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:/Users/prateek/Documents/CS_611/Final_Project/bankapp/bank.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:bank.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
