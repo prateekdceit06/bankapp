@@ -7,7 +7,7 @@ public abstract class Person {
     private String address;
     private String email;
 
-    //Constructor
+    //default Constructor
     public Person(){}
 
     //constructor

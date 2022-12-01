@@ -23,6 +23,7 @@ public class Main {
             ResultSet rs = statement.executeQuery("select * from login");
             while (rs.next()) {
                 // read the result set
+                System.out.println();
                 System.out.println("First Name = " + rs.getString("first_name"));
                 System.out.println("Last Name = " + rs.getString("last_name"));
                 System.out.println("Username = " + rs.getString("username"));
@@ -33,6 +34,7 @@ public class Main {
                 System.out.println("CustomerID = " + rs.getInt("customer_id"));
                 System.out.println("Active = " + rs.getInt("active"));
                 System.out.println("Admin = " + rs.getInt("admin"));
+                System.out.println("-----------------------------------------------");
             }
         } catch (SQLException e) {
             // if the error message is "out of memory",
