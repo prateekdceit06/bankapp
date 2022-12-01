@@ -26,12 +26,13 @@ public class Main {
                 System.out.println("First Name = " + rs.getString("first_name"));
                 System.out.println("Last Name = " + rs.getString("last_name"));
                 System.out.println("Username = " + rs.getString("username"));
-                System.out.println("Pin = " + rs.getString("pin"));
+                System.out.println("Password = " + rs.getString("password"));
                 System.out.println("Phone = " + rs.getString("phone"));
                 System.out.println("Address = " + rs.getString("address"));
                 System.out.println("Email = " + rs.getString("email"));
                 System.out.println("CustomerID = " + rs.getInt("customer_id"));
                 System.out.println("Active = " + rs.getInt("active"));
+                System.out.println("Admin = " + rs.getInt("admin"));
             }
         } catch (SQLException e) {
             // if the error message is "out of memory",
