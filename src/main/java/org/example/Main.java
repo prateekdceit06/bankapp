@@ -9,10 +9,10 @@ import java.sql.Statement;
 public class Main {
 
     public static void main(String[] args) {
-        Connection connection = null;
+        Connect c = new Connect();
+        Connection connection = c.createConnection();
         try {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:bank.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
@@ -34,6 +34,7 @@ public class Main {
                 System.out.println("CustomerID = " + rs.getInt("customer_id"));
                 System.out.println("Active = " + rs.getInt("active"));
                 System.out.println("Admin = " + rs.getInt("admin"));
+                System.out.println("Employee = " + rs.getInt("employee"));
                 System.out.println("-----------------------------------------------");
             }
         } catch (SQLException e) {
