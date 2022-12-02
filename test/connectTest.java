@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 public class connectTest {
-
-    // Replace with your SQLite database file path
-    private static final String SQLITE_DB_FILEPATH = "src/bank.db";
+    private static final String SQLITE_DB_FILEPATH = "jdbc:sqlite:src/bank.d";
 
     @Test
     public void testJDBCConnection() {
