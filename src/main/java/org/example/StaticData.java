@@ -10,10 +10,11 @@ public class StaticData {
         s.nextLine();
     }
     enum AccountTypes {Checking, Savings};
-    enum TransactionTypes {Deposit, Withdrawal, Transfer};
+    enum TransactionTypes {Deposit, Withdrawal, Transfer, BuyStock, SellStock};
     enum AccountStatus {Active, Closed, Frozen};
     enum CustomerStatus {Active, Inactive};
     enum Currencies {USD, INR, EUR};
+    enum TransactionStatus {Approved, Rejected};
 
 
 }

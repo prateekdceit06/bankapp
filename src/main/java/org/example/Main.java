@@ -19,7 +19,7 @@ public class Main {
 //            statement.executeUpdate("create table person (id integer, name string)");
 //            statement.executeUpdate("insert into person values(1, 'leo')");
 //            statement.executeUpdate("insert into person values(2, 'yui')");
-            ResultSet rs = statement.executeQuery("select * from login");
+            ResultSet rs = statement.executeQuery("select * from customer_details");
             while (rs.next()) {
                 // read the result set
                 System.out.println();
