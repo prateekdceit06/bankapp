@@ -9,12 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-@prateekdceit06 Added JBDC connection via SQLITE and has added Customer and Person classes.
-@abhinavmir Added JBDC Test (single use case test) and SHA256 password protection. 
+@prateekdceit06 Added JBDC connection via SQLITE and has added Customer and Person classes. <br>
+@abhinavmir Added JBDC Test (single use case test) and SHA256 password protection. <br>
 
 ### Bugs
-
-Haven't tried out the test
 
 ### Changed
 
