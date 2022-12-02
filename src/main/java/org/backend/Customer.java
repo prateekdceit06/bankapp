@@ -1,4 +1,4 @@
-package org.example;
+package org.backend;
 
 public class Customer extends Person{
     private int customerID;

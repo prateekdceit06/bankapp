@@ -1,4 +1,4 @@
-package org.example;
+package org.backend;
 
 public abstract class Person {
     private String firstName;

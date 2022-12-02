@@ -1,4 +1,4 @@
-package org.example;
+package org.backend;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

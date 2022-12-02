@@ -1,4 +1,4 @@
-package org.example;
+package org.backend;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
