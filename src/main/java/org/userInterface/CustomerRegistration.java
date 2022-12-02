@@ -4,7 +4,7 @@
  */
 package org.userInterface;
 
-import org.backend.SHA256;
+import org.backend.staticdata.SHA256;
 
 import java.awt.*;
 import java.awt.event.*;
