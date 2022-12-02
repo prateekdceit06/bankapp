@@ -1,5 +1,7 @@
 package org.backend;
 
+import java.util.List;
+
 public class Customer extends Person{
 
     private int isActive;
@@ -9,7 +11,6 @@ public class Customer extends Person{
     private int hasLoan;
     private String username;
     private String password;
-
 
 
     public Customer(String firstName, String lastName, String phone, String address, String email, String username,

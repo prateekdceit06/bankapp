@@ -21,12 +21,13 @@ public class Person {
         Connect c = new Connect();
         Connection connection = c.createConnection();
         try{
-            String query = "SELECT MAX(id) AS LAST FROM person";
+            String query = "SELECT COALESCE(MAX(id),0) AS LAST FROM customer_details";
             PreparedStatement pst1 = connection.prepareStatement(query);
             ResultSet rs1 = pst1.executeQuery();
             String maxId=  rs1.getString("LAST");
             int intMaxId =(Integer.parseInt(maxId))+1;
             this.id = intMaxId;
+            System.out.println("ID: " + this.id);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -96,8 +97,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person :" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'';
+        return "Person{" + "id=" + id + ", " +
+                "firstName=" + firstName + ", " +
+                "lastName=" + lastName + ", " +
+                "phone=" + phone + ", " +
+                "address=" + address + ", " +
+                "email=" + email + '}';
     }
 }

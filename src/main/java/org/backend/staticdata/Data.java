@@ -1,8 +1,8 @@
-package org.backend;
+package org.backend.staticdata;
 
 import java.util.Scanner;
 
-public class StaticData {
+public class Data {
 
     public static void pause(){
         System.out.print("[MESSAGE] Press enter to continue.\n");
