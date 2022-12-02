@@ -10,7 +10,7 @@ public class Connect {
         Connection connection = null;
         try {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:bank.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:src/bank.db");
         } catch (SQLException e) {
             // if the error message is "out of memory",
             // it probably means no database file is found
