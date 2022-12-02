@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.userInterface.*;
 
 public class Main {
 
@@ -49,5 +50,19 @@ public class Main {
                 System.err.println(e.getMessage());
             }
         }
+
+        //customer registration form invoke
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CustomerRegistration().setVisible(true);
+            }
+        });
+
+        /* Create and display the login form */
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new CustomerLogin().setVisible(true);
+        //     }
+        // });
     }
 }
