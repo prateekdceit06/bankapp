@@ -13,11 +13,33 @@ public class Person {
     private String address;
     private String email;
 
+    private String userName;
+    private String token;
+    private int isActive;
+    private int isAdmin;
+    private int isEmployee;
+
+
     //default Constructor
     public Person(){}
 
+    public Person(int id, String firstName, String lastName, String phone, String address, String email,
+                  String username, int isActive, int isAdmin, int isEmployee, String token) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.userName = username;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.isEmployee = isEmployee;
+        this.token = token;
+    }
     //constructor
-    public Person(String firstName, String lastName, String phone, String address, String email) {
+    public Person(String firstName, String lastName, String phone, String address, String email,
+                  String username, int isActive, int isAdmin, int isEmployee) {
         Connect c = new Connect();
         Connection connection = c.createConnection();
         try{
@@ -27,7 +49,6 @@ public class Person {
             String maxId=  rs1.getString("LAST");
             int intMaxId =(Integer.parseInt(maxId))+1;
             this.id = intMaxId;
-            System.out.println("ID: " + this.id);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -35,7 +56,6 @@ public class Person {
                 if (connection != null)
                     connection.close();
             } catch (SQLException e) {
-                // connection close failed.
                 System.err.println(e.getMessage());
             }
         }
@@ -44,6 +64,50 @@ public class Person {
         this.phone = phone;
         this.address = address;
         this.email = email;
+        this.userName = username;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.isEmployee = isEmployee;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public int getIsEmployee() {
+        return isEmployee;
+    }
+
+    public void setIsEmployee(int isEmployee) {
+        this.isEmployee = isEmployee;
     }
 
     public String getFirstName() {
@@ -102,6 +166,11 @@ public class Person {
                 "lastName=" + lastName + ", " +
                 "phone=" + phone + ", " +
                 "address=" + address + ", " +
-                "email=" + email + '}';
+                "email=" + email + ", " +
+                "userName=" + userName + ", " +
+                "token=" + token + ", " +
+                "isActive=" + isActive + ", " +
+                "isAdmin=" + isAdmin + ", " +
+                "isEmployee=" + isEmployee + '}';
     }
 }

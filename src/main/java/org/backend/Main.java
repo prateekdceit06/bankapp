@@ -1,5 +1,6 @@
 package org.backend;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,47 +9,97 @@ import org.userInterface.*;
 import org.backend.staticdata.ConvertDate;
 import org.backend.staticdata.SHA256;
 
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-import java.time.LocalDateTime;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
-        Connect c = new Connect();
-        Connection connection = c.createConnection();
+        Menu menu = new Menu();
+        Bank bank = new Bank();
+        menu.mainMenu();
+        int choice = 0;
+        System.out.print("Enter your choice: ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Person person = null;
         try {
-            Bank bank = new Bank();
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery("select * from customer_details");
-            while (rs.next()) {
-                boolean pass = SHA256.matchSHA("0000", rs.getString("password"));
-                System.out.println();
-                System.out.println("First Name = " + rs.getString("first_name"));
-                System.out.println("Last Name = " + rs.getString("last_name"));
-                System.out.println("Username = " + rs.getString("username"));
-                System.out.println("Password = " + pass);
-                System.out.println("Phone = " + rs.getString("phone"));
-                System.out.println("Address = " + rs.getString("address"));
-                System.out.println("Email = " + rs.getString("email"));
-                System.out.println("CustomerID = " + rs.getInt("id"));
-                System.out.println("Active = " + rs.getInt("is_active"));
-                System.out.println("Admin = " + rs.getInt("is_admin"));
-                System.out.println("Employee = " + rs.getInt("is_employee"));
-                LocalDateTime dt = ConvertDate.convertStringToDate(rs.getString("created_date"));
-                System.out.println("Created Date = " + dt);
-                System.out.println("-----------------------------------------------");
+            choice = Integer.parseInt(br.readLine());
+            switch (choice) {
+                case 1:
+                    Signin signin = new Signin();
+                    System.out.print("Enter your username: ");
+                    String username = br.readLine();
+                    System.out.print("Enter your password: ");
+                    String signinPassword = br.readLine();
+                    String encryptedSigninPassword = SHA256.getSHA(signinPassword);
+                    HashMap<String, String> response = signin.signin(username, encryptedSigninPassword);
+                    if (response.get("status").equals("success")) {
+                        person = new Person(Integer.parseInt(response.get("id")), response.get("firstName"),
+                                response.get("lastName"), response.get("phone"),
+                                response.get("address"), response.get("email"),
+                                response.get("username"), Integer.parseInt(response.get("isActive")),
+                                Integer.parseInt(response.get("isAdmin")),
+                                Integer.parseInt(response.get("isEmployee")), response.get("token"));
+                        System.out.println(person);
+                        System.out.println(response.get("message"));
+
+                    } else {
+                        System.out.println(response.get("message"));
+                    }
+                    break;
+                case 2:
+                    Signup signup = new Signup();
+                    System.out.println("Enter your details");
+                    System.out.print("Enter your first name: ");
+                    String firstName = br.readLine();
+                    System.out.print("Enter your last name: ");
+                    String lastName = br.readLine();
+                    System.out.print("Enter your username: ");
+                    String userName = br.readLine();
+                    System.out.print("Enter your phone number: ");
+                    String phone = br.readLine();
+                    System.out.print("Enter your address: ");
+                    String address = br.readLine();
+                    System.out.print("Enter your email: ");
+                    String email = br.readLine();
+                    System.out.print("Enter your password: ");
+                    String signUpPassword = br.readLine();
+                    System.out.print("Confirm your password: ");
+                    String confirmSignUpPassword = br.readLine();
+                    System.out.print("Are you an employee? (1/0)");
+                    int is_employee = Integer.parseInt(br.readLine());
+                    System.out.print("Are you an admin? (1/0)");
+                    int is_admin = Integer.parseInt(br.readLine());
+                    if (signUpPassword.equals(confirmSignUpPassword)) {
+                        String encryptedSignUpPassword = SHA256.getSHA(signUpPassword);
+                        boolean signUpSuccess = signup.signup(firstName, lastName, phone, address, email, userName,
+                                encryptedSignUpPassword, is_employee, is_admin);
+                        if(signUpSuccess){
+                            System.out.println("You have successfully signed up");
+                        } else {
+                            System.out.println("Something went wrong. Signup Failed.");
+                        }
+                    } else {
+                        System.out.println("Invalid Password. Please try again.");
+                    }
+
+                    break;
+                case 3:
+                    System.out.println("Thank you for using our services.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            System.err.println(e.getMessage());
-        } finally {
+        } catch (Exception e) {
+            System.out.println("Invalid input");
+        } finally
+        {
             try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                br.close();
+            } catch (Exception e) {
+                System.out.println("Error closing BufferedReader");
             }
         }
 
@@ -66,4 +117,6 @@ public class Main {
         //     }
         // });
     }
+
+
 }

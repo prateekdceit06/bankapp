@@ -9,12 +9,12 @@ public class Data {
         Scanner s = new Scanner(System.in);
         s.nextLine();
     }
-    enum AccountTypes {Checking, Savings};
-    enum TransactionTypes {Deposit, Withdrawal, Transfer, BuyStock, SellStock};
-    enum AccountStatus {Active, Closed, Frozen};
-    enum CustomerStatus {Active, Inactive};
+    enum AccountTypes {CHECKING, SAVING, LOAN, NEW_SECURITY};
+    enum TransactionTypes {DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
+    enum AccountStatus {ACTIVE, CLOSED, FROZEN};
+    enum CustomerStatus {ACTIVE, INACTIVE};
     enum Currencies {USD, INR, EUR};
-    enum TransactionStatus {Approved, Rejected};
+    enum TransactionStatus {APPROVED, REJECTED};
 
 
 }

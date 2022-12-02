@@ -12,10 +12,6 @@ public class sampleDisplay extends JFrame {
     // JDBC driver and database URL
     static final String JDBC_DRIVER = "org.sqlite.JDBC";
 
-
-    // SQLite connection
-    Connection conn = null;
-
     // UI components
     JButton btnConnect = new JButton("Click here to display all customers");
     JTextArea taData = new JTextArea();
