@@ -1,7 +1,6 @@
 package org.example;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,10 +30,10 @@ public class Main {
                 System.out.println("Phone = " + rs.getString("phone"));
                 System.out.println("Address = " + rs.getString("address"));
                 System.out.println("Email = " + rs.getString("email"));
-                System.out.println("CustomerID = " + rs.getInt("customer_id"));
-                System.out.println("Active = " + rs.getInt("active"));
-                System.out.println("Admin = " + rs.getInt("admin"));
-                System.out.println("Employee = " + rs.getInt("employee"));
+                System.out.println("CustomerID = " + rs.getInt("id"));
+                System.out.println("Active = " + rs.getInt("is_active"));
+                System.out.println("Admin = " + rs.getInt("is_admin"));
+                System.out.println("Employee = " + rs.getInt("is_employee"));
                 System.out.println("-----------------------------------------------");
             }
         } catch (SQLException e) {

@@ -14,7 +14,6 @@ public class StaticData {
     enum AccountStatus {Active, Closed, Frozen};
     enum CustomerStatus {Active, Inactive};
     enum Currencies {USD, INR, EUR};
-    enum Characters {Paladin, Warrior, Sorcerer};
 
 
 }
