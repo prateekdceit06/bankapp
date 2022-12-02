@@ -9,7 +9,7 @@ import org.junit.Test;
 public class connectTest {
 
     // Replace with your SQLite database file path
-    private static final String SQLITE_DB_FILEPATH = "jdbc:sqlite:C:/sqlite/db/test.db";
+    private static final String SQLITE_DB_FILEPATH = "src/bank.db";
 
     @Test
     public void testJDBCConnection() {
