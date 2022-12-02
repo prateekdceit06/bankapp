@@ -1,6 +1,12 @@
 package org.backend;
 
-public abstract class Person {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Person {
+    private int id;
     private String firstName;
     private String lastName;
     private String phone;
@@ -12,6 +18,26 @@ public abstract class Person {
 
     //constructor
     public Person(String firstName, String lastName, String phone, String address, String email) {
+        Connect c = new Connect();
+        Connection connection = c.createConnection();
+        try{
+            String query = "SELECT MAX(id) AS LAST FROM person";
+            PreparedStatement pst1 = connection.prepareStatement(query);
+            ResultSet rs1 = pst1.executeQuery();
+            String maxId=  rs1.getString("LAST");
+            int intMaxId =(Integer.parseInt(maxId))+1;
+            this.id = intMaxId;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -60,6 +86,13 @@ public abstract class Person {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

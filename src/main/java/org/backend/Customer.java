@@ -1,81 +1,94 @@
 package org.backend;
 
 public class Customer extends Person{
-    private int customerID;
-    private int employeeID;
-    private int accountID;
-    private int active;
-    private int admin;
-    private int employee;
 
-    public Customer(String firstName, String lastName, String phone, String address, String email,
-                    int customerID, int employeeID, int accountID, int active, int admin, int employee) {
+    private int isActive;
+    private int isAdmin;
+    private int isEmployee;
+    private int hasCollateral;
+    private int hasLoan;
+    private String username;
+    private String password;
+
+
+
+    public Customer(String firstName, String lastName, String phone, String address, String email, String username,
+                    String password, int isActive, int isAdmin, int isEmployee) {
         super(firstName, lastName, phone, address, email);
-        this.customerID = customerID;
-        this.employeeID = employeeID;
-        this.accountID = accountID;
-        this.active = active;
-        this.admin = admin;
-        this.employee = employee;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.isEmployee = isEmployee;
+        this.username = username;
+        this.password = password;
+        this.hasCollateral = 0;
+        this.hasLoan = 0;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getHasLoan() {
+        return hasLoan;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setHasLoan(int hasLoan) {
+        this.hasLoan = hasLoan;
     }
 
-    public int getEmployeeID() {
-        return employeeID;
+    public int getIsActive() {
+        return isActive;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public int getIsAdmin() {
+        return isAdmin;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
-    public int getActive() {
-        return active;
+    public int getIsEmployee() {
+        return isEmployee;
     }
 
-    public void setActive(int active) {
-        this.active = active;
+    public void setIsEmployee(int isEmployee) {
+        this.isEmployee = isEmployee;
     }
 
-    public int getAdmin() {
-        return admin;
+    public int getHasCollateral() {
+        return hasCollateral;
     }
 
-    public void setAdmin(int admin) {
-        this.admin = admin;
+    public void setHasCollateral(int hasCollateral) {
+        this.hasCollateral = hasCollateral;
     }
 
-    public int getEmployee() {
-        return employee;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmployee(int employee) {
-        this.employee = employee;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "customerID=" + customerID +
-                ", employeeID=" + employeeID +
-                ", accountID=" + accountID +
-                ", active=" + active +
-                ", admin=" + admin +
-                '}';
+                "isActive=" + isActive +
+                ", isAdmin=" + isAdmin +
+                ", isEmployee=" + isEmployee +
+                ", hasCollateral=" + hasCollateral +
+                ", hasLoan=" + hasLoan +
+                ", username='" + username + '\'';
     }
 }
 

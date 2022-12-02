@@ -11,7 +11,7 @@ import java.sql.*;
 public class sampleDisplay extends JFrame {
     // JDBC driver and database URL
     static final String JDBC_DRIVER = "org.sqlite.JDBC";
-    static final String DB_URL = "jdbc:sqlite:src/bank.db";
+
 
     // SQLite connection
     Connection conn = null;
@@ -42,7 +42,8 @@ public class sampleDisplay extends JFrame {
 
                     // Open a connection
                     System.out.println("Connecting to database...");
-                    conn = DriverManager.getConnection(DB_URL);
+                    Connect c = new Connect();
+                    Connection conn = c.createConnection();
 
                     // Execute query
                     Statement stmt = conn.createStatement();
