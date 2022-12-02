@@ -80,12 +80,23 @@ public class Main extends JFrame {
             }
         });
 
+        //registration screen display
         btnRegistration.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Launch the login window in this window
                 CustomerRegistration cr = new CustomerRegistration();
                 cr.setVisible(true);
+            }
+        });
+
+        //login screen display
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Launch the login window in this window
+                CustomerLogin cl = new CustomerLogin();
+                cl.setVisible(true);
             }
         });
     }
