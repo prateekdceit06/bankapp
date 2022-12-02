@@ -2,15 +2,13 @@ package org.backend;
 
 import java.util.List;
 
-public class Customer extends Person{
+public class Customer extends Person {
 
     private int hasCollateral;
     private int hasLoan;
 
 
-
-    public Customer(int id, String firstName, String lastName, String phone, String address, String email,
-                    String username, int isActive, int isAdmin, int isEmployee, String token) {
+    public Customer(int id, String firstName, String lastName, String phone, String address, String email, String username, int isActive, int isAdmin, int isEmployee, String token) {
         super(id, firstName, lastName, phone, address, email, username, isActive, isAdmin, isEmployee, token);
         this.hasCollateral = 0;
         this.hasLoan = 0;
