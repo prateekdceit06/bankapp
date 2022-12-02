@@ -1,53 +1,90 @@
 package org.userInterface;
+
+import org.backend.Connect;
+
 import javax.swing.*;
-import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class sampleDisplay extends JFrame {
-    // The table that will display the data
-    JTable table;
+    // JDBC driver and database URL
+    static final String JDBC_DRIVER = "org.sqlite.JDBC";
+    static final String DB_URL = "jdbc:sqlite:src/bank.db";
 
-    // The constructor
+    // SQLite connection
+    Connection conn = null;
+
+    // UI components
+    JButton btnConnect = new JButton("Click here to display all customers");
+    JTextArea taData = new JTextArea();
+    JScrollPane spData = new JScrollPane(taData);
+
     public sampleDisplay() {
-        // Set the frame title
-        setTitle("Swing UI Table Example");
+        setTitle("SQLite Display");
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Create the table
-        table = new JTable();
+        // Create UI layout
+        setLayout(new BorderLayout());
+        add(btnConnect, BorderLayout.NORTH);
+        add(spData, BorderLayout.CENTER);
 
-        // Set the table model
-        table.setModel(new DefaultTableModel(getData(), getColumnNames()));
-
-        // Add the table to the frame
-        getContentPane().add(new JScrollPane(table));
-
-        // Set the size of the frame
-        setSize(500, 300);
-
-        // Show the frame
-        setVisible(true);
-    }
-
-    // Returns the data for the table
-    private Object[][] getData() {
-        // TODO: Query the database and return the data
-        Object[][] data = {{"John", "Doe", "johndoe@gmail.com"}, {"Jane", "Doe", "janedoe@gmail.com"}};
-        return data;
-    }
-
-    // Returns the column names for the table
-    private String[] getColumnNames() {
-        String[] columns = {"First Name", "Last Name", "Email"};
-        return columns;
-    }
-
-    // The main method
-    public static void main(String[] args) {
-        // Create the frame on the event dispatching thread
-        SwingUtilities.invokeLater(new Runnable() {
+        // Add action listener to connect button
+        btnConnect.addActionListener(new ActionListener() {
             @Override
-            public void run() {
-                new sampleDisplay();
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Register JDBC driver
+                    Class.forName(JDBC_DRIVER);
+
+                    // Open a connection
+                    System.out.println("Connecting to database...");
+                    conn = DriverManager.getConnection(DB_URL);
+
+                    // Execute query
+                    Statement stmt = conn.createStatement();
+                    String sql = "SELECT * FROM customer_details";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    System.out.println(rs.getString("first_name"));
+
+                    // Clear text area
+                    taData.setText("Data goes here");
+                    try {
+                        taData.setText("");
+                        while (rs.next()) {
+                            taData.append(rs.getString("first_name") + " " + rs.getString("last_name") + " " + rs.getString("username") + " " + rs.getString("password") + " " + rs.getString("phone") + " " + rs.getString("address") + " " + rs.getString("email") + " " + rs.getInt("id") + " " + rs.getInt("is_active") + " " + rs.getInt("is_admin") + " " + rs.getInt("is_employee"));
+                            taData.append("\n");
+                        }
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    // Close connection
+                    rs.close();
+                    stmt.close();
+                    conn.close();
+                } catch (SQLException se) {
+                    // Handle errors for JDBC
+                    se.printStackTrace();
+                } catch (Exception ex) {
+                    // Handle errors for Class.forName
+                    ex.printStackTrace();
+                }
             }
         });
     }
+
+    public static void main(String[] args) {
+        // Create and show UI
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new sampleDisplay().setVisible(true);
+            }
+        });
+    }
+
 }
