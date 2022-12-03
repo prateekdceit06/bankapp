@@ -14,8 +14,11 @@ public class ConvertDate {
     }
 
     public static LocalDateTime convertStringToDate(String ts) {
+        LocalDateTime dateTime = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(ts, formatter);
+        if (ts!=null){
+            dateTime = LocalDateTime.parse(ts, formatter);
+        }
         return dateTime;
     }
 }

@@ -1,5 +1,6 @@
-package org.backend;
+package org.backend.models;
 
+import org.backend.Connect;
 import org.backend.staticdata.ConvertDate;
 import org.backend.staticdata.SHA256;
 
@@ -16,7 +17,7 @@ public class Bank {
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             ResultSet rs = statement.executeQuery("select * from customer_details");
             if (!rs.next()) {
-                Person p = new Person("Prateek", "Jain", "8574259796",
+                User p = new User("Prateek", "Jain", "8574259796",
                         "41 Long Ave, Allston, MA, 02134", "abc@abc.com",
                         "prateekjain", 1, 1, 1);
                 String query = "INSERT INTO customer_details(id, first_name, last_name, phone, address, " +

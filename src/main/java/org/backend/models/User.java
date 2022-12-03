@@ -1,30 +1,31 @@
-package org.backend;
+package org.backend.models;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.backend.Connect;
 
-public class Person {
+import java.sql.*;
+import java.time.LocalDateTime;
+
+public class User {
     private int id;
     private String firstName;
     private String lastName;
     private String phone;
     private String address;
     private String email;
-
     private String userName;
     private String token;
     private int isActive;
     private int isAdmin;
     private int isEmployee;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
     //default Constructor
-    public Person(){}
+    public User(){}
 
-    public Person(int id, String firstName, String lastName, String phone, String address, String email,
-                  String username, int isActive, int isAdmin, int isEmployee, String token) {
+    public User(int id, String firstName, String lastName, String phone, String address, String email,
+                String username, int isActive, int isAdmin, int isEmployee, String token) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,9 +38,27 @@ public class Person {
         this.isEmployee = isEmployee;
         this.token = token;
     }
+
+    public User(int id, String firstName, String lastName, String phone, String address, String email,
+                String userName, int isActive, int isAdmin, int isEmployee, String token, LocalDateTime createdAt,
+                LocalDateTime updatedAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.userName = userName;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.isEmployee = isEmployee;
+        this.token = token;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
     //constructor
-    public Person(String firstName, String lastName, String phone, String address, String email,
-                  String username, int isActive, int isAdmin, int isEmployee) {
+    public User(String firstName, String lastName, String phone, String address, String email,
+                String username, int isActive, int isAdmin, int isEmployee) {
         Connect c = new Connect();
         Connection connection = c.createConnection();
         try{
@@ -68,6 +87,23 @@ public class Person {
         this.isActive = isActive;
         this.isAdmin = isAdmin;
         this.isEmployee = isEmployee;
+    }
+
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getUserName() {
@@ -173,4 +209,6 @@ public class Person {
                 "isAdmin=" + isAdmin + ", " +
                 "isEmployee=" + isEmployee + '}';
     }
+
+
 }

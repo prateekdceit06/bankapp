@@ -1,8 +1,6 @@
-package org.backend;
+package org.backend.models;
 
-import java.util.List;
-
-public class Customer extends Person {
+public class Customer extends User {
 
     private int hasCollateral;
     private int hasLoan;
