@@ -11,7 +11,9 @@ import org.userInterface.CustomerRegistration;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Main {
 
@@ -223,7 +225,27 @@ public class Main {
                             System.out.println("Please login first");
                         }
                         break;
-                    case 8: //exit
+                    case 8: //Get all users
+                        if(loggedInUser!=null){
+                            if(loggedInUser.getIsAdmin()==1){
+                                GetAllUsers getAllUsers = new GetAllUsers();
+                                List<User> allUsers = getAllUsers.getAllUsers(loggedInUser);
+                                if(allUsers!=null){
+                                    for (User user: allUsers) {
+                                        System.out.println(user);
+                                    }
+                                } else {
+                                    System.out.println("Something went wrong. Please try again.");
+                                }
+                            } else {
+                                System.out.println("You are not authorized to perform this action");
+                            }
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
+
+                    case 9: //exit
                         System.out.println("Thank you for using our application");
                         System.exit(0);
                         break;
