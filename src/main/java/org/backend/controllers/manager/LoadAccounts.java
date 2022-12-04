@@ -2,11 +2,8 @@ package org.backend.controllers.manager;
 
 import org.backend.Connect;
 import org.backend.models.Account;
-import org.backend.models.AccountChecking;
 import org.backend.models.AccountSavings;
-import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
-import org.backend.staticdata.Data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

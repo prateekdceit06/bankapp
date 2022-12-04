@@ -37,19 +37,16 @@ public class Main {
                         HashMap<String, String> response = signin.signin(username, encryptedSigninPassword);
                         if (response.containsKey("status")) {
                             if (response.get("status").equals("success")) {
-                                loggedInUser = new User(Integer.parseInt(response.get("id")), response.get("firstName"),
-                                        response.get("lastName"), response.get("phone"),
-                                        response.get("address"), response.get("email"),
-                                        response.get("username"), Integer.parseInt(response.get("isActive")),
-                                        Integer.parseInt(response.get("isAdmin")),
-                                        Integer.parseInt(response.get("isEmployee")), response.get("token"),
-                                        ConvertDate.convertStringToDate(response.get("createdAt")),
-                                        ConvertDate.convertStringToDate(response.get("updatedAt")),
-                                        Integer.parseInt(response.get("hasCollateral")),
-                                        Integer.parseInt(response.get("hasLoan")),
-                                        Integer.parseInt(response.get("isCustomer")));
-                                System.out.println(loggedInUser);
+                                manager.loadUserData();
+                                //find the username in users list of the manager
+                                for (User user : manager.getUsers()) {
+                                    if (user.getUserName().equals(username)) {
+                                        loggedInUser = user;
+                                        break;
+                                    }
+                                }
                                 System.out.println(response.get("message"));
+                                System.out.println(loggedInUser);
 
                             } else {
                                 System.out.println(response.get("message"));
@@ -91,6 +88,7 @@ public class Main {
                                     encryptedSignUpPassword, is_employee, is_admin, hasCollateral);
                             if (signUpSuccess) {
                                 System.out.println("You have successfully signed up");
+                                manager.loadUserData();
                             } else {
                                 System.out.println("Something went wrong. Signup Failed.");
                             }
@@ -112,17 +110,13 @@ public class Main {
                             response = getUser.getUser(id, loggedInUser);
                             if (response.containsKey("status")) {
                                 if (response.get("status").equals("success")) {
-                                    tempUser = new User(Integer.parseInt(response.get("id")), response.get("firstName"),
-                                            response.get("lastName"), response.get("phone"),
-                                            response.get("address"), response.get("email"),
-                                            response.get("userName"), Integer.parseInt(response.get("isActive")),
-                                            Integer.parseInt(response.get("isAdmin")),
-                                            Integer.parseInt(response.get("isEmployee")), response.get("token"),
-                                            ConvertDate.convertStringToDate(response.get("createdAt")),
-                                            ConvertDate.convertStringToDate(response.get("updatedAt")),
-                                            Integer.parseInt(response.get("hasCollateral")),
-                                            Integer.parseInt(response.get("hasLoan")),
-                                            Integer.parseInt(response.get("isCustomer")));
+                                    //find the id in the users list of the manager
+                                    for (User user : manager.getUsers()) {
+                                        if (user.getId() == id) {
+                                            tempUser = user;
+                                            break;
+                                        }
+                                    }
                                     System.out.println(response.get("message"));
                                     System.out.println(tempUser);
                                 } else {
@@ -149,17 +143,13 @@ public class Main {
                             response = getUser.getUser(userNameToFind, loggedInUser);
                             if (response.containsKey("status")) {
                                 if (response.get("status").equals("success")) {
-                                    tempUser = new User(Integer.parseInt(response.get("id")), response.get("firstName"),
-                                            response.get("lastName"), response.get("phone"),
-                                            response.get("address"), response.get("email"),
-                                            response.get("userName"), Integer.parseInt(response.get("isActive")),
-                                            Integer.parseInt(response.get("isAdmin")),
-                                            Integer.parseInt(response.get("isEmployee")), response.get("token"),
-                                            ConvertDate.convertStringToDate(response.get("createdAt")),
-                                            ConvertDate.convertStringToDate(response.get("updatedAt")),
-                                            Integer.parseInt(response.get("hasCollateral")),
-                                            Integer.parseInt(response.get("hasLoan")),
-                                            Integer.parseInt(response.get("isCustomer")));
+                                    //find the user in users list of the manager
+                                    for (User user : manager.getUsers()) {
+                                        if (user.getUserName().equals(userNameToFind)) {
+                                            tempUser = user;
+                                            break;
+                                        }
+                                    }
                                     System.out.println(response.get("message"));
                                     System.out.println(tempUser);
                                 } else {
@@ -186,17 +176,12 @@ public class Main {
                             User updatedUser = null;
                             if (response.containsKey("status")) {
                                 if (response.get("status").equals("success")) {
-                                    updatedUser = new User(Integer.parseInt(response.get("id")), response.get("firstName"),
-                                            response.get("lastName"), response.get("phone"),
-                                            response.get("address"), response.get("email"),
-                                            response.get("userName"), Integer.parseInt(response.get("isActive")),
-                                            Integer.parseInt(response.get("isAdmin")),
-                                            Integer.parseInt(response.get("isEmployee")), response.get("token"),
-                                            ConvertDate.convertStringToDate(response.get("createdAt")),
-                                            ConvertDate.convertStringToDate(response.get("updatedAt")),
-                                            Integer.parseInt(response.get("hasCollateral")),
-                                            Integer.parseInt(response.get("hasLoan")),
-                                            Integer.parseInt(response.get("isCustomer")));
+                                    updatedUser = new User(loggedInUser.getId(), loggedInUser.getFirstName(),
+                                            loggedInUser.getLastName(), loggedInUser.getPhone(), loggedInUser.getAddress(),
+                                            loggedInUser.getEmail(), loggedInUser.getUserName(), loggedInUser.getIsActive(),
+                                            loggedInUser.getIsAdmin(), loggedInUser.getIsEmployee(), loggedInUser.getToken(),
+                                            loggedInUser.getCreatedAt(), loggedInUser.getUpdatedAt(), loggedInUser.getHasCollateral(),
+                                            loggedInUser.getHasLoan(), loggedInUser.getIsCustomer());
                                 } else {
                                     System.out.println(response.get("message"));
                                 }
@@ -207,6 +192,7 @@ public class Main {
                             boolean updateSuccess = updateUser.updateUser(loggedInUser, updatedUser);
                             if (updateSuccess) {
                                 System.out.println("User updated successfully");
+                                manager.loadUserData();
                             } else {
                                 System.out.println("Something went wrong. User update failed.");
                             }
@@ -232,6 +218,7 @@ public class Main {
 
                                 if (changePasswordSuccess) {
                                     System.out.println("Password changed successfully");
+                                    manager.loadUserData();
                                 } else {
                                     System.out.println("Something went wrong. Password change failed.");
                                 }
@@ -249,6 +236,7 @@ public class Main {
                             if (logoutSuccess) {
                                 System.out.println("You have successfully logged out");
                                 loggedInUser = null;
+                                manager.loadUserData();
                             } else {
                                 System.out.println("Something went wrong. Logout failed.");
                             }
@@ -286,33 +274,8 @@ public class Main {
                             createSavingsAccountSuccess = savingsAccount.createAccount(loggedInUser);
                             if (createSavingsAccountSuccess) {
                                 System.out.println("Account created successfully");
-                                if (loggedInUser instanceof Customer) {
-                                    // find logged in user in the list of activeCustomers of the manager
-                                    // and add the account to the list of accounts of the customer
-                                    for (Customer customer : manager.getActiveCustomers()) {
-                                        if (customer.getId() == loggedInUser.getId()) {
-                                            customer.addAccount(savingsAccount);
-                                        }
-                                    }
-                                } else {
-                                    Customer customer = new Customer(loggedInUser.getId(), loggedInUser.getFirstName(),
-                                            loggedInUser.getLastName(), loggedInUser.getPhone(), loggedInUser.getAddress(),
-                                            loggedInUser.getEmail(), loggedInUser.getUserName(), loggedInUser.getIsActive(),
-                                            loggedInUser.getIsAdmin(), loggedInUser.getIsEmployee(), loggedInUser.getToken(),
-                                            loggedInUser.getCreatedAt(), loggedInUser.getUpdatedAt(),
-                                            loggedInUser.getHasCollateral(), loggedInUser.getHasLoan(), 1);
-                                    loggedInUser = customer;
-                                    int index = 0;
-                                    for (int i = 0; i < manager.getActiveUsers().size(); i++) {
-                                        if (manager.getActiveUsers().get(i).getId() == loggedInUser.getId()) {
-                                            index = i;
-                                        }
-                                    }
-                                    manager.getActiveUsers().remove(index);
-                                    ((Customer)loggedInUser).addAccount(savingsAccount);
-                                    manager.getActiveCustomers().add((Customer) loggedInUser);
-                                }
-                                manager.getSavingsAccounts().add(savingsAccount);
+                                manager.loadAccounts();
+                                manager.loadUserData();
                             } else {
                                 System.out.println("Something went wrong. Account creation failed.");
                             }
@@ -331,33 +294,8 @@ public class Main {
                             createCheckingAccountSuccess = checkingAccount.createAccount(loggedInUser);
                             if (createCheckingAccountSuccess) {
                                 System.out.println("Account created successfully");
-                                if (loggedInUser instanceof Customer) {
-                                    // find logged in user in the list of activeCustomers of the manager
-                                    // and add the account to the list of accounts of the customer
-                                    for (Customer customer : manager.getActiveCustomers()) {
-                                        if (customer.getId() == loggedInUser.getId()) {
-                                            customer.addAccount(checkingAccount);
-                                        }
-                                    }
-                                } else {
-                                    Customer customer = new Customer(loggedInUser.getId(), loggedInUser.getFirstName(),
-                                            loggedInUser.getLastName(), loggedInUser.getPhone(), loggedInUser.getAddress(),
-                                            loggedInUser.getEmail(), loggedInUser.getUserName(), loggedInUser.getIsActive(),
-                                            loggedInUser.getIsAdmin(), loggedInUser.getIsEmployee(), loggedInUser.getToken(),
-                                            loggedInUser.getCreatedAt(), loggedInUser.getUpdatedAt(),
-                                            loggedInUser.getHasCollateral(), loggedInUser.getHasLoan(), 1);
-                                    loggedInUser = customer;
-                                    int index = 0;
-                                    for (int i = 0; i < manager.getActiveUsers().size(); i++) {
-                                        if (manager.getActiveUsers().get(i).getId() == loggedInUser.getId()) {
-                                            index = i;
-                                        }
-                                    }
-                                    manager.getActiveUsers().remove(index);
-                                    ((Customer) loggedInUser).addAccount(checkingAccount);
-                                    manager.getActiveCustomers().add((Customer) loggedInUser);
-                                }
-                                manager.getCheckingAccounts().add(checkingAccount);
+                                manager.loadAccounts();
+                                manager.loadUserData();
                             } else {
                                 System.out.println("Something went wrong. Account creation failed.");
                             }
@@ -368,72 +306,46 @@ public class Main {
 
                         break;
                     case 11:
-                        //print all active users from manager
-                        System.out.println("Active Users: ");
-                        if (manager.getActiveUsers() != null && manager.getActiveUsers().size() > 0) {
-                            for (User user : manager.getActiveUsers()) {
-                                System.out.println(user);
+                        //print all users from manager
+                        System.out.println("All Users");
+                        if (loggedInUser != null) {
+                            if (loggedInUser.getIsAdmin() == 1) {
+                                List<User> allUsers = manager.getUsers();
+                                if (allUsers != null) {
+                                    for (User user : allUsers) {
+                                        System.out.println(user);
+                                    }
+                                } else {
+                                    System.out.println("Something went wrong. Please try again.");
+                                }
+                            } else {
+                                System.out.println("You are not authorized to perform this action");
                             }
                         } else {
-                            System.out.println("No active users");
+                            System.out.println("Please login first");
                         }
                         break;
                     case 12:
-                        //print all inactive users from manager
-                        System.out.println("Inactive Users: ");
-                        if (manager.getInactiveUsers() != null && manager.getInactiveUsers().size() > 0) {
-                            for (User user : manager.getInactiveUsers()) {
-                                System.out.println(user);
+                        //print all customers from manager
+                        System.out.println("All Customers");
+                        if (loggedInUser != null) {
+                            if (loggedInUser.getIsAdmin() == 1) {
+                                List<Customer> allCustomers = manager.getCustomers();
+                                if (allCustomers != null) {
+                                    for (User user : allCustomers) {
+                                        System.out.println(user);
+                                    }
+                                } else {
+                                    System.out.println("Something went wrong. Please try again.");
+                                }
+                            } else {
+                                System.out.println("You are not authorized to perform this action");
                             }
                         } else {
-                            System.out.println("No inactive users");
+                            System.out.println("Please login first");
                         }
                         break;
                     case 13:
-                        //print all active customers from manager
-                        System.out.println("Active Customers: ");
-                        if (manager.getActiveCustomers() != null && manager.getActiveCustomers().size() > 0) {
-                            for (User user : manager.getActiveCustomers()) {
-                                System.out.println(user);
-                            }
-                        } else {
-                            System.out.println("No active customers");
-                        }
-                        break;
-                    case 14:
-                        //print all inactive customers from manager
-                        System.out.println("Inactive Customers: ");
-                        if (manager.getInactiveCustomers() != null && manager.getInactiveCustomers().size() > 0) {
-                            for (Customer customer : manager.getInactiveCustomers()) {
-                                System.out.println(customer);
-                            }
-                        } else {
-                            System.out.println("No inactive customers");
-                        }
-                        break;
-                    case 15:
-                        //print savings accounts from manager
-                        System.out.println("Savings Accounts: ");
-                        if (manager.getSavingsAccounts() != null && manager.getSavingsAccounts().size() > 0) {
-                            for (Account account : manager.getSavingsAccounts()) {
-                                System.out.println(account);
-                            }
-                        } else {
-                            System.out.println("No savings accounts");
-                        }
-                        break;
-                    case 16:
-                        //print checking accounts from manager
-                        System.out.println("Checking Accounts: ");
-                        if (manager.getCheckingAccounts() != null && manager.getCheckingAccounts().size() > 0) {
-                            for (Account account : manager.getCheckingAccounts()) {
-                                System.out.println(account);
-                            }
-                        } else {
-                            System.out.println("No checking accounts");
-                        }
-                        break;
-                    case 17:
                         //print logged in user
                         if (loggedInUser != null) {
                             System.out.println(loggedInUser);

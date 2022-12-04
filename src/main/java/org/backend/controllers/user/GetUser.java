@@ -22,26 +22,9 @@ public class GetUser {
                 if (rs.next()) {
                     response.put("status", "success");
                     response.put("message", "User found");
-                    response.put("id", String.valueOf(id));
-                    response.put("firstName", rs.getString("first_name"));
-                    response.put("lastName", rs.getString("last_name"));
-                    response.put("phone", rs.getString("phone"));
-                    response.put("address", rs.getString("address"));
-                    response.put("email", rs.getString("email"));
-                    response.put("userName", rs.getString("username"));
-                    response.put("isActive", String.valueOf(rs.getInt("is_active")));
-                    response.put("isAdmin", String.valueOf(rs.getInt("is_employee")));
-                    response.put("isEmployee", String.valueOf(rs.getInt("is_employee")));
-                    response.put("token", rs.getString("token"));
-                    response.put("createdAt", rs.getString("created_date"));
-                    response.put("updatedAt", rs.getString("updated_date"));
-                    response.put("hasCollateral", rs.getString("has_collateral"));
-                    response.put("hasLoan", rs.getString("has_loan"));
-                    response.put("isCustomer", String.valueOf(rs.getInt("is_customer")));
-                    if (user.getIsAdmin() == 1) {
-                        return response;
-                    }
-                    if (user.getId() == rs.getInt("id") && user.getToken().equals(rs.getString("token"))) {
+                    if ((user.getIsAdmin() == 1) ||
+                            (user.getId() == rs.getInt("id") &&
+                                    user.getToken().equals(rs.getString("token")))) {
                         return response;
                     }
                     response.clear();
@@ -80,26 +63,9 @@ public class GetUser {
                 if (rs.next()) {
                     response.put("status", "success");
                     response.put("message", "User found");
-                    response.put("id", rs.getString("id"));
-                    response.put("firstName", rs.getString("first_name"));
-                    response.put("lastName", rs.getString("last_name"));
-                    response.put("phone", rs.getString("phone"));
-                    response.put("address", rs.getString("address"));
-                    response.put("email", rs.getString("email"));
-                    response.put("userName", rs.getString("username"));
-                    response.put("isActive", String.valueOf(rs.getInt("is_active")));
-                    response.put("isAdmin", String.valueOf(rs.getInt("is_employee")));
-                    response.put("isEmployee", String.valueOf(rs.getInt("is_employee")));
-                    response.put("token", rs.getString("token"));
-                    response.put("createdAt", rs.getString("created_date"));
-                    response.put("updatedAt", rs.getString("updated_date"));
-                    response.put("hasCollateral", rs.getString("has_collateral"));
-                    response.put("hasLoan", rs.getString("has_loan"));
-                    response.put("isCustomer", String.valueOf(rs.getInt("is_customer")));
-                    if (user.getIsAdmin() == 1) {
-                        return response;
-                    }
-                    if (user.getId() == rs.getInt("id") && user.getToken().equals(rs.getString("token"))) {
+                    if ((user.getIsAdmin() == 1) ||
+                            (user.getId() == rs.getInt("id") &&
+                                    user.getToken().equals(rs.getString("token")))) {
                         return response;
                     }
                     response.clear();

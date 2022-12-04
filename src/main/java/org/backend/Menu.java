@@ -12,13 +12,9 @@ public class Menu {
         System.out.println("8 Get ALl Users");
         System.out.println("9 Create Savings Account");
         System.out.println("10 Create Checkings Account");
-        System.out.println("11 Show Active Users");
-        System.out.println("12 Show Inactive Users");
-        System.out.println("13 Show Active Customers");
-        System.out.println("14 Show Inactive Customers");
-        System.out.println("15 Show Savings Accounts");
-        System.out.println("16 Show Checking Accounts");
-        System.out.println("17 Show logged-in User");
+        System.out.println("11 Show All Users");
+        System.out.println("12 Show All Customers");
+        System.out.println("13 Show logged-in User");
         System.out.println("99 Exit");
 
     }
