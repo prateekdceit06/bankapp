@@ -20,7 +20,7 @@ public class GetAllUsers {
             if (connection != null) {
                 try {
                     PreparedStatement ps = connection.prepareStatement("SELECT id, first_name," +
-                            " last_name, phone, address, email, username, is_active, is_admin, " +
+                            " last_name, phone, address, email, username, is_active, is_admin, token," +
                             " is_employee, created_date, updated_date, has_collateral, has_loan, is_customer" +
                             " FROM user_details");
                     ResultSet rs = ps.executeQuery();
@@ -36,6 +36,7 @@ public class GetAllUsers {
                         user.setIsActive(rs.getInt("is_active"));
                         user.setIsAdmin(rs.getInt("is_admin"));
                         user.setIsEmployee(rs.getInt("is_employee"));
+                        user.setToken(rs.getString("token"));
                         user.setCreatedAt(ConvertDate.convertStringToDate(rs.getString("created_date")));
                         user.setUpdatedAt(ConvertDate.convertStringToDate(rs.getString("updated_date")));
                         user.setHasCollateral(rs.getInt("has_collateral"));

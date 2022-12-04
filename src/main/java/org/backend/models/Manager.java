@@ -15,12 +15,15 @@ public class Manager {
     private List<Account> savingsAccounts;
     private List<Account> checkingAccounts;
 
+    private User loggedInUser;
+
 
     public Manager() {
         this.users = new ArrayList<>();
         this.customers = new ArrayList<>();
         this.savingsAccounts = new ArrayList<>();
         this.checkingAccounts = new ArrayList<>();
+        this.loggedInUser = null;
         initializeBank();
         loadAccounts();
         loadUserData();
@@ -95,6 +98,28 @@ public class Manager {
     private void initializeBank() {
         InitializeBank initializeBank = new InitializeBank();
         initializeBank.initializeBank();
+    }
+
+    //get logged in user by id
+    public User getLoggedInUser(int id) {
+        loggedInUser = null;
+        for (User user : users) {
+            if (user.getId() == id) {
+                loggedInUser = user;
+            }
+        }
+        return loggedInUser;
+    }
+
+    //get logged in user by username
+    public User getLoggedInUser(String username) {
+        loggedInUser = null;
+        for (User user : users) {
+            if (user.getUserName().equals(username)) {
+                loggedInUser = user;
+            }
+        }
+        return loggedInUser;
     }
 
 }

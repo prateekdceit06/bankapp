@@ -39,12 +39,7 @@ public class Main {
                             if (response.get("status").equals("success")) {
                                 manager.loadUserData();
                                 //find the username in users list of the manager
-                                for (User user : manager.getUsers()) {
-                                    if (user.getUserName().equals(username)) {
-                                        loggedInUser = user;
-                                        break;
-                                    }
-                                }
+                                loggedInUser = manager.getLoggedInUser(username);
                                 System.out.println(response.get("message"));
                                 System.out.println(loggedInUser);
 
@@ -193,6 +188,7 @@ public class Main {
                             if (updateSuccess) {
                                 System.out.println("User updated successfully");
                                 manager.loadUserData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("Something went wrong. User update failed.");
                             }
@@ -219,6 +215,7 @@ public class Main {
                                 if (changePasswordSuccess) {
                                     System.out.println("Password changed successfully");
                                     manager.loadUserData();
+                                    loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                                 } else {
                                     System.out.println("Something went wrong. Password change failed.");
                                 }
@@ -276,6 +273,8 @@ public class Main {
                                 System.out.println("Account created successfully");
                                 manager.loadAccounts();
                                 manager.loadUserData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+
                             } else {
                                 System.out.println("Something went wrong. Account creation failed.");
                             }
@@ -296,6 +295,7 @@ public class Main {
                                 System.out.println("Account created successfully");
                                 manager.loadAccounts();
                                 manager.loadUserData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("Something went wrong. Account creation failed.");
                             }
