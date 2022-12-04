@@ -181,8 +181,29 @@ public class Main {
                             } else {
                                 userId = loggedInUser.getId();
                             }
-                            UpdateUser updateUser = new UpdateUser();
+                            GetUser getUser = new GetUser();
+                            response = getUser.getUser(userId, loggedInUser);
                             User updatedUser = null;
+                            if (response.containsKey("status")) {
+                                if (response.get("status").equals("success")) {
+                                    updatedUser = new User(Integer.parseInt(response.get("id")), response.get("firstName"),
+                                            response.get("lastName"), response.get("phone"),
+                                            response.get("address"), response.get("email"),
+                                            response.get("userName"), Integer.parseInt(response.get("isActive")),
+                                            Integer.parseInt(response.get("isAdmin")),
+                                            Integer.parseInt(response.get("isEmployee")), response.get("token"),
+                                            ConvertDate.convertStringToDate(response.get("createdAt")),
+                                            ConvertDate.convertStringToDate(response.get("updatedAt")),
+                                            Integer.parseInt(response.get("hasCollateral")),
+                                            Integer.parseInt(response.get("hasLoan")),
+                                            Integer.parseInt(response.get("isCustomer")));
+                                } else {
+                                    System.out.println(response.get("message"));
+                                }
+                            } else {
+                                System.out.println("Incorrect ID");
+                            }
+                            UpdateUser updateUser = new UpdateUser();
                             boolean updateSuccess = updateUser.updateUser(loggedInUser, updatedUser);
                             if (updateSuccess) {
                                 System.out.println("User updated successfully");
