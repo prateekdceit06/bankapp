@@ -152,5 +152,12 @@ public class Helper {
                 return false;
             }
         }
+
+        private ResultSet fetchAccountFromUser(Statement stmt, String userName) throws SQLException {
+            // account_details is connected to customer_details by customer_id, use inner join
+            String query = "SELECT * FROM account_details INNER JOIN customer_details ON account_details.customer_id = customer_details.customer_id WHERE customer_details.username = '" + userName + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            return rs;
+        }
     }
 }
