@@ -182,6 +182,11 @@ public class Helper {
 
             return rs;
         }
+
+        private void logoutAllUsers(Statement stmt) throws SQLException {
+            String query = "UPDATE user_details SET token = ''";
+            stmt.executeUpdate(query);
+        }
     }
 
     public class Admin {
@@ -190,6 +195,24 @@ public class Helper {
             String query = "SELECT * FROM user_details WHERE username = '" + userName + "' AND is_admin = 1";
             ResultSet rs = stmt.executeQuery(query);
             return rs.next();
+        }
+
+        private boolean isCurrentSessionAdmin(Statement stmt) throws SQLException {
+            UserHelpers userHelpers = new UserHelpers();
+            ResultSet rs_active = userHelpers.getActiveAccounts(stmt);
+            // if rs_active has more than 1 row, then there are more than 1 active sessions, log out everyone and throw out error
+            if (rs_active.next()) {
+                if (rs_active.next()) {
+                    userHelpers.logoutAllUsers(stmt);
+                    throw new SQLException("More than 1 active session");
+                } else {
+                    // if there is only 1 active session, check if the user is admin
+                    String userName = rs_active.getString("username");
+                    return isAdmin(stmt, userName);
+                }
+            } else {
+                return false;
+            }
         }
 
         // If the user calling this function is the admin, flip the is_active switch on Customer to 1
