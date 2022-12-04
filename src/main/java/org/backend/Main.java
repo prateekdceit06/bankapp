@@ -182,7 +182,8 @@ public class Main {
                                 userId = loggedInUser.getId();
                             }
                             UpdateUser updateUser = new UpdateUser();
-                            boolean updateSuccess = updateUser.updateUser(userId, loggedInUser);
+                            User updatedUser = null;
+                            boolean updateSuccess = updateUser.updateUser(loggedInUser, updatedUser);
                             if (updateSuccess) {
                                 System.out.println("User updated successfully");
                             } else {
