@@ -16,10 +16,12 @@ public class UpdateUser {
         boolean success = false;
         Connect c = new Connect();
         Connection connection = c.createConnection();
+        GetToken getToken = new GetToken();
+        String token = getToken.getToken(loggedInUser);
         if (connection != null) {
             try {
                 if ((loggedInUser.getIsAdmin() == 1 || loggedInUser.getId() == updatedUser.getId()) &&
-                        loggedInUser.getToken().equals(loggedInUser.getToken())) {
+                        loggedInUser.getToken().equals(token)) {
                     //statement to update user
                     String query = "UPDATE user_details SET first_name =?, last_name=?, phone=?, address=?, " +
                             "email=?, username=?, is_active=?, is_employee=?, is_admin=?, updated_date=?, " +
