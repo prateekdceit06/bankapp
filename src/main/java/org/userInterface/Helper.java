@@ -159,5 +159,36 @@ public class Helper {
             ResultSet rs = stmt.executeQuery(query);
             return rs;
         }
+
+        private String getActiveAccounts(Statement stmt, String userName) throws SQLException {
+            String query = "SELECT * FROM account_details INNER JOIN customer_details ON account_details.customer_id = customer_details.customer_id WHERE customer_details.username = '" + userName + "' AND account_details.is_active = 1";
+            ResultSet rs = stmt.executeQuery(query);
+            String result = "";
+            while (rs.next()) {
+                result += rs.getString("account_id") + " ";
+            }
+            return result;
+        }
+    }
+
+    public class Admin
+    {
+
+        private boolean isAdmin(Statement stmt, String userName) throws SQLException {
+            String query = "SELECT * FROM customer_details WHERE username = '" + userName + "' AND is_admin = 1";
+            ResultSet rs = stmt.executeQuery(query);
+            return rs.next();
+        }
+
+        // If the user calling this function is the admin, flip the is_active switch on Customer to 1
+        private void allowUser(Statement stmt, String userName) throws SQLException {
+
+            String query = "UPDATE customer_details SET is_active = 1 WHERE username = '" + userName + "'";
+            try {
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
