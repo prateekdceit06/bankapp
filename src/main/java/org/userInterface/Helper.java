@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Helper {
@@ -18,15 +19,12 @@ public class Helper {
         Statement stmt = conn.createStatement();
         stmt.setQueryTimeout(30);  // set timeout to 30 sec.
         // log a sample event
-        Helper h = new Helper();
-        eventLogger el = h.new eventLogger();
-        el.logEvent("Sample event", stmt);
-
-
+        eventLogger.logEvent("Sample event", stmt);
     }
 
-    public class eventLogger {
-        public void logEvent(String event, Statement stmt) throws SQLException {
+    public static class eventLogger {
+
+        public static void logEvent(String event, Statement stmt) throws SQLException {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String time = dtf.format(now);
@@ -34,6 +32,26 @@ public class Helper {
             try {
                 stmt.executeUpdate(sql);
                 System.out.println("Event logged successfully");
+            } catch (SQLException e) {
+                System.out.println("Error: " + e);
+            }
+        }
+
+        public static void deleteEvent(int id, Statement stmt) throws SQLException {
+            String sql = "DELETE FROM all_events WHERE id = " + id;
+            try {
+                stmt.executeUpdate(sql);
+                System.out.println("Event deleted successfully");
+            } catch (SQLException e) {
+                System.out.println("Error: " + e);
+            }
+        }
+
+        public static void clearLogs(Statement stmt) throws SQLException {
+            String sql = "DELETE FROM all_events";
+            try {
+                stmt.executeUpdate(sql);
+                System.out.println("Logs cleared successfully");
             } catch (SQLException e) {
                 System.out.println("Error: " + e);
             }
@@ -68,6 +86,7 @@ public class Helper {
                 String query = activateTokenQuery(userName, encryptedSignInPassword);
                 try {
                     stmt.executeUpdate(query);
+                    eventLogger.logEvent(event, stmt);
                     return true;
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
@@ -80,8 +99,10 @@ public class Helper {
 
         private boolean logoutUser(Statement stmt, String userName) throws SQLException {
             String query = "UPDATE user_details SET token = '' WHERE username = '" + userName + "'";
+            String event = "User with username " + userName + " logged out.";
             try {
                 stmt.executeUpdate(query);
+                eventLogger.logEvent(event, stmt);
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -90,13 +111,19 @@ public class Helper {
         }
 
         private boolean isActive(Statement stmt, String userName) throws SQLException {
-            // check if user has active token
             String query = "SELECT token FROM user_details WHERE username = '" + userName + "'";
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                String token = rs.getString("token");
-                return !token.equals("");
-            } else {
+            String event = "Checked if user with username " + userName + " is active.";
+            try {
+                ResultSet rs = stmt.executeQuery(query);
+                eventLogger.logEvent(event, stmt);
+                if (rs.next()) {
+                    String token = rs.getString("token");
+                    return !token.equals("");
+                } else {
+                    return false;
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
                 return false;
             }
         }
