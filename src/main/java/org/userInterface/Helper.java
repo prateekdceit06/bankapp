@@ -10,17 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Helper {
-    public class eventLogger
-    {
-        public void logEvent(String event, Statement stmt) throws SQLException {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            // SQLite doesn't take in TimeStamp so convert to String
-            String time = dtf.format(now);
-            String sql = "INSERT INTO eventLog (event, time) VALUES ('" + event + "', '" + time + "')";
-            stmt.executeUpdate(sql);
-        }
-    }
     public static void main(String[] args) throws SQLException {
         // connect to sqlite
         String url = "jdbc:sqlite:bank.db";
@@ -34,6 +23,21 @@ public class Helper {
         el.logEvent("Sample event", stmt);
 
 
+    }
+
+    public class eventLogger {
+        public void logEvent(String event, Statement stmt) throws SQLException {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String time = dtf.format(now);
+            String sql = "INSERT INTO all_events (event, event_date) VALUES ('" + event + "', '" + now + "')";
+            try {
+                stmt.executeUpdate(sql);
+                System.out.println("Event logged successfully");
+            } catch (SQLException e) {
+                System.out.println("Error: " + e);
+            }
+        }
     }
 
     public class SessionHelpers {
@@ -161,9 +165,10 @@ public class Helper {
         }
 
         private boolean deleteUser(Statement stmt, String userName) throws SQLException {
-            String query = "DELETE FROM user_details WHERE username = '" + userName + "'";
+            // is_active to 0
+            String sql = "UPDATE user_details SET is_active = 0 WHERE username = '" + userName + "'";
             try {
-                stmt.executeUpdate(query);
+                stmt.executeUpdate(sql);
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
