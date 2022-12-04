@@ -5,9 +5,22 @@ import org.backend.staticdata.SHA256;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Helper {
+    public class eventLogger
+    {
+        public void logEvent(String event, Statement stmt) throws SQLException {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            // SQLite doesn't take in TimeStamp so convert to String
+            String time = dtf.format(now);
+            String sql = "INSERT INTO eventLog (event, time) VALUES ('" + event + "', '" + time + "')";
+            stmt.executeUpdate(sql);
+        }
+    }
     public static void main(String[] args) throws SQLException {
         // connect to sqlite
         String url = "jdbc:sqlite:bank.db";
@@ -15,6 +28,10 @@ public class Helper {
         Connection conn = c.createConnection();
         Statement stmt = conn.createStatement();
         stmt.setQueryTimeout(30);  // set timeout to 30 sec.
+        // log a sample event
+        Helper h = new Helper();
+        eventLogger el = h.new eventLogger();
+        el.logEvent("Sample event", stmt);
 
 
     }
@@ -41,6 +58,8 @@ public class Helper {
         }
 
         private boolean userLogin(Statement stmt, String userName, String encryptedSignInPassword) throws NoSuchAlgorithmException, SQLException {
+            // add to all_events this user signed in
+            String event = "User with username " + userName + " signed in.";
             if (matchPassword(userName, encryptedSignInPassword)) {
                 String query = activateTokenQuery(userName, encryptedSignInPassword);
                 try {
@@ -218,7 +237,7 @@ public class Helper {
         // If the user calling this function is the admin, flip the is_active switch on Customer to 1
         private void allowUser(Statement stmt, String userName) throws SQLException {
             UserHelpers userHelpers = new UserHelpers();
-            userHelpers.getActiveAccounts(stmt, userName);
+            userHelpers.getActiveAccounts(stmt);
             String query = "UPDATE user_details SET is_active = 1 WHERE username = '" + userName + "'";
             try {
                 stmt.executeUpdate(query);
