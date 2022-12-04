@@ -29,14 +29,18 @@ public class UpdateUser {
                         Integer.parseInt(response.get("isAdmin")),
                         Integer.parseInt(response.get("isEmployee")), response.get("token"),
                         ConvertDate.convertStringToDate(response.get("createdAt")),
-                        ConvertDate.convertStringToDate(response.get("updatedAt")));
+                        ConvertDate.convertStringToDate(response.get("updatedAt")),
+                        Integer.parseInt(response.get("hasCollateral")),
+                        Integer.parseInt(response.get("hasLoan")),
+                        Integer.parseInt(response.get("isCustomer")));
 
                 try {
                     if (loggedInUser.getIsAdmin() == 1 || loggedInUser.getToken().equals(UpdatedUser.getToken())) {
                         //statement to update user
-                        UpdatedUser.setUserName("rohan");
-                        String query = "UPDATE customer_details SET first_name =?, last_name=?, phone=?, address=?, " +
-                                "email=?, username=?, is_active=?, is_employee=?, is_admin=?, updated_date=? WHERE id=?;";
+                        UpdatedUser.setUserName("prateekjain");
+                        String query = "UPDATE user_details SET first_name =?, last_name=?, phone=?, address=?, " +
+                                "email=?, username=?, is_active=?, is_employee=?, is_admin=?, updated_date=?, " +
+                                "has_collateral=? WHERE id=?;";
                         PreparedStatement pstmt = connection.prepareStatement(query);
                         pstmt.setString(1, UpdatedUser.getFirstName());
                         pstmt.setString(2, UpdatedUser.getLastName());
@@ -49,7 +53,8 @@ public class UpdateUser {
                         pstmt.setInt(9, UpdatedUser.getIsAdmin());
                         String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                         pstmt.setString(10, ts);
-                        pstmt.setString(11, String.valueOf(UpdatedUser.getId()));
+                        pstmt.setInt(11, UpdatedUser.getHasCollateral());
+                        pstmt.setString(12, String.valueOf(UpdatedUser.getId()));
                         pstmt.executeUpdate();
                         pstmt.close();
                         AddToAllEvents addToAllEvents = new AddToAllEvents();

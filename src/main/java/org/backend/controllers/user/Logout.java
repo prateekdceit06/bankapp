@@ -15,7 +15,7 @@ public class Logout {
         Connection connection = connect.createConnection();
         if(connection!=null){
             try {
-                PreparedStatement ps = connection.prepareStatement("UPDATE customer_details SET token = ? WHERE id = ?");
+                PreparedStatement ps = connection.prepareStatement("UPDATE user_details SET token = ? WHERE id = ?");
                 ps.setString(1, null);
                 ps.setInt(2, loggedInUser.getId());
                 ps.executeUpdate();

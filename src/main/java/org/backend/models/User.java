@@ -19,29 +19,17 @@ public class User {
     private int isEmployee;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int hasCollateral;
+    private int hasLoan;
+    private int isCustomer;
 
 
     //default Constructor
     public User(){}
 
     public User(int id, String firstName, String lastName, String phone, String address, String email,
-                String username, int isActive, int isAdmin, int isEmployee, String token) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.address = address;
-        this.email = email;
-        this.userName = username;
-        this.isActive = isActive;
-        this.isAdmin = isAdmin;
-        this.isEmployee = isEmployee;
-        this.token = token;
-    }
-
-    public User(int id, String firstName, String lastName, String phone, String address, String email,
                 String userName, int isActive, int isAdmin, int isEmployee, String token, LocalDateTime createdAt,
-                LocalDateTime updatedAt) {
+                LocalDateTime updatedAt, int hasCollateral, int hasLoan, int isCustomer) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -55,14 +43,17 @@ public class User {
         this.token = token;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.hasCollateral = hasCollateral;
+        this.hasLoan = hasLoan;
+        this.isCustomer = isCustomer;
     }
     //constructor
-    public User(String firstName, String lastName, String phone, String address, String email,
-                String username, int isActive, int isAdmin, int isEmployee) {
+    public User(String firstName, String lastName, String phone, String address, String email, String username,
+                int isActive, int isAdmin, int isEmployee, int hasCollateral, int hasLoan, int isCustomer) {
         Connect c = new Connect();
         Connection connection = c.createConnection();
         try{
-            String query = "SELECT COALESCE(MAX(id),0) AS LAST FROM customer_details";
+            String query = "SELECT COALESCE(MAX(id),0) AS LAST FROM user_details";
             PreparedStatement pst1 = connection.prepareStatement(query);
             ResultSet rs1 = pst1.executeQuery();
             String maxId=  rs1.getString("LAST");
@@ -87,8 +78,35 @@ public class User {
         this.isActive = isActive;
         this.isAdmin = isAdmin;
         this.isEmployee = isEmployee;
+        this.hasCollateral = hasCollateral;
+        this.hasLoan = hasLoan;
+        this.isCustomer = isCustomer;
     }
 
+    public int getIsCustomer() {
+        return isCustomer;
+    }
+
+    public void setIsCustomer(int isCustomer) {
+        this.isCustomer = isCustomer;
+    }
+
+    public int getHasLoan() {
+        return hasLoan;
+    }
+
+    public void setHasLoan(int hasLoan) {
+        this.hasLoan = hasLoan;
+    }
+
+
+    public int getHasCollateral() {
+        return hasCollateral;
+    }
+
+    public void setHasCollateral(int hasCollateral) {
+        this.hasCollateral = hasCollateral;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -207,7 +225,12 @@ public class User {
                 "token=" + token + ", " +
                 "isActive=" + isActive + ", " +
                 "isAdmin=" + isAdmin + ", " +
-                "isEmployee=" + isEmployee + '}';
+                "isEmployee=" + isEmployee +
+                "createdAt=" + createdAt + ", " +
+                "updatedAt=" + updatedAt + ", " +
+                "hasCollateral=" + hasCollateral + ", " +
+                "hasLoan=" + hasLoan + ", " +
+                "isCustomer=" + isCustomer + '}';
     }
 
 

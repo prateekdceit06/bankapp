@@ -1,38 +1,39 @@
 package org.backend.models;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer extends User {
 
-    private int hasCollateral;
-    private int hasLoan;
+    List<Account> accounts;
 
-
-    public Customer(int id, String firstName, String lastName, String phone, String address, String email, String username, int isActive, int isAdmin, int isEmployee, String token) {
-        super(id, firstName, lastName, phone, address, email, username, isActive, isAdmin, isEmployee, token);
-        this.hasCollateral = 0;
-        this.hasLoan = 0;
+    public Customer(int id, String firstName, String lastName, String phone, String address,
+                    String email, String userName, int isActive, int isAdmin, int isEmployee,
+                    String token, LocalDateTime createdAt, LocalDateTime updatedAt, int hasCollateral,
+                    int hasLoan, int isCustomer) {
+        super(id, firstName, lastName, phone, address, email, userName, isActive,
+                isAdmin, isEmployee, token, createdAt, updatedAt, hasCollateral, hasLoan, isCustomer);
+        this.accounts = new ArrayList<>();
     }
 
-    public int getHasLoan() {
-        return hasLoan;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setHasLoan(int hasLoan) {
-        this.hasLoan = hasLoan;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
-
-
-    public int getHasCollateral() {
-        return hasCollateral;
-    }
-
-    public void setHasCollateral(int hasCollateral) {
-        this.hasCollateral = hasCollateral;
-    }
-
 
     @Override
     public String toString() {
-        return "Customer{" + "hasCollateral=" + hasCollateral + ", hasLoan=" + hasLoan + '}';
+        return super.toString() + "\n Customer{" +
+                ", accounts=" + accounts +
+                '}';
+    }
+
+    public void addAccount(Account account){
+        this.accounts.add(account);
     }
 }
 

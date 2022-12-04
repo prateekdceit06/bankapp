@@ -14,7 +14,7 @@ public class GetToken {
         Connection connection = connect.createConnection();
         if(connection !=null){
             try{
-                PreparedStatement ps = connection.prepareStatement("SELECT token FROM customer_details WHERE id = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT token FROM user_details WHERE id = ?");
                 ps.setInt(1, user.getId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {

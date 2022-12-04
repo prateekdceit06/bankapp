@@ -18,12 +18,12 @@ public class ChangePassword {
         Connection connection = connect.createConnection();
         if (connection != null) {
             try {
-                PreparedStatement ps = connection.prepareStatement("SELECT password,token FROM customer_details WHERE id = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT password,token FROM user_details WHERE id = ?");
                 ps.setInt(1, loggedInUser.getId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     if (rs.getString("password").equals(oldPassword) && rs.getString("token").equals(token)) {
-                        PreparedStatement ps1 = connection.prepareStatement("UPDATE customer_details SET password = ? WHERE id = ?");
+                        PreparedStatement ps1 = connection.prepareStatement("UPDATE user_details SET password = ? WHERE id = ?");
                         ps1.setString(1, newPassword);
                         ps1.setInt(2, loggedInUser.getId());
                         ps1.executeUpdate();

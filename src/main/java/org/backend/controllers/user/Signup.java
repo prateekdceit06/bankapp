@@ -8,16 +8,18 @@ import java.sql.*;
 
 public class Signup {
     public boolean signup(String firstName, String lastName, String phone, String address, String email, String userName,
-                       String encryptedPassword, int is_employee, int is_admin) {
+                       String encryptedPassword, int isEmployee, int isAdmin, int hasCollateral) {
         Connect c = new Connect();
         Connection connection = c.createConnection();
         boolean success = false;
         if(connection!=null){
             try {
-                User p = new User(firstName, lastName, phone, address, email, userName, 1, is_admin, is_employee);
-                String query = "INSERT INTO customer_details(id, first_name, last_name, phone, address, " +
-                        "email, username, password, is_employee, is_admin, created_date) " +
-                        "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                User p = new User(firstName, lastName, phone, address, email, userName, 1, isAdmin,
+                        isEmployee, hasCollateral,0,0);
+                String query = "INSERT INTO user_details(id, first_name, last_name, phone, address, " +
+                        "email, username, password, is_employee, is_admin, created_date, has_collateral, " +
+                        "has_loan, is_customer) " +
+                        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setInt(1, p.getId());
                 pstmt.setString(2, p.getFirstName());
@@ -31,6 +33,9 @@ public class Signup {
                 pstmt.setInt(10, p.getIsAdmin());
                 String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                 pstmt.setString(11, ts);
+                pstmt.setInt(12, hasCollateral);
+                pstmt.setInt(13, 0);
+                pstmt.setInt(14, 0);
                 pstmt.executeUpdate();
                 pstmt.close();
                 AddToAllEvents addToAllEvents = new AddToAllEvents();

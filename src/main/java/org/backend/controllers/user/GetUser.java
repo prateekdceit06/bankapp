@@ -16,7 +16,7 @@ public class GetUser {
         Connection connection = c.createConnection();
         if (connection != null) {
             try {
-                PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer_details WHERE id = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM user_details WHERE id = ?");
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
@@ -35,6 +35,9 @@ public class GetUser {
                     response.put("token", rs.getString("token"));
                     response.put("createdAt", rs.getString("created_date"));
                     response.put("updatedAt", rs.getString("updated_date"));
+                    response.put("hasCollateral", rs.getString("has_collateral"));
+                    response.put("hasLoan", rs.getString("has_loan"));
+                    response.put("isCustomer", String.valueOf(rs.getInt("is_customer")));
                     if (user.getIsAdmin() == 1) {
                         return response;
                     }
@@ -71,7 +74,7 @@ public class GetUser {
         Connection connection = c.createConnection();
         if (connection!=null){
             try {
-                PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer_details WHERE username = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM user_details WHERE username = ?");
                 ps.setString(1, userName);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
@@ -90,6 +93,9 @@ public class GetUser {
                     response.put("token", rs.getString("token"));
                     response.put("createdAt", rs.getString("created_date"));
                     response.put("updatedAt", rs.getString("updated_date"));
+                    response.put("hasCollateral", rs.getString("has_collateral"));
+                    response.put("hasLoan", rs.getString("has_loan"));
+                    response.put("isCustomer", String.valueOf(rs.getInt("is_customer")));
                     if (user.getIsAdmin() == 1) {
                         return response;
                     }
