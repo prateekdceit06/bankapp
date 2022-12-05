@@ -392,6 +392,9 @@ public class Main {
                     System.out.print("Account Number: ");
                     String accountNumber = br.readLine();
                     //find account in manager accounts
+                    manager.loadAccounts();
+                    manager.loadUserData();
+                    loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                     if (manager.getAccounts() != null) {
                         for (Account account : manager.getAccounts()) {
                             if ((account.getCustomerId() == loggedInUser.getId() ||
@@ -402,6 +405,32 @@ public class Main {
                         }
                     } else {
                         System.out.println("No Such Account Found");
+                    }
+                } else {
+                    System.out.println("Please login first");
+                }
+                break;
+            case 16: //view all account details of a customer
+                if (loggedInUser != null) {
+                    if (loggedInUser.getIsAdmin() == 1) {
+                        System.out.println("Enter Customer Details");
+                        System.out.print("Customer ID: ");
+                        int customerId = Integer.parseInt(br.readLine());
+                        //find account in manager accounts
+                        manager.loadAccounts();
+                        manager.loadUserData();
+                        loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        if (manager.getAccounts() != null) {
+                            for (Account account : manager.getAccounts()) {
+                                if (account.getCustomerId() == customerId) {
+                                    System.out.println(account);
+                                }
+                            }
+                        } else {
+                            System.out.println("No Such Account Found");
+                        }
+                    } else {
+                        System.out.println("You are not authorized to perform this action");
                     }
                 } else {
                     System.out.println("Please login first");
