@@ -14,6 +14,7 @@ public class Manager {
     private List<Customer> customers;
     private List<Account> savingsAccounts;
     private List<Account> checkingAccounts;
+    private List<Account> accounts;
 
     private User loggedInUser;
 
@@ -24,6 +25,7 @@ public class Manager {
         this.savingsAccounts = new ArrayList<>();
         this.checkingAccounts = new ArrayList<>();
         this.loggedInUser = null;
+        this.accounts = new ArrayList<>();
         initializeBank();
         loadAccounts();
         loadUserData();
@@ -45,12 +47,19 @@ public class Manager {
         return savingsAccounts;
     }
 
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public void loadAccounts() {
         savingsAccounts.clear();
         checkingAccounts.clear();
         LoadAccounts loadAccounts = new LoadAccounts();
-        List<Account> accounts = loadAccounts.loadAccounts();
+        accounts = loadAccounts.loadAccounts();
         if (accounts != null && accounts.size() > 0) {
             for (Account account : accounts) {
                 if (account.getAccountType().equals(Data.AccountTypes.SAVINGS.toString())) {

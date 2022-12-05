@@ -1,5 +1,6 @@
 package org.backend.models;
 
+import org.backend.controllers.account.CloseAccount;
 import org.backend.controllers.account.CreateAccount;
 
 import java.time.LocalDateTime;
@@ -104,5 +105,12 @@ public abstract class Account {
         CreateAccount createAccount = new CreateAccount();
         accountCreated = createAccount.createAccount(this, loggedInUser);
         return accountCreated;
+    }
+
+    public boolean closeAccount(){
+        boolean accountClosed = false;
+        CloseAccount closeAccount = new CloseAccount();
+        accountClosed = closeAccount.closeAccount(this);
+        return accountClosed;
     }
 }
