@@ -170,7 +170,7 @@ public class Main {
                             User updatedUser = null;
                             if (response.containsKey("status")) {
                                 if (response.get("status").equals("success")) {
-                                    updatedUser = new User(loggedInUser.getId(), loggedInUser.getFirstName(),
+                                    updatedUser = new User(userId, "prateek",
                                             loggedInUser.getLastName(), loggedInUser.getPhone(), loggedInUser.getAddress(),
                                             loggedInUser.getEmail(), loggedInUser.getUserName(), loggedInUser.getIsActive(),
                                             loggedInUser.getIsAdmin(), loggedInUser.getIsEmployee(), loggedInUser.getToken(),

@@ -18,11 +18,10 @@ public class UpdateUser {
         Connection connection = c.createConnection();
         GetToken getToken = new GetToken();
         String token = getToken.getToken(loggedInUser);
-        updatedUser.setFirstName("Prateek");
         if (connection != null) {
             try {
-                if ((loggedInUser.getIsAdmin() == 1 || loggedInUser.getId() == updatedUser.getId()) &&
-                        loggedInUser.getToken().equals(token)) {
+                if (loggedInUser.getIsAdmin() == 1 || (loggedInUser.getId() == updatedUser.getId() &&
+                        loggedInUser.getToken().equals(token))) {
                     //statement to update user
                     String query = "UPDATE user_details SET first_name =?, last_name=?, phone=?, address=?, " +
                             "email=?, username=?, is_active=?, is_employee=?, is_admin=?, updated_date=?, " +
