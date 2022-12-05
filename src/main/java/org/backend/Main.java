@@ -3,7 +3,6 @@ package org.backend;
 
 import org.backend.controllers.user.*;
 import org.backend.models.*;
-import org.backend.staticdata.ConvertDate;
 import org.backend.staticdata.Data;
 import org.backend.staticdata.SHA256;
 
@@ -355,50 +354,52 @@ public class Main {
                         break;
                     case 14: //close account
                         if (loggedInUser != null) {
-                            if (loggedInUser.getIsAdmin() == 1) {
-                                System.out.println("Enter Account Details");
-                                System.out.print("Account Number: ");
-                                String accountNumber = br.readLine();
-                                //find account in manager accounts
-                                if(manager.getAccounts() != null){
-                                    for(Account account : manager.getAccounts()){
-                                        if(account.getAccountNumber().equals(accountNumber)){
-                                            //close account
-                                            boolean closeAccountSuccess = account.closeAccount();
-                                            if(closeAccountSuccess){
-                                                System.out.println("Account closed successfully");
-                                                manager.loadAccounts();
-                                                manager.loadUserData();
-                                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
-                                            }else{
-                                                System.out.println("Something went wrong. Account close failed.");
-                                            }
+                            System.out.println("Enter Account Details");
+                            System.out.print("Account Number: ");
+                            String accountNumber = br.readLine();
+                            //find account in manager accounts
+                            if (manager.getAccounts() != null) {
+                                for (Account account : manager.getAccounts()) {
+                                    if ((account.getCustomerId() == loggedInUser.getId() ||
+                                            loggedInUser.getIsAdmin() == 1) &&
+                                            account.getAccountNumber().equals(accountNumber) &&
+                                            account.getAccountStatus() == 1) {
+                                        //close account
+                                        boolean closeAccountSuccess = account.closeAccount();
+                                        if (closeAccountSuccess) {
+                                            System.out.println("Account closed successfully");
+                                            manager.loadAccounts();
+                                            manager.loadUserData();
+                                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                                        } else {
+                                            System.out.println("Something went wrong. Account close failed.");
                                         }
                                     }
-                                } else {
+                                else{
                                     System.out.println("Something went wrong. Account closing failed.");
                                 }
-                            } else {
-                                System.out.println("You are not authorized to perform this action");
                             }
                         } else {
-                            System.out.println("Please login first");
+                            System.out.println("You are not authorized to perform this action");
                         }
-                        break;
-
-                    case 99: //exit
-                        System.out.println("Thank you for using our application");
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println("Invalid choice.");
-                        break;
+                } else{
+                    System.out.println("Please login first");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
-                System.out.println("Invalid input");
+                break;
+
+                case 99: //exit
+                    System.out.println("Thank you for using our application");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
             }
+        } catch(Exception e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println("Invalid input");
+        }
 //            finally {
 //                try {
 //                    br.close();
@@ -406,23 +407,23 @@ public class Main {
 //                    System.out.println("Error closing BufferedReader");
 //                }
 //            }
-        }
+    }
 
 
-        //customer registration form invoke
+    //customer registration form invoke
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //                new CustomerRegistration().setVisible(true);
 //            }
 //        });
 
-        /* Create and display the login form */
-        // java.awt.EventQueue.invokeLater(new Runnable() {
-        //     public void run() {
-        //         new CustomerLogin().setVisible(true);
-        //     }
-        // });
-    }
+    /* Create and display the login form */
+    // java.awt.EventQueue.invokeLater(new Runnable() {
+    //     public void run() {
+    //         new CustomerLogin().setVisible(true);
+    //     }
+    // });
+}
 
 
 }
