@@ -2,6 +2,7 @@ package org.backend.models;
 
 import org.backend.controllers.account.CloseAccount;
 import org.backend.controllers.account.CreateAccount;
+import org.backend.controllers.account.ViewAccount;
 
 import java.time.LocalDateTime;
 
@@ -97,7 +98,7 @@ public abstract class Account {
                 "accountBalance=" + accountBalance + ", " +
                 "accountStatus=" + accountStatus + ", " +
                 "accountCreationDate=" + accountCreationDate + ", " +
-                "accountLastUpdatedDate=" + accountLastUpdatedDate + "]";
+                "accountLastUpdatedDate=" + accountLastUpdatedDate + "]\n";
     }
 
     public boolean createAccount(User loggedInUser) {
@@ -112,5 +113,12 @@ public abstract class Account {
         CloseAccount closeAccount = new CloseAccount();
         accountClosed = closeAccount.closeAccount(this);
         return accountClosed;
+    }
+
+    public boolean viewAccount(User loggedInUser){
+        boolean accountViewed = false;
+        ViewAccount viewAccount = new ViewAccount();
+        accountViewed = viewAccount.viewAccount(this.accountNumber, loggedInUser);
+        return accountViewed;
     }
 }

@@ -386,7 +386,27 @@ public class Main {
                     System.out.println("Please login first");
                 }
                 break;
-
+            case 15: //view account details
+                if (loggedInUser != null) {
+                    System.out.println("Enter Account Details");
+                    System.out.print("Account Number: ");
+                    String accountNumber = br.readLine();
+                    //find account in manager accounts
+                    if (manager.getAccounts() != null) {
+                        for (Account account : manager.getAccounts()) {
+                            if ((account.getCustomerId() == loggedInUser.getId() ||
+                                    loggedInUser.getIsAdmin() == 1) &&
+                                    account.getAccountNumber().equals(accountNumber)) {
+                                System.out.println(account);
+                            }
+                        }
+                    } else {
+                        System.out.println("No Such Account Found");
+                    }
+                } else {
+                    System.out.println("Please login first");
+                }
+                break;
                 case 99: //exit
                     System.out.println("Thank you for using our application");
                     System.exit(0);

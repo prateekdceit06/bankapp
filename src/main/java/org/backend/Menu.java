@@ -16,6 +16,7 @@ public class Menu {
         System.out.println("12 Show All Customers");
         System.out.println("13 Show logged-in User");
         System.out.println("14 Close Account");
+        System.out.println("15 View Account Details");
         System.out.println("99 Exit");
 
     }
