@@ -133,4 +133,15 @@ public abstract class Account {
         accountViewed = viewAccount.viewAccount(this.accountNumber, loggedInUser);
         return accountViewed;
     }
+
+    public void viewTransactions(){
+        if(transactions.size() == 0){
+            System.out.println("No transactions found for this account.");
+        } else {
+            for(Transaction transaction : transactions){
+                System.out.println(transaction);
+            }
+        }
+    }
+
 }

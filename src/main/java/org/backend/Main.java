@@ -641,9 +641,7 @@ public class Main {
                                         System.out.println("Account Transactions: ");
                                         if(accountSavings.getTransactions() != null &&
                                                 accountSavings.getTransactions().size() > 0) {
-                                            for (Transaction transaction : accountSavings.getTransactions()) {
-                                                System.out.println(transaction);
-                                            }
+                                            accountSavings.viewTransactions();
                                         } else {
                                             System.out.println("No Transactions Found");
                                         }
@@ -658,9 +656,7 @@ public class Main {
                                         System.out.println("Account Transactions: ");
                                         if(checkingAccount.getTransactions()!=null &&
                                                 checkingAccount.getTransactions().size()>0) {
-                                            for (Transaction transaction : checkingAccount.getTransactions()) {
-                                                System.out.println(transaction);
-                                            }
+                                            checkingAccount.viewTransactions();
                                         } else{
                                             System.out.println("No Transactions Found");
                                         }
