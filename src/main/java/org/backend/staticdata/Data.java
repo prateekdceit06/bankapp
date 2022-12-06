@@ -12,13 +12,20 @@ public class Data {
     }
     public enum AccountTypes {CHECKING, SAVINGS, LOAN, NEW_SECURITY};
     public enum UserTypes {ACTIVE_USER, INACTIVE_USER, ACTIVE_CUSTOMER, INACTIVE_CUSTOMER};
-    enum TransactionTypes {DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
-    enum AccountStatus {ACTIVE, CLOSED, FROZEN};
-    enum CustomerStatus {ACTIVE, INACTIVE};
-    enum Currencies {USD, INR, EUR};
-    enum TransactionStatus {APPROVED, REJECTED};
+    public enum TransactionTypes {TRANSACTION_FEE, DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
+    public enum AccountStatus {ACTIVE, CLOSED, FROZEN};
+    public enum CustomerStatus {ACTIVE, INACTIVE};
+    public enum Currencies {USD, INR, EUR};
+    public enum TransactionStatus {APPROVED, REJECTED};
 
+    public static final String[] CURRENCY_SYMBOLS = {"$", "₹", "€"};
     public static final DecimalFormat df = new DecimalFormat("0.00");
+
+    public static double checkingAccountTransferTransactionFees = 0.1;
+
+    public static double bankInitialBalance = 1000000;
+
+
 
 
 }

@@ -436,6 +436,154 @@ public class Main {
                     System.out.println("Please login first");
                 }
                 break;
+                case 17:
+                    //tranfer money from one account to another
+                if (loggedInUser != null) {
+                        System.out.println("Enter Account Details");
+                        System.out.print("From Account Number: ");
+                        String fromAccountNumber = br.readLine();
+                        System.out.print("To Account Number: ");
+                        String toAccountNumber = br.readLine();
+                        System.out.print("Amount: ");
+                        double amount = Double.parseDouble(br.readLine());
+                        //find account in manager accounts
+                        manager.loadAccounts();
+                        manager.loadUserData();
+                        loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        if (manager.getAccounts() != null) {
+                            for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
+                                if (accountSavings.getCustomerId() == loggedInUser.getId() &&
+                                        accountSavings.getAccountNumber().equals(fromAccountNumber)) {
+                                    //transfer money
+                                    boolean transferMoneySuccess = accountSavings.transfer(amount ,
+                                            fromAccountNumber, toAccountNumber, loggedInUser);
+                                    if (transferMoneySuccess) {
+                                        System.out.println("Money transferred successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money transfer failed.");
+                                    }
+                                }
+                            }
+                            for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
+                                if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
+                                        checkingAccount.getAccountNumber().equals(fromAccountNumber)) {
+                                    //transfer money
+                                    boolean transferMoneySuccess = checkingAccount.transfer(amount ,
+                                            fromAccountNumber, toAccountNumber, manager.getBankAccountNumber(),
+                                            loggedInUser);
+                                    if (transferMoneySuccess) {
+                                        System.out.println("Money transferred successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money transfer failed.");
+                                    }
+                                }
+                            }
+                            manager.loadAccounts();
+                            manager.loadUserData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("No Such Account Found");
+                        }
+                    } else {
+                        System.out.println("Please login first");
+                    }
+                    break;
+                case 18:
+                    //withdraw money from account
+                    if (loggedInUser != null) {
+                        System.out.println("Enter Account Details");
+                        System.out.print("Account Number: ");
+                        String accountNumber = br.readLine();
+                        System.out.print("Amount: ");
+                        double amount = Double.parseDouble(br.readLine());
+                        //find account in manager accounts
+                        manager.loadAccounts();
+                        manager.loadUserData();
+                        loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        if (manager.getAccounts() != null) {
+                            for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
+                                if (accountSavings.getCustomerId() == loggedInUser.getId() &&
+                                        accountSavings.getAccountNumber().equals(accountNumber)) {
+                                    //withdraw money
+                                    boolean withdrawMoneySuccess = accountSavings.withdraw(amount, accountNumber, loggedInUser);
+                                    if (withdrawMoneySuccess) {
+                                        System.out.println("Money withdrawn successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money withdrawal failed.");
+                                    }
+                                }
+                            }
+                            for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
+                                if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
+                                        checkingAccount.getAccountNumber().equals(accountNumber)) {
+                                    //withdraw money
+                                    boolean withdrawMoneySuccess = checkingAccount.withdraw(amount, accountNumber,
+                                            manager.getBankAccountNumber(), loggedInUser);
+                                    if (withdrawMoneySuccess) {
+                                        System.out.println("Money withdrawn successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money withdrawal failed.");
+                                    }
+                                }
+                            }
+                            manager.loadAccounts();
+                            manager.loadUserData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("No Such Account Found");
+                        }
+                    } else {
+                        System.out.println("Please login first");
+                    }
+                    break;
+                case 19:
+                    //deposit money to account
+                    if (loggedInUser != null) {
+                        System.out.println("Enter Account Details");
+                        System.out.print("Account Number: ");
+                        String accountNumber = br.readLine();
+                        System.out.print("Amount: ");
+                        double amount = Double.parseDouble(br.readLine());
+                        //find account in manager accounts
+                        manager.loadAccounts();
+                        manager.loadUserData();
+                        loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        if (manager.getAccounts() != null) {
+                            for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
+                                if (accountSavings.getCustomerId() == loggedInUser.getId() &&
+                                        accountSavings.getAccountNumber().equals(accountNumber)) {
+                                    //deposit money
+                                    boolean depositMoneySuccess = accountSavings.deposit(amount, accountNumber, loggedInUser);
+                                    if (depositMoneySuccess) {
+                                        System.out.println("Money deposited successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money deposit failed.");
+                                    }
+                                }
+                            }
+                            for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
+                                if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
+                                        checkingAccount.getAccountNumber().equals(accountNumber)) {
+                                    //deposit money
+                                    boolean depositMoneySuccess = checkingAccount.deposit(amount, accountNumber,
+                                            manager.getBankAccountNumber(), loggedInUser);
+                                    if (depositMoneySuccess) {
+                                        System.out.println("Money deposited successfully");
+                                    } else {
+                                        System.out.println("Something went wrong. Money deposit failed.");
+                                    }
+                                }
+                            }
+                            manager.loadAccounts();
+                            manager.loadUserData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("No Such Account Found");
+                        }
+                    } else {
+                        System.out.println("Please login first");
+                    }
+                    break;
                 case 99: //exit
                     System.out.println("Thank you for using our application");
                     System.exit(0);
@@ -459,7 +607,7 @@ public class Main {
     }
 
 
-    //customer registration form invoke
+//    customer registration form invoke;
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //                new CustomerRegistration().setVisible(true);

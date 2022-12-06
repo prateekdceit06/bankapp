@@ -22,7 +22,7 @@ public class CreateAccount {
         GetToken getToken = new GetToken();
         String token = getToken.getToken(loggedInUser);
         if (connection != null) {
-            if (token.equals(loggedInUser.getToken())) {
+            if (loggedInUser.getUserName() == "manager" || token.equals(loggedInUser.getToken())) {
                 try {
                     String query = "INSERT INTO account_details(account_no, customer_id, type, balance, is_active, created_date) " +
                             "VALUES(?,?,?,?,?,?)";

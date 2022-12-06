@@ -2,9 +2,9 @@ package org.backend.models;
 
 
 import org.backend.controllers.manager.InitializeBank;
-import org.backend.controllers.manager.LoadAccounts;
+import org.backend.controllers.manager.LoadCheckingAccounts;
+import org.backend.controllers.manager.LoadSavingsAccounts;
 import org.backend.controllers.manager.LoadUserData;
-import org.backend.staticdata.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,13 @@ import java.util.List;
 public class Manager {
     private List<User> users;
     private List<Customer> customers;
-    private List<Account> savingsAccounts;
-    private List<Account> checkingAccounts;
+
+    private List<AccountSavings> savingsAccounts;
+    private List<AccountChecking> checkingAccounts;
     private List<Account> accounts;
 
     private User loggedInUser;
+    private String bankAccountNumber;
 
 
     public Manager() {
@@ -35,7 +37,11 @@ public class Manager {
         return customers;
     }
 
-    public List<Account> getCheckingAccounts() {
+    public List<AccountSavings> getSavingsAccounts() {
+        return savingsAccounts;
+    }
+
+    public List<AccountChecking> getCheckingAccounts() {
         return checkingAccounts;
     }
 
@@ -43,9 +49,6 @@ public class Manager {
         return users;
     }
 
-    public List<Account> getSavingsAccounts() {
-        return savingsAccounts;
-    }
 
     public List<Account> getAccounts() {
         return accounts;
@@ -55,19 +58,25 @@ public class Manager {
         this.accounts = accounts;
     }
 
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+
     public void loadAccounts() {
         savingsAccounts.clear();
         checkingAccounts.clear();
-        LoadAccounts loadAccounts = new LoadAccounts();
-        accounts = loadAccounts.loadAccounts();
-        if (accounts != null && accounts.size() > 0) {
-            for (Account account : accounts) {
-                if (account.getAccountType().equals(Data.AccountTypes.SAVINGS.toString())) {
-                    savingsAccounts.add(account);
-                } else if (account.getAccountType().equals(Data.AccountTypes.CHECKING.toString())) {
-                    checkingAccounts.add(account);
-                }
-            }
+        accounts.clear();
+        LoadSavingsAccounts loadSavingsAccounts = new LoadSavingsAccounts();
+        savingsAccounts = loadSavingsAccounts.loadSavingsAccounts();
+        LoadCheckingAccounts loadCheckingAccounts = new LoadCheckingAccounts();
+        checkingAccounts = loadCheckingAccounts.loadCheckingAccounts();
+
+        if (savingsAccounts != null && savingsAccounts.size() > 0) {
+            accounts.addAll(savingsAccounts);
+        }
+        if (checkingAccounts != null && checkingAccounts.size() > 0) {
+            accounts.addAll(checkingAccounts);
         }
     }
 
@@ -106,7 +115,7 @@ public class Manager {
 
     private void initializeBank() {
         InitializeBank initializeBank = new InitializeBank();
-        initializeBank.initializeBank();
+        bankAccountNumber = initializeBank.initializeBank();
     }
 
     //get logged in user by id

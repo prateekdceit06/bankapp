@@ -17,6 +17,10 @@ public class Menu {
         System.out.println("13 Show logged-in User");
         System.out.println("14 Close Account");
         System.out.println("15 View Account Details");
+        System.out.println("16 See all accounts of a customer");
+        System.out.println("17 Transfer from one account to another account");
+        System.out.println("18 Withdraw Money");
+        System.out.println("19 Deposit Money");
         System.out.println("99 Exit");
 
     }
