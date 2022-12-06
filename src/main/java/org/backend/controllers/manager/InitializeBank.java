@@ -45,7 +45,7 @@ public class InitializeBank {
                 AccountSavings accountSavings = new AccountSavings(p.getId(), Data.AccountTypes.SAVINGS.toString(),
                         Data.bankInitialBalance, 1);
                 CreateAccount createAccount = new CreateAccount();
-                createAccount.createAccount(accountSavings, p);
+                createAccount.createAccount(accountSavings, p, null);
                 accountNumber = accountSavings.getAccountNumber();
             } else {
                 PreparedStatement ps = connection.prepareStatement("SELECT account_no FROM account_details " +

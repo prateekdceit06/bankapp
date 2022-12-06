@@ -5,6 +5,7 @@ import org.backend.controllers.account.CreateAccount;
 import org.backend.controllers.account.ViewAccount;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public abstract class Account {
 
@@ -101,10 +102,10 @@ public abstract class Account {
                 "accountLastUpdatedDate=" + accountLastUpdatedDate + "]\n";
     }
 
-    public boolean createAccount(User loggedInUser) {
+    public boolean createAccount(User loggedInUser, List<String> accountNumbers) {
         boolean accountCreated = false;
         CreateAccount createAccount = new CreateAccount();
-        accountCreated = createAccount.createAccount(this, loggedInUser);
+        accountCreated = createAccount.createAccount(this, loggedInUser, accountNumbers);
         return accountCreated;
     }
 

@@ -11,14 +11,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class CreateAccount {
-    public boolean createAccount(Account account, User loggedInUser) {
+    public boolean createAccount(Account account, User loggedInUser, List<String> accountNumbers) {
         boolean accountCreated = false;
         Connect connect = new Connect();
         Connection connection = connect.createConnection();
         GenerateAccountNumber generateAccountNumber = new GenerateAccountNumber();
         String accountNumber = generateAccountNumber.generateAccountNumber();
+        if(accountNumbers != null && accountNumbers.size()>0){
+            while (true) {
+                if (accountNumbers.contains(accountNumber)) {
+                    accountNumber = generateAccountNumber.generateAccountNumber();
+                } else{
+                    break;
+                }
+            }
+        }
         GetToken getToken = new GetToken();
         String token = getToken.getToken(loggedInUser);
         if (connection != null) {

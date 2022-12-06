@@ -4,11 +4,12 @@ import org.backend.Connect;
 import org.backend.allevents.AddToAllEvents;
 import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
+import org.backend.staticdata.Data;
 
 import java.sql.*;
 
 public class Transfer {
-    public static boolean transfer(double amount, double transactionFees, String fromAccountNumber, String transactionType, String toAccountNumber, User loggedInUser) {
+    public boolean transfer(double amount, double transactionFees, String fromAccountNumber, String transactionType, String toAccountNumber, User loggedInUser) {
         boolean isTransferred = false;
         Connect connect = new Connect();
         Connection connection = connect.createConnection();
@@ -23,7 +24,8 @@ public class Transfer {
                     ps2.setString(1, toAccountNumber);
                     ResultSet rs2 = ps2.executeQuery();
                     if (rs.next() && rs2.next()) {
-                        if (rs.getInt("is_active") == 1 && rs2.getInt("is_active") == 1) {
+                        if ((transactionType.equals(Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString())
+                        || rs.getInt("is_active") == 1)&& rs2.getInt("is_active") == 1) {
                             double balanceFrom = rs.getDouble("balance");
                             if (balanceFrom >= amount) {
                                 amount-=transactionFees;
@@ -45,22 +47,24 @@ public class Transfer {
                                 ps4.setString(3, toAccountNumber);
                                 ps4.executeUpdate();
                                 PreparedStatement ps = connection.prepareStatement("INSERT INTO bank_ledger " +
-                                        "(from_account_no, transaction_type, debit_amount, transaction_date) " +
-                                        "VALUES (?, ?, ?, ?)");
+                                        "(from_account_no, transaction_type, debit_amount, transaction_date, customer_id) " +
+                                        "VALUES (?, ?, ?, ?, ?)");
                                 ps.setString(1, fromAccountNumber);
                                 ps.setString(2, transactionType);
                                 ps.setDouble(3, amount);
                                 ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                                 ps.setString(4, ts);
+                                ps.setInt(5, loggedInUser.getId());
                                 ps.executeUpdate();
                                 ps = connection.prepareStatement("INSERT INTO bank_ledger " +
-                                        "(from_account_no, transaction_type, credit_amount, transaction_date) " +
-                                        "VALUES (?, ?, ?, ?)");
+                                        "(from_account_no, transaction_type, credit_amount, transaction_date, customer_id) " +
+                                        "VALUES (?, ?, ?, ?, ?)");
                                 ps.setString(1, toAccountNumber);
                                 ps.setString(2, transactionType);
                                 ps.setDouble(3, amount);
                                 ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                                 ps.setString(4, ts);
+                                ps.setInt(5, loggedInUser.getId());
                                 ps.executeUpdate();
                                 isTransferred = true;
                                 AddToAllEvents addToAllEvents = new AddToAllEvents();

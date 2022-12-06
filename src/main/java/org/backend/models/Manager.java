@@ -12,11 +12,12 @@ import java.util.List;
 public class Manager {
     private List<User> users;
     private List<Customer> customers;
-
+    private List<String> accountNumbers;
     private List<AccountSavings> savingsAccounts;
     private List<AccountChecking> checkingAccounts;
     private List<Account> accounts;
 
+    private List<Transaction> ledger;
     private User loggedInUser;
     private String bankAccountNumber;
 
@@ -28,6 +29,7 @@ public class Manager {
         this.checkingAccounts = new ArrayList<>();
         this.loggedInUser = null;
         this.accounts = new ArrayList<>();
+        this.accountNumbers = new ArrayList<>();
         initializeBank();
         loadAccounts();
         loadUserData();
@@ -62,6 +64,13 @@ public class Manager {
         return bankAccountNumber;
     }
 
+    public List<String> getAccountNumbers() {
+        return accountNumbers;
+    }
+
+    public void setAccountNumbers(List<String> accountNumbers) {
+        this.accountNumbers = accountNumbers;
+    }
 
     public void loadAccounts() {
         savingsAccounts.clear();
@@ -77,6 +86,11 @@ public class Manager {
         }
         if (checkingAccounts != null && checkingAccounts.size() > 0) {
             accounts.addAll(checkingAccounts);
+        }
+        if(accounts != null && accounts.size() > 0){
+            for(Account account : accounts){
+                accountNumbers.add(account.getAccountNumber());
+            }
         }
     }
 

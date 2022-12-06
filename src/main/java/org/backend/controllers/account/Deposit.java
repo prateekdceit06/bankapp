@@ -33,13 +33,14 @@ public class Deposit {
                             ps3.setString(3, fromAccountNumber);
                             ps3.executeUpdate();
                             PreparedStatement ps = connection.prepareStatement("INSERT INTO bank_ledger " +
-                                    "(from_account_no, transaction_type, credit_amount, transaction_date) " +
-                                    "VALUES (?, ?, ?, ?)");
+                                    "(from_account_no, transaction_type, credit_amount, transaction_date, customer_id) " +
+                                    "VALUES (?, ?, ?, ?, ?)");
                             ps.setString(1, fromAccountNumber);
                             ps.setString(2, transactionType);
                             ps.setDouble(3, amount);
                             ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                             ps.setString(4, ts);
+                            ps.setInt(5, loggedInUser.getId());
                             ps.executeUpdate();
                             isDeposit = true;
                             AddToAllEvents addToAllEvents = new AddToAllEvents();
