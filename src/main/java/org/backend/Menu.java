@@ -21,6 +21,8 @@ public class Menu {
         System.out.println("17 Transfer from one account to another account");
         System.out.println("18 Withdraw Money");
         System.out.println("19 Deposit Money");
+        System.out.println("20 Show Balance");
+        System.out.println("21 Show Transactions");
         System.out.println("99 Exit");
 
     }

@@ -20,7 +20,6 @@ public class LoadSavingsAccounts {
         Connection connection = connect.createConnection();
         if (connection != null) {
             try {
-
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM account_details WHERE type = '" +
                         Data.AccountTypes.SAVINGS + "'");

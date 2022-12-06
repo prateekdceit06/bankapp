@@ -1,10 +1,7 @@
 package org.backend.models;
 
 
-import org.backend.controllers.manager.InitializeBank;
-import org.backend.controllers.manager.LoadCheckingAccounts;
-import org.backend.controllers.manager.LoadSavingsAccounts;
-import org.backend.controllers.manager.LoadUserData;
+import org.backend.controllers.manager.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +27,13 @@ public class Manager {
         this.loggedInUser = null;
         this.accounts = new ArrayList<>();
         this.accountNumbers = new ArrayList<>();
+        this.ledger = new ArrayList<>();
         initializeBank();
         loadAccounts();
         loadUserData();
+        loadTransactions();
     }
+
 
     public List<Customer> getCustomers() {
         return customers;
@@ -72,7 +72,7 @@ public class Manager {
         this.accountNumbers = accountNumbers;
     }
 
-    public void loadAccounts() {
+    private void loadAccounts() {
         savingsAccounts.clear();
         checkingAccounts.clear();
         accounts.clear();
@@ -87,16 +87,15 @@ public class Manager {
         if (checkingAccounts != null && checkingAccounts.size() > 0) {
             accounts.addAll(checkingAccounts);
         }
-        if(accounts != null && accounts.size() > 0){
-            for(Account account : accounts){
+        if (accounts != null && accounts.size() > 0) {
+            for (Account account : accounts) {
                 accountNumbers.add(account.getAccountNumber());
             }
         }
     }
 
 
-
-    public void loadUserData() {
+    private void loadUserData() {
         users.clear();
         customers.clear();
         LoadUserData loadUserData = new LoadUserData();
@@ -152,6 +151,28 @@ public class Manager {
             }
         }
         return loggedInUser;
+    }
+
+    private void loadTransactions() {
+        ledger.clear();
+        LoadTransactions loadTransactions = new LoadTransactions();
+        ledger = loadTransactions.loadTransactions();
+        //add transactions to accounts
+        for (Account account : accounts) {
+            for (Transaction transaction : ledger) {
+                if (transaction.getAccountNumber().equals(account.getAccountNumber())) {
+                    if(account.getTransactions() != null) {
+                        account.getTransactions().add(transaction);
+                    }
+                }
+            }
+        }
+    }
+
+    public void loadAllData(){
+        loadAccounts();
+        loadUserData();
+        loadTransactions();
     }
 
 }

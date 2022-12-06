@@ -37,7 +37,7 @@ public class Main {
                         HashMap<String, String> response = signin.signin(username, encryptedSigninPassword);
                         if (response.containsKey("status")) {
                             if (response.get("status").equals("success")) {
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 //find the username in users list of the manager
                                 loggedInUser = manager.getLoggedInUser(username);
                                 System.out.println(response.get("message"));
@@ -83,7 +83,7 @@ public class Main {
                                     encryptedSignUpPassword, is_employee, is_admin, hasCollateral);
                             if (signUpSuccess) {
                                 System.out.println("You have successfully signed up");
-                                manager.loadUserData();
+                                manager.loadAllData();
                             } else {
                                 System.out.println("Something went wrong. Signup Failed.");
                             }
@@ -187,7 +187,7 @@ public class Main {
                             boolean updateSuccess = updateUser.updateUser(loggedInUser, updatedUser);
                             if (updateSuccess) {
                                 System.out.println("User updated successfully");
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("Something went wrong. User update failed.");
@@ -214,7 +214,7 @@ public class Main {
 
                                 if (changePasswordSuccess) {
                                     System.out.println("Password changed successfully");
-                                    manager.loadUserData();
+                                    manager.loadAllData();
                                     loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                                 } else {
                                     System.out.println("Something went wrong. Password change failed.");
@@ -233,7 +233,7 @@ public class Main {
                             if (logoutSuccess) {
                                 System.out.println("You have successfully logged out");
                                 loggedInUser = null;
-                                manager.loadUserData();
+                                manager.loadAllData();
                             } else {
                                 System.out.println("Something went wrong. Logout failed.");
                             }
@@ -272,8 +272,7 @@ public class Main {
                             createSavingsAccountSuccess = savingsAccount.createAccount(loggedInUser, accountNumbers);
                             if (createSavingsAccountSuccess) {
                                 System.out.println("Account created successfully");
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
 
                             } else {
@@ -304,8 +303,7 @@ public class Main {
                             } else {
                                 System.out.println("Something went wrong. Account creation failed.");
                             }
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                         } else {
                             System.out.println("Please login first");
@@ -386,10 +384,8 @@ public class Main {
                                             }
                                         }
                                     }
-
                                 }
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("You are not authorized to perform this action");
@@ -404,8 +400,7 @@ public class Main {
                             System.out.print("Account Number: ");
                             String accountNumber = br.readLine();
                             //find account in manager accounts
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             if (manager.getAccounts() != null) {
                                 for (Account account : manager.getAccounts()) {
@@ -429,8 +424,7 @@ public class Main {
                                 System.out.print("Customer ID: ");
                                 int customerId = Integer.parseInt(br.readLine());
                                 //find account in manager accounts
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                                 if (manager.getAccounts() != null) {
                                     for (Account account : manager.getAccounts()) {
@@ -459,10 +453,11 @@ public class Main {
                             System.out.print("Amount: ");
                             double amount = Double.parseDouble(br.readLine());
                             //find account in manager accounts
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
-                            if (manager.getAccounts() != null) {
+                            if (manager.getAccounts() != null && manager.getAccounts().size() > 0
+                                    && manager.getAccountNumbers().contains(fromAccountNumber) &&
+                                    manager.getAccountNumbers().contains(toAccountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
                                     if (accountSavings.getCustomerId() == loggedInUser.getId() &&
                                             accountSavings.getAccountNumber().equals(fromAccountNumber)) {
@@ -490,8 +485,7 @@ public class Main {
                                         }
                                     }
                                 }
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("No Such Account Found");
@@ -509,10 +503,10 @@ public class Main {
                             System.out.print("Amount: ");
                             double amount = Double.parseDouble(br.readLine());
                             //find account in manager accounts
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
-                            if (manager.getAccounts() != null) {
+                            if (manager.getAccounts() != null && manager.getAccounts().size() > 0
+                                    && manager.getAccountNumbers().contains(accountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
                                     if (accountSavings.getCustomerId() == loggedInUser.getId() &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
@@ -538,8 +532,7 @@ public class Main {
                                         }
                                     }
                                 }
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("No Such Account Found");
@@ -557,10 +550,10 @@ public class Main {
                             System.out.print("Amount: ");
                             double amount = Double.parseDouble(br.readLine());
                             //find account in manager accounts
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
-                            if (manager.getAccounts() != null) {
+                            if (manager.getAccounts() != null && manager.getAccounts().size() > 0
+                                    && manager.getAccountNumbers().contains(accountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
                                     if (accountSavings.getCustomerId() == loggedInUser.getId() &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
@@ -586,8 +579,7 @@ public class Main {
                                         }
                                     }
                                 }
-                                manager.loadAccounts();
-                                manager.loadUserData();
+                                manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
                                 System.out.println("No Such Account Found");
@@ -603,22 +595,75 @@ public class Main {
                             System.out.print("Account Number: ");
                             String accountNumber = br.readLine();
                             //find account in manager accounts
-                            manager.loadAccounts();
-                            manager.loadUserData();
+                            manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
-                            if (manager.getAccounts() != null) {
+                            if (manager.getAccounts() != null && manager.getAccounts().size() > 0
+                                    && manager.getAccountNumbers().contains(accountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
-                                    if (accountSavings.getCustomerId() == loggedInUser.getId() &&
+                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                            accountSavings.getCustomerId() == loggedInUser.getId()) &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
                                         //view account balance
                                         System.out.println("Account Balance: " + accountSavings.getAccountBalance());
                                     }
                                 }
                                 for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
-                                    if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
+                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                            checkingAccount.getCustomerId() == loggedInUser.getId()) &&
                                             checkingAccount.getAccountNumber().equals(accountNumber)) {
                                         //view account balance
                                         System.out.println("Account Balance: " + checkingAccount.getAccountBalance());
+                                    }
+                                }
+                            } else {
+                                System.out.println("No Such Account Found");
+                            }
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
+                    case 21:
+                        //view account transactions
+                        if (loggedInUser != null) {
+                            System.out.println("Enter Account Details");
+                            System.out.print("Account Number: ");
+                            String accountNumber = br.readLine();
+                            //find account in manager accounts
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            if (manager.getAccounts() != null && manager.getAccounts().size() > 0
+                            && manager.getAccountNumbers().contains(accountNumber)) {
+                                for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
+                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                            accountSavings.getCustomerId() == loggedInUser.getId()) &&
+                                            accountSavings.getAccountNumber().equals(accountNumber)) {
+                                        //view account transactions
+                                        System.out.println("Account Transactions: ");
+                                        if(accountSavings.getTransactions() != null &&
+                                                accountSavings.getTransactions().size() > 0) {
+                                            for (Transaction transaction : accountSavings.getTransactions()) {
+                                                System.out.println(transaction);
+                                            }
+                                        } else {
+                                            System.out.println("No Transactions Found");
+                                        }
+
+                                    }
+                                }
+                                for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
+                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                            checkingAccount.getCustomerId() == loggedInUser.getId()) &&
+                                            checkingAccount.getAccountNumber().equals(accountNumber)) {
+                                        //view account transactions
+                                        System.out.println("Account Transactions: ");
+                                        if(checkingAccount.getTransactions()!=null &&
+                                                checkingAccount.getTransactions().size()>0) {
+                                            for (Transaction transaction : checkingAccount.getTransactions()) {
+                                                System.out.println(transaction);
+                                            }
+                                        } else{
+                                            System.out.println("No Transactions Found");
+                                        }
                                     }
                                 }
                             } else {

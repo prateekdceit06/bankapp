@@ -64,7 +64,9 @@ public class Transfer {
                                 ps.setDouble(3, amount);
                                 ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                                 ps.setString(4, ts);
-                                ps.setInt(5, loggedInUser.getId());
+                                GetCustomerIdByAccountNumber getCustomerIdByAccountNumber = new GetCustomerIdByAccountNumber();
+                                int customerId = getCustomerIdByAccountNumber.getCustomerIdByAccountNumber(connection, toAccountNumber);
+                                ps.setInt(5, customerId);
                                 ps.executeUpdate();
                                 isTransferred = true;
                                 AddToAllEvents addToAllEvents = new AddToAllEvents();

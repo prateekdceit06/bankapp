@@ -5,6 +5,7 @@ import org.backend.controllers.account.CreateAccount;
 import org.backend.controllers.account.ViewAccount;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Account {
@@ -16,12 +17,14 @@ public abstract class Account {
     private int accountStatus;
     private LocalDateTime accountCreationDate;
     private LocalDateTime accountLastUpdatedDate;
+    private List<Transaction> transactions;
 
     public Account(int customerId, String accountType, double accountBalance, int accountStatus) {
         this.customerId = customerId;
         this.accountType = accountType;
         this.accountBalance = accountBalance;
         this.accountStatus = accountStatus;
+        this.transactions = new ArrayList<>();
     }
 
     public Account(int customerId, String accountNumber, String accountType, double accountBalance,
@@ -33,8 +36,16 @@ public abstract class Account {
         this.accountStatus = accountStatus;
         this.accountCreationDate = accountCreationDate;
         this.accountLastUpdatedDate = accountLastUpdatedDate;
+        this.transactions = new ArrayList<>();
     }
 
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     public int getCustomerId() {
         return customerId;
