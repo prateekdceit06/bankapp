@@ -93,8 +93,6 @@ public class Manager {
         accounts.clear();
         LoadAccounts loadAccounts = new LoadAccounts();
         accounts = loadAccounts.loadAccounts();
-//        LoadCheckingAccounts loadCheckingAccounts = new LoadCheckingAccounts();
-//        checkingAccounts = loadCheckingAccounts.loadCheckingAccounts();
 
 
         if (accounts != null && accounts.size() > 0) {
@@ -134,16 +132,6 @@ public class Manager {
                         customer.getAccounts().add(account);
                     }
                 }
-//                for (Account account : checkingAccounts) {
-//                    if (account.getCustomerId() == customer.getId()) {
-//                        customer.getAccounts().add(account);
-//                    }
-//                }
-//                for (Account account : loanAccounts) {
-//                    if (account.getCustomerId() == customer.getId()) {
-//                        customer.getAccounts().add(account);
-//                    }
-//                }
             }
         }
     }
@@ -231,7 +219,6 @@ public class Manager {
                                 for(Loan loan : customer.getLoans()){
                                     if(loan.getLoanId() == approvedLoan.getLoanId()){
                                         approvedLoan.setLoan(loan);
-                                        System.out.println(approvedLoan);
                                     }
                                 }
                             }

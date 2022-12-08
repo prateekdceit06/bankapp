@@ -511,31 +511,45 @@ public class Main {
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             if (manager.getAccounts() != null && manager.getAccounts().size() > 0
                                     && manager.getAccountNumbers().contains(accountNumber)) {
-                                for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
-                                    if (accountSavings.getCustomerId() == loggedInUser.getId() &&
-                                            accountSavings.getAccountNumber().equals(accountNumber)) {
+                                for (Account account : manager.getAccounts()) {
+                                    if (account.getCustomerId() == loggedInUser.getId() &&
+                                            account.getAccountNumber().equals(accountNumber)) {
                                         //withdraw money
-                                        boolean withdrawMoneySuccess = accountSavings.withdraw(amount, accountNumber, loggedInUser);
-                                        if (withdrawMoneySuccess) {
-                                            System.out.println("Money withdrawn successfully");
-                                        } else {
-                                            System.out.println("Something went wrong. Money withdrawal failed.");
-                                        }
-                                    }
-                                }
-                                for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
-                                    if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
-                                            checkingAccount.getAccountNumber().equals(accountNumber)) {
-                                        //withdraw money
-                                        boolean withdrawMoneySuccess = checkingAccount.withdraw(amount, accountNumber,
+                                        boolean withdrawMoneySuccess= false;
+                                        if(account instanceof AccountSavings){
+                                            withdrawMoneySuccess = ((AccountSavings) account).withdraw(amount,
+                                                    accountNumber, loggedInUser);
+                                        } else if (account instanceof AccountChecking){
+                                            withdrawMoneySuccess = ((AccountChecking) account).withdraw(amount, accountNumber,
                                                 manager.getBankAccountNumber(), loggedInUser);
+                                        } else if (account instanceof AccountLoan){
+                                            withdrawMoneySuccess = ((AccountLoan) account).withdraw(amount,
+                                                    accountNumber, loggedInUser);
+                                        }
                                         if (withdrawMoneySuccess) {
                                             System.out.println("Money withdrawn successfully");
                                         } else {
                                             System.out.println("Something went wrong. Money withdrawal failed.");
                                         }
+                                        break;
                                     }
                                 }
+//                                for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
+//                                    if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
+//                                            checkingAccount.getAccountNumber().equals(accountNumber)) {
+//                                        //withdraw money
+//                                        boolean withdrawMoneySuccess = checkingAccount.withdraw(amount, accountNumber,
+//                                                manager.getBankAccountNumber(), loggedInUser);
+//                                        if (withdrawMoneySuccess) {
+//                                            System.out.println("Money withdrawn successfully");
+//                                        } else {
+//                                            System.out.println("Something went wrong. Money withdrawal failed.");
+//                                        }
+//                                    }
+//                                }
+//
+
+
                                 manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             } else {
@@ -682,6 +696,8 @@ public class Main {
                                 applyForLoanSuccess = loggedInUser.applyForLoan(2000, 50000);
                                 if (applyForLoanSuccess) {
                                     System.out.println("Loan Applied Successfully");
+                                    manager.loadAllData();
+                                    loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                                 } else {
                                     System.out.println("Something went wrong. Loan Application Failed.");
                                 }
