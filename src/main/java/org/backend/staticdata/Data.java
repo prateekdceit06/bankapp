@@ -11,13 +11,14 @@ public class Data {
         s.nextLine();
     }
     public enum AccountTypes {CHECKING, SAVINGS, LOAN, NEW_SECURITY};
-    public enum UserTypes {ACTIVE_USER, INACTIVE_USER, ACTIVE_CUSTOMER, INACTIVE_CUSTOMER};
-    public enum TransactionTypes {TRANSACTION_FEE, ACCOUNT_CREATION_FEE, ACCOUNT_CLOSING_FEE,
+    public enum TransactionTypes {TRANSACTION_FEE, ACCOUNT_CREATION_FEE, ACCOUNT_CLOSING_FEE, WITHDRAWAL_FEES, LOAN_TRANSFER,
         DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
     public enum AccountStatus {ACTIVE, CLOSED, FROZEN};
     public enum CustomerStatus {ACTIVE, INACTIVE};
     public enum Currencies {USD, INR, EUR};
     public enum TransactionStatus {APPROVED, REJECTED};
+    public enum LoanStatus {APPROVED, REJECTED, PENDING};
+    public enum LoanInterestUnit {MONTHLY, YEARLY};
 
     public static final String[] CURRENCY_SYMBOLS = {"$", "₹", "€"};
     public static final DecimalFormat df = new DecimalFormat("0.00");
@@ -29,7 +30,10 @@ public class Data {
     public static double initialCheckingAccountBalance = 1000;
     public static double bankInitialBalance = 1000000;
     public static double checkingAccountCreationFees = 10;
+    public static double savingsAccountCreationFees = 10;
     public static double checkingAccountClosingFees = 10;
+    public static double savingsAccountClosingFees = 10;
+    public static double checkingAccountWithdrawalFees = 10;
 
 
 

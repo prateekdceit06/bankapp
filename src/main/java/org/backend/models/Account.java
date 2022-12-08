@@ -19,6 +19,9 @@ public abstract class Account {
     private LocalDateTime accountLastUpdatedDate;
     private List<Transaction> transactions;
 
+    //default constructor
+    public Account() {
+    }
     public Account(int customerId, String accountType, double accountBalance, int accountStatus) {
         this.customerId = customerId;
         this.accountType = accountType;

@@ -19,16 +19,14 @@ public class CloseAccount {
         if (connection != null) {
             try {
                 double remainingBalance = 0;
-                if(account.getAccountType().equals(Data.AccountTypes.CHECKING.toString())){
-                    remainingBalance = Data.checkingAccountClosingFees;
-                }
+                remainingBalance = Data.checkingAccountClosingFees;
                 PreparedStatement ps = connection.prepareStatement("UPDATE account_details SET is_active = ?," +
                         "updated_date=?, balance=? " +
                         "WHERE account_no = ?");
                 ps.setString(1, "0");
                 String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                 ps.setString(2, ts);
-                ps.setDouble(3, remainingBalance);
+                ps.setDouble(3, Double.parseDouble(Data.df.format(remainingBalance)));
                 ps.setString(4, account.getAccountNumber());
                 ps.executeUpdate();
                 isAccountClosed = true;

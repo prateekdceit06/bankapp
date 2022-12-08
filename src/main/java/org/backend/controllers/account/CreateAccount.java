@@ -6,6 +6,7 @@ import org.backend.controllers.user.GetToken;
 import org.backend.models.Account;
 import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
+import org.backend.staticdata.Data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,7 +41,7 @@ public class CreateAccount {
                     pstmt.setString(1, accountNumber);
                     pstmt.setInt(2, account.getCustomerId());
                     pstmt.setString(3, account.getAccountType());
-                    pstmt.setDouble(4, account.getAccountBalance());
+                    pstmt.setDouble(4, Double.parseDouble(Data.df.format(account.getAccountBalance())));
                     pstmt.setInt(5, 1);
                     String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                     pstmt.setString(6, ts);

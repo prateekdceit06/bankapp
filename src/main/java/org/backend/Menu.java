@@ -23,6 +23,8 @@ public class Menu {
         System.out.println("19 Deposit Money");
         System.out.println("20 Show Balance");
         System.out.println("21 Show Transactions");
+        System.out.println("22 Apply for loan");
+        System.out.println("23 Approve/Reject Loan");
         System.out.println("99 Exit");
 
     }

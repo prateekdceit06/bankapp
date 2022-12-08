@@ -4,6 +4,7 @@ import org.backend.Connect;
 import org.backend.allevents.AddToAllEvents;
 import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
+import org.backend.staticdata.Data;
 
 import java.sql.*;
 
@@ -27,7 +28,7 @@ public class Deposit {
                             balanceFrom += amount;
                             PreparedStatement ps3 = connection.prepareStatement("UPDATE account_details SET balance = ?, " +
                                     "updated_date=? WHERE account_no = ?");
-                            ps3.setDouble(1, balanceFrom);
+                            ps3.setDouble(1, Double.parseDouble(Data.df.format(balanceFrom)) );
                             String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                             ps3.setString(2, ts);
                             ps3.setString(3, fromAccountNumber);
@@ -37,7 +38,7 @@ public class Deposit {
                                     "VALUES (?, ?, ?, ?, ?)");
                             ps.setString(1, fromAccountNumber);
                             ps.setString(2, transactionType);
-                            ps.setDouble(3, amount);
+                            ps.setDouble(3, Double.parseDouble(Data.df.format(amount)));
                             ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                             ps.setString(4, ts);
                             ps.setInt(5, loggedInUser.getId());

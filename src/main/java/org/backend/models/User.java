@@ -1,6 +1,8 @@
 package org.backend.models;
 
 import org.backend.Connect;
+import org.backend.controllers.loan.ApplyForLoan;
+import org.backend.staticdata.Data;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -233,5 +235,11 @@ public class User {
                 "isCustomer=" + isCustomer + '}';
     }
 
-
+    public boolean applyForLoan(double loanAmount, double collateralValue) {
+        boolean isLoanApplied = false;
+        //logic to apply for loan
+        ApplyForLoan applyForLoan = new ApplyForLoan();
+        isLoanApplied = applyForLoan.applyForLoan(Data.LoanStatus.PENDING.toString(), loanAmount, collateralValue, this);
+        return isLoanApplied;
+    }
 }

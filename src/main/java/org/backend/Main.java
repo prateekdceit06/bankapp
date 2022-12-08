@@ -272,6 +272,11 @@ public class Main {
                             createSavingsAccountSuccess = savingsAccount.createAccount(loggedInUser, accountNumbers);
                             if (createSavingsAccountSuccess) {
                                 System.out.println("Account created successfully");
+                                Transfer transfer = new Transfer();
+                                transfer.transfer(Data.savingsAccountCreationFees,
+                                        0,
+                                        savingsAccount.getAccountNumber(), Data.TransactionTypes.ACCOUNT_CREATION_FEE.toString(),
+                                        manager.getBankAccountNumber(), loggedInUser);
                                 manager.loadAllData();
                                 loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
 
@@ -375,13 +380,12 @@ public class Main {
                                         boolean closeAccountSuccess = account.closeAccount();
                                         if (closeAccountSuccess) {
                                             System.out.println("Account closed successfully");
-                                            if(account.getAccountType().equals(Data.AccountTypes.CHECKING.toString())){
-                                                Transfer transfer = new Transfer();
-                                                transfer.transfer(Data.checkingAccountClosingFees,
-                                                        0,
-                                                        account.getAccountNumber(), Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString(),
-                                                        manager.getBankAccountNumber(), loggedInUser);
-                                            }
+                                            Transfer transfer = new Transfer();
+                                            transfer.transfer(Data.checkingAccountClosingFees,
+                                                    0,
+                                                    account.getAccountNumber(), Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString(),
+                                                    manager.getBankAccountNumber(), loggedInUser);
+
                                         }
                                     }
                                 }
@@ -600,7 +604,7 @@ public class Main {
                             if (manager.getAccounts() != null && manager.getAccounts().size() > 0
                                     && manager.getAccountNumbers().contains(accountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
-                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                    if ((loggedInUser.getIsAdmin() == 1 ||
                                             accountSavings.getCustomerId() == loggedInUser.getId()) &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
                                         //view account balance
@@ -608,7 +612,7 @@ public class Main {
                                     }
                                 }
                                 for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
-                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                    if ((loggedInUser.getIsAdmin() == 1 ||
                                             checkingAccount.getCustomerId() == loggedInUser.getId()) &&
                                             checkingAccount.getAccountNumber().equals(accountNumber)) {
                                         //view account balance
@@ -632,14 +636,14 @@ public class Main {
                             manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             if (manager.getAccounts() != null && manager.getAccounts().size() > 0
-                            && manager.getAccountNumbers().contains(accountNumber)) {
+                                    && manager.getAccountNumbers().contains(accountNumber)) {
                                 for (AccountSavings accountSavings : manager.getSavingsAccounts()) {
-                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                    if ((loggedInUser.getIsAdmin() == 1 ||
                                             accountSavings.getCustomerId() == loggedInUser.getId()) &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
                                         //view account transactions
                                         System.out.println("Account Transactions: ");
-                                        if(accountSavings.getTransactions() != null &&
+                                        if (accountSavings.getTransactions() != null &&
                                                 accountSavings.getTransactions().size() > 0) {
                                             accountSavings.viewTransactions();
                                         } else {
@@ -649,15 +653,15 @@ public class Main {
                                     }
                                 }
                                 for (AccountChecking checkingAccount : manager.getCheckingAccounts()) {
-                                    if ((loggedInUser.getIsAdmin()==1 ||
+                                    if ((loggedInUser.getIsAdmin() == 1 ||
                                             checkingAccount.getCustomerId() == loggedInUser.getId()) &&
                                             checkingAccount.getAccountNumber().equals(accountNumber)) {
                                         //view account transactions
                                         System.out.println("Account Transactions: ");
-                                        if(checkingAccount.getTransactions()!=null &&
-                                                checkingAccount.getTransactions().size()>0) {
+                                        if (checkingAccount.getTransactions() != null &&
+                                                checkingAccount.getTransactions().size() > 0) {
                                             checkingAccount.viewTransactions();
-                                        } else{
+                                        } else {
                                             System.out.println("No Transactions Found");
                                         }
                                     }
@@ -669,6 +673,88 @@ public class Main {
                             System.out.println("Please login first");
                         }
                         break;
+                    case 22:
+                        //check hasCollateral is 1 or not for the loggedInUser
+                        if (loggedInUser != null) {
+                            if (loggedInUser.getHasCollateral() == 1) {
+                                // apply for loan
+                                boolean applyForLoanSuccess = false;
+                                applyForLoanSuccess = loggedInUser.applyForLoan(2000, 50000);
+                                if (applyForLoanSuccess) {
+                                    System.out.println("Loan Applied Successfully");
+                                } else {
+                                    System.out.println("Something went wrong. Loan Application Failed.");
+                                }
+                            }
+                        }
+
+                        break;
+                    case 23:
+                        //approve reject loan
+                        if (loggedInUser != null) {
+                            if (loggedInUser.getId() == 1) {
+                                System.out.println("Enter Loan Details");
+                                System.out.print("Loan Id: ");
+                                int loanId = Integer.parseInt(br.readLine());
+                                System.out.print(Data.LoanStatus.APPROVED + "/" + Data.LoanStatus.REJECTED);
+                                String approveReject = br.readLine();
+                                //find loan in manager loans
+                                manager.loadAllData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                                if (manager.getLoans() != null && manager.getLoans().size() > 0) {
+                                    for (Loan loan : manager.getLoans()) {
+                                        if (loan.getLoanId() == loanId) {
+                                            //approve reject loan
+                                            if (loan.getLoanStatus().equals(Data.LoanStatus.PENDING.toString())) {
+                                                if (approveReject.equals(Data.LoanStatus.APPROVED.toString())) {
+                                                    AccountLoan loanAccount = new AccountLoan(loan.getCustomerId(),
+                                                            Data.AccountTypes.LOAN.toString(), 0, 1);
+                                                    //find user in manager users with id = loan.getCustomerId()
+                                                    User customer = null;
+                                                    for (User user : manager.getUsers()) {
+                                                        if (user.getId() == loan.getCustomerId()) {
+                                                            customer = user;
+                                                            break;
+                                                        }
+                                                    }
+                                                    loanAccount.createAccount(loggedInUser, manager.getAccountNumbers());
+                                                    double sanctionAmount = 10000;
+                                                    double interestRate = 10;
+                                                    int loanDurationInMonths = 12;
+                                                    boolean loanApproved = loan.approveLoan(loan.getLoanId(), customer.getId(),
+                                                            loanAccount.getAccountNumber(),
+                                                            sanctionAmount, Data.LoanStatus.APPROVED.toString(),
+                                                            interestRate, Data.LoanInterestUnit.MONTHLY.toString(), loanDurationInMonths, loggedInUser);
+                                                    if (loanApproved) {
+                                                        System.out.println("Loan Approved");
+                                                        loanAccount.transfer(sanctionAmount, manager.getBankAccountNumber(),
+                                                                loanAccount.getAccountNumber(), loggedInUser);
+                                                    } else {
+                                                        System.out.println("Something went wrong. Loan Approval Failed.");
+                                                    }
+                                                } else if (approveReject.equals(Data.LoanStatus.REJECTED.toString())) {
+                                                    boolean loanRejected = loan.rejectLoan(loan.getLoanId(), Data.LoanStatus.REJECTED.toString(), loggedInUser);
+                                                    if (loanRejected) {
+                                                        System.out.println("Loan Rejected");
+                                                    } else {
+                                                        System.out.println("Something went wrong. Loan Rejection Failed.");
+                                                    }
+                                                } else {
+                                                    System.out.println("Invalid Input");
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    manager.loadAllData();
+                                    loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                                } else {
+                                    System.out.println("No Such Loan Found");
+                                }
+                            }
+                        }
+
+                        break;
                     case 99: //exit
                         System.out.println("Thank you for using our application");
                         System.exit(0);
@@ -677,6 +763,7 @@ public class Main {
                         System.out.println("Invalid choice.");
                         break;
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());

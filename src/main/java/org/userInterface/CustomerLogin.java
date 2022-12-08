@@ -7,12 +7,9 @@ package org.userInterface;
 //sql import
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.backend.Connect;
 import org.backend.staticdata.SHA256;
