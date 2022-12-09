@@ -25,8 +25,9 @@ public class ApproveRejectLoan {
             try {
                 if (loggedInUser.getId() == 1 && loanStatus.equals(Data.LoanStatus.APPROVED.toString())) {
                     String query = "INSERT INTO approved_loan_details(loan_id, customer_id, account_no, sanctioned_amount, " +
-                            "loan_interest, loan_interest_unit, remaining_loan_amount, duration_in_months, monthly_payment_amount) " +
-                            "VALUES(?,?,?,?,?,?,?,?,?)";
+                            "loan_interest, loan_interest_unit, remaining_loan_amount, duration_in_months, monthly_payment_amount," +
+                            " created_date) " +
+                            "VALUES(?,?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pstmt = connection.prepareStatement(query);
                     double effetiveInterest = 0;
                     if (loanInterestUnit.equals(Data.LoanInterestUnit.MONTHLY.toString())) {
@@ -46,6 +47,8 @@ public class ApproveRejectLoan {
                     pstmt.setDouble(7, Double.parseDouble(Data.df.format(totalLoanAmount)));
                     pstmt.setInt(8, loanDuration);
                     pstmt.setDouble(9, Double.parseDouble(Data.df.format(totalLoanAmount/loanDuration)));
+                    String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
+                    pstmt.setString(10, ts);
                     pstmt.executeUpdate();
                     pstmt.close();
                 }

@@ -25,6 +25,8 @@ public class Menu {
         System.out.println("21 Show Transactions");
         System.out.println("22 Apply for loan");
         System.out.println("23 Approve/Reject Loan");
+        System.out.println("24 Pay loan by cash");
+        System.out.println("25 Pay loan by transfer");
         System.out.println("99 Exit");
 
     }

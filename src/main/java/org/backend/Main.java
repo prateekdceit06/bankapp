@@ -515,14 +515,14 @@ public class Main {
                                     if (account.getCustomerId() == loggedInUser.getId() &&
                                             account.getAccountNumber().equals(accountNumber)) {
                                         //withdraw money
-                                        boolean withdrawMoneySuccess= false;
-                                        if(account instanceof AccountSavings){
+                                        boolean withdrawMoneySuccess = false;
+                                        if (account instanceof AccountSavings) {
                                             withdrawMoneySuccess = ((AccountSavings) account).withdraw(amount,
                                                     accountNumber, loggedInUser);
-                                        } else if (account instanceof AccountChecking){
+                                        } else if (account instanceof AccountChecking) {
                                             withdrawMoneySuccess = ((AccountChecking) account).withdraw(amount, accountNumber,
-                                                manager.getBankAccountNumber(), loggedInUser);
-                                        } else if (account instanceof AccountLoan){
+                                                    manager.getBankAccountNumber(), loggedInUser);
+                                        } else if (account instanceof AccountLoan) {
                                             withdrawMoneySuccess = ((AccountLoan) account).withdraw(amount,
                                                     accountNumber, loggedInUser);
                                         }
@@ -771,6 +771,102 @@ public class Main {
                         }
 
                         break;
+                    case 24: //pay loan
+                        if (loggedInUser != null) {
+                            System.out.println("Enter Loan Details");
+                            System.out.print("Loan Id: ");
+                            int loanId = Integer.parseInt(br.readLine());
+                            System.out.print("Amount: ");
+                            double amount = Double.parseDouble(br.readLine());
+                            //find loan in manager loans
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            Customer customer = new Customer();
+                            for (Customer cust : manager.getCustomers()) {
+                                if (cust.getId() == loggedInUser.getId()) {
+                                    customer = cust;
+                                    break;
+                                }
+
+                            }
+                            if (customer.getApprovedLoans() != null) {
+                                for (ApprovedLoan approvedLoan : customer.getApprovedLoans()) {
+                                    if (approvedLoan.getLoanId() == loanId) {
+                                        for (AccountLoan loanAccount : manager.getLoanAccounts()) {
+                                            if (loanAccount.getAccountNumber().equals(approvedLoan.getAccountNumber())) {
+                                                //pay loan
+                                                boolean loanPaid = loanAccount.payLoan(loanId, amount,
+                                                        manager.getBankAccountNumber(), customer);
+                                                if (loanPaid) {
+                                                    System.out.println("Loan Paid");
+                                                } else {
+                                                    System.out.println("Something went wrong. Loan Payment Failed.");
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                manager.loadAllData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            } else {
+                                System.out.println("No Such Loan Found");
+                            }
+                        }
+                        break;
+                    case 25: //pay loan by transfer
+                        if (loggedInUser != null) {
+                            System.out.println("Enter Loan Details");
+                            System.out.print("Loan Id: ");
+                            int loanId = Integer.parseInt(br.readLine());
+                            System.out.print("Account no: ");
+                            String fromAccountNo = br.readLine();
+                            System.out.print("Amount: ");
+                            double amount = Double.parseDouble(br.readLine());
+                            //find loan in manager loans
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            Customer customer = new Customer();
+                            for (Customer cust : manager.getCustomers()) {
+                                if (cust.getId() == loggedInUser.getId()) {
+                                    customer = cust;
+                                    break;
+                                }
+                            }
+                            Account tempAccount = null;
+                            for(Account account: manager.getAccounts()){
+                                if(account.getAccountNumber().equals(fromAccountNo)){
+                                    tempAccount = account;
+                                    break;
+                                }
+                            }
+
+                            if (customer.getApprovedLoans() != null) {
+                                for (ApprovedLoan approvedLoan : customer.getApprovedLoans()) {
+                                    if (approvedLoan.getLoanId() == loanId) {
+                                        for (AccountLoan loanAccount : manager.getLoanAccounts()) {
+                                            if (loanAccount.getAccountNumber().equals(approvedLoan.getAccountNumber())) {
+                                                //pay loan
+                                                boolean loanPaid = loanAccount.payLoan(loanId, amount, tempAccount,
+                                                        manager.getBankAccountNumber(), customer);
+                                                if (loanPaid) {
+                                                    System.out.println("Loan Paid");
+                                                } else {
+                                                    System.out.println("Something went wrong. Loan Payment Failed.");
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                manager.loadAllData();
+                                loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            } else {
+                                System.out.println("No Such Loan Found");
+                            }
+                        }
+                        break;
+
                     case 99: //exit
                         System.out.println("Thank you for using our application");
                         System.exit(0);

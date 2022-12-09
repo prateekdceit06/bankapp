@@ -17,15 +17,17 @@ public class Transfer {
         if (token.equals(loggedInUser.getToken())) {
             if (connection != null) {
                 try {
-                    PreparedStatement ps1 = connection.prepareStatement("SELECT balance, is_active FROM account_details WHERE account_no = ?");
+                    PreparedStatement ps1 = connection.prepareStatement("SELECT balance, is_active, customer_id FROM account_details WHERE account_no = ?");
                     ps1.setString(1, fromAccountNumber);
                     ResultSet rs = ps1.executeQuery();
-                    PreparedStatement ps2 = connection.prepareStatement("SELECT balance, is_active FROM account_details WHERE account_no = ?");
+                    PreparedStatement ps2 = connection.prepareStatement("SELECT balance, is_active, type FROM account_details WHERE account_no = ?");
                     ps2.setString(1, toAccountNumber);
                     ResultSet rs2 = ps2.executeQuery();
                     if (rs.next() && rs2.next()) {
-                        if ((transactionType.equals(Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString())
-                        || rs.getInt("is_active") == 1)&& rs2.getInt("is_active") == 1) {
+                        if (((transactionType.equals(Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString())
+                            || rs.getInt("is_active") == 1)&& rs2.getInt("is_active") == 1
+                                && !rs2.getString("type").equals(Data.AccountTypes.LOAN.toString())) ||
+                                rs.getInt("customer_id") == 1) {
                             double balanceFrom = rs.getDouble("balance");
                             if (balanceFrom >= amount) {
                                 amount-=transactionFees;

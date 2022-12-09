@@ -12,7 +12,7 @@ public class Data {
     }
     public enum AccountTypes {CHECKING, SAVINGS, LOAN, NEW_SECURITY};
     public enum TransactionTypes {TRANSACTION_FEE, ACCOUNT_CREATION_FEE, ACCOUNT_CLOSING_FEE, WITHDRAWAL_FEES, LOAN_TRANSFER,
-        DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
+        LOAN_PAYMENT, DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK};
     public enum AccountStatus {ACTIVE, CLOSED, FROZEN};
     public enum CustomerStatus {ACTIVE, INACTIVE};
     public enum Currencies {USD, INR, EUR};

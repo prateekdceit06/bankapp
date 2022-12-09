@@ -11,6 +11,13 @@ public class Customer extends User {
 
     List<ApprovedLoan> approvedLoans;
 
+    //default constructor
+    public Customer() {
+        super();
+        this.accounts = new ArrayList<>();
+        this.loans = new ArrayList<>();
+        this.approvedLoans = new ArrayList<>();
+    }
     public Customer(int id, String firstName, String lastName, String phone, String address,
                     String email, String userName, int isActive, int isAdmin, int isEmployee,
                     String token, LocalDateTime createdAt, LocalDateTime updatedAt, int hasCollateral,

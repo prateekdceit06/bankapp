@@ -54,6 +54,10 @@ public class Manager {
         return checkingAccounts;
     }
 
+    public List<AccountLoan> getLoanAccounts() {
+        return loanAccounts;
+    }
+
     public List<User> getUsers() {
         return users;
     }
