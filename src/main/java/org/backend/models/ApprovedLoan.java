@@ -10,7 +10,6 @@ public class ApprovedLoan {
     private String loanInterestUnit;
     private double remainingLoanAmount;
     private double monthlyPaymentAmount;
-
     private int loanDurationInMonths;
     private Loan loan;
 
