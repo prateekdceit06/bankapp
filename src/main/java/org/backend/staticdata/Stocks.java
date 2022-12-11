@@ -81,11 +81,57 @@ public class Stocks {
     }
 
     public static class HelperStockFunctions {
-        public boolean updateSQL(Statement stmt, String ticker, double price, Timestamp timestamp) throws SQLException {
+        public boolean pushStockToSQL(Statement stmt, int stock_id, String ticker, double price, Timestamp timestamp) throws SQLException {
             try {
-                String clearTable = "DELETE FROM stocks";
-                stmt.executeUpdate(clearTable);
-                String sql = "INSERT INTO stocks (ticker, price, timestamp) VALUES ('" + ticker + "', " + price + ", '" + timestamp + "')";
+                String sql = "INSERT INTO stocks (stock_id, stock_name, price, tradeable, ticker, price_update_date) VALUES ('" + stock_id + "', '" + ticker + "', " + price + ", 0, '" + ticker + "', '" + timestamp + "')";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean updateAll(Statement stmt, Stocks stocks) throws SQLException {
+            try {
+                int counter = 0;
+                stocks.getAllCurrentPrices();
+                for (String ticker : stocks.tickerList) {
+                    counter++;
+                    pushStockToSQL(stmt, 0, ticker, (double) stocks.tickerToPriceMap.get(ticker), new Timestamp(System.currentTimeMillis()));
+                }
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean clearTable(Statement stmt) throws SQLException {
+            try {
+                String sql = "DELETE FROM stocks";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean deleteThisStock(Statement stmt, String ticker) throws SQLException {
+            try {
+                String sql = "DELETE FROM stocks WHERE ticker = '" + ticker + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean deleteThisStock(Statement stmt, int stock_id) throws SQLException {
+            try {
+                String sql = "DELETE FROM stocks WHERE stock_id = '" + stock_id + "'";
                 stmt.executeUpdate(sql);
                 return true;
             } catch (SQLException e) {
