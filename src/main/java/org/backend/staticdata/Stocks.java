@@ -139,5 +139,49 @@ public class Stocks {
                 return false;
             }
         }
+
+        public boolean makeTradeable(Statement stmt, String ticker) throws SQLException {
+            try {
+                String sql = "UPDATE stocks SET tradeable = 1 WHERE ticker = '" + ticker + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean makeTradeable(Statement stmt, int stock_id) throws SQLException {
+            try {
+                String sql = "UPDATE stocks SET tradeable = 1 WHERE stock_id = '" + stock_id + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean makeUntradeable(Statement stmt, String ticker) throws SQLException {
+            try {
+                String sql = "UPDATE stocks SET tradeable = 0 WHERE ticker = '" + ticker + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean makeUntradeable(Statement stmt, int stock_id) throws SQLException {
+            try {
+                String sql = "UPDATE stocks SET tradeable = 0 WHERE stock_id = '" + stock_id + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
     }
 }
