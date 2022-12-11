@@ -9,12 +9,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+
+import javax.swing.plaf.nimbus.State;
 
 public class Stocks {
 
@@ -77,8 +81,17 @@ public class Stocks {
     }
 
     public static class HelperStockFunctions {
-        public boolean pushToSQL(String ticker, double price, Timestamp timestamp) {
-            return true;
+        public boolean updateSQL(Statement stmt, String ticker, double price, Timestamp timestamp) throws SQLException {
+            try {
+                String clearTable = "DELETE FROM stocks";
+                stmt.executeUpdate(clearTable);
+                String sql = "INSERT INTO stocks (ticker, price, timestamp) VALUES ('" + ticker + "', " + price + ", '" + timestamp + "')";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 }
