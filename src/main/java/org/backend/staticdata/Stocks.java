@@ -44,16 +44,15 @@ public class Stocks {
         }
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
-        Logger logger = Logger.getLogger(Stocks.class.getName());
-        Connect c = new Connect();
-        Connection conn = c.createConnection();
-        Statement stmt = conn.createStatement();
-        stmt.setQueryTimeout(30);  // set timeout to 30 sec.
+    public static void initialize(Logger logger, Statement stmt) throws SQLException, IOException {
         HelperStockFunctions helperStockFunctions = new HelperStockFunctions();
         helperStockFunctions.clearTable(stmt);
-        // Stocks stocks = new Stocks();
-        helperStockFunctions.runUpdates(stmt, logger);
+        helperStockFunctions.addAll(stmt, logger);
+    }
+
+    public static void update(Logger logger, Statement stmt) throws SQLException, IOException {
+        HelperStockFunctions helperStockFunctions = new HelperStockFunctions();
+        helperStockFunctions.updateAll(stmt, logger);
     }
 
     public double getPrice(String ticker) {
@@ -98,12 +97,15 @@ public class Stocks {
             }
         }
 
-        public boolean updateAll(Statement stmt, Stocks stocks) throws SQLException {
+        public boolean updateAll(Statement stmt, Logger logger) throws SQLException, IOException {
+            Stocks stocks = new Stocks();
             try {
                 int counter = 0;
                 for (String ticker : stocks.tickerList) {
                     counter++;
-                    pushStockToSQL(stmt, 0, ticker, (double) stocks.tickerToPriceMap.get(ticker), new Timestamp(System.currentTimeMillis()));
+                    double price = stocks.getPrice(ticker);
+                    logger.info("Updating stock: " + ticker + " with current price: " + price);
+                    pushStockToSQL(stmt, 0, ticker, price , new Timestamp(System.currentTimeMillis()));
                 }
                 return true;
             } catch (Exception e) {
@@ -200,7 +202,7 @@ public class Stocks {
             }
         }
 
-        public boolean runUpdates(Statement stmt, Logger logger) throws SQLException, IOException {
+        public boolean addAll(Statement stmt, Logger logger) throws SQLException, IOException {
             Stocks stocks = new Stocks();
             try {
                 String sql = "";
