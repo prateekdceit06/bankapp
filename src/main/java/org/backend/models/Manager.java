@@ -57,8 +57,8 @@ public class Manager {
         loadStockTransactions();
         Stocks stocks = new Stocks();
         stocks.initializeStocks();
-        TimeUnit.MINUTES.sleep(2);
-        stocks.updateStocks();
+//        TimeUnit.MINUTES.sleep(2);
+//        stocks.updateStocks();
 
     }
 
