@@ -16,7 +16,7 @@ import static org.backend.staticdata.Data.df;
 
 public class SellStock {
     public boolean sellStock(int stockId, int customerId, String accountNumber, int quantity, String stockStatus,
-                            double stockPrice, User loggedInUser){
+                            double stockPrice, User loggedInUser, int fromTransactionId){
         Connect c = new Connect();
         Connection connection = c.createConnection();
         boolean success = false;
@@ -26,8 +26,8 @@ public class SellStock {
             if(connection!=null){
                 try {
                     String query = "INSERT INTO customer_stock (stock_id, account_no, customer_id, no_of_stock, " +
-                            "status, sell_amount, transaction_date, sold_flag) " +
-                            "VALUES (?,?,?,?,?,?,?,?)";
+                            "status, sell_amount, transaction_date, sold_flag, from_transaction_id) " +
+                            "VALUES (?,?,?,?,?,?,?,?, ?)";
                     PreparedStatement pstmt = connection.prepareStatement(query);
                     pstmt.setInt(1, stockId);
                     pstmt.setString(2, accountNumber);
@@ -38,6 +38,7 @@ public class SellStock {
                     String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                     pstmt.setString(7, ts);
                     pstmt.setInt(8, 1);
+                    pstmt.setInt(9, fromTransactionId);
                     pstmt.executeUpdate();
                     pstmt.close();
                     PreparedStatement ps = connection.prepareStatement("UPDATE account_details SET " +

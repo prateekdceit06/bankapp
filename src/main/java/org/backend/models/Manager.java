@@ -5,7 +5,9 @@ import org.backend.controllers.account.Transfer;
 import org.backend.controllers.manager.*;
 import org.backend.controllers.user.StockTransaction;
 import org.backend.staticdata.Data;
+import org.backend.controllers.manager.Stocks;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Manager {
     private String bankAccountNumber;
 
 
-    public Manager() {
+    public Manager() throws SQLException {
         this.users = new ArrayList<>();
         this.customers = new ArrayList<>();
         this.savingsAccounts = new ArrayList<>();
@@ -51,6 +53,8 @@ public class Manager {
         loadApprovedLoansData();
         loadStockData();
         loadStockTransactions();
+        Stocks stocks = new Stocks();
+        stocks.initializeStocks();
     }
 
 

@@ -9,12 +9,13 @@ import org.backend.staticdata.SHA256;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Manager manager = new Manager();
         Menu menu = new Menu();
         User loggedInUser = null;
@@ -992,6 +993,8 @@ public class Main {
                             int quantity = Integer.parseInt(br.readLine());
                             System.out.print("Account Number: ");
                             String accountNumber = br.readLine();
+                            System.out.print("From Transaction ID: ");
+                            int fromTransactionId = Integer.parseInt(br.readLine());
                             //find account in manager accounts
                             manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
@@ -1012,14 +1015,14 @@ public class Main {
                                 }
                             }
                             if (tempStock != null) {
-                                if(customer.getStockCount().containsKey(stockId)
+                                if (customer.getStockCount().containsKey(stockId)
                                         && customer.getStockCount().get(stockId) >= quantity) {
                                     for (Account account : customer.getAccounts()) {
                                         if (account instanceof AccountNewSecurity) {
                                             if (account.getAccountNumber().equals(accountNumber)) {
                                                 //buy stock
                                                 sellStockSuccess = ((AccountNewSecurity) account).sellStock(tempStock,
-                                                        account.getAccountNumber(), quantity, loggedInUser);
+                                                        account.getAccountNumber(), quantity, loggedInUser, fromTransactionId);
                                                 if (sellStockSuccess) {
                                                     System.out.println("Stock Sold");
                                                 } else {
@@ -1071,12 +1074,12 @@ public class Main {
                         }
                         break;
                     case 30: //pay interest
-                        if(loggedInUser!=null && loggedInUser.getId() == 1) {
+                        if (loggedInUser != null && loggedInUser.getId() == 1) {
                             manager.loadAllData();
                             loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
                             double interestRate = 10;
                             boolean success = manager.payInterest(interestRate, loggedInUser);
-                            if(success) {
+                            if (success) {
                                 System.out.println("Interest Paid");
                             } else {
                                 System.out.println("Something went wrong. Interest Payment Failed.");
@@ -1101,30 +1104,6 @@ public class Main {
                 System.out.println(e.getMessage());
                 System.out.println("Invalid input");
             }
-//            finally {
-//                try {
-//                    br.close();
-//                } catch (Exception e) {
-//                    System.out.println("Error closing BufferedReader");
-//                }
-//            }
         }
-
-
-//    customer registration form invoke;
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CustomerRegistration().setVisible(true);
-//            }
-//        });
-
-        /* Create and display the login form */
-        // java.awt.EventQueue.invokeLater(new Runnable() {
-        //     public void run() {
-        //         new CustomerLogin().setVisible(true);
-        //     }
-        // });
     }
-
-
 }

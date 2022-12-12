@@ -7,6 +7,7 @@ public class StockTransaction {
     private int stockId;
     private String accountNumber;
     private int customerId;
+    private int fromTransactionId;
     private int quantity;
     private String status;
     private double buyPrice;
@@ -19,7 +20,7 @@ public class StockTransaction {
 
     public StockTransaction(int stockTransactionId, int stockId, String accountNumber, int customerId,
                             int quantity, String status, double buyPrice, double sellPrice,
-                            int sold_flag, LocalDateTime transactionDate) {
+                            int sold_flag, LocalDateTime transactionDate, int fromTransactionId) {
         this.stockTransactionId = stockTransactionId;
         this.stockId = stockId;
         this.accountNumber = accountNumber;
@@ -30,6 +31,7 @@ public class StockTransaction {
         this.sellPrice = sellPrice;
         this.sold_flag = sold_flag;
         this.transactionDate = transactionDate;
+        this.fromTransactionId = fromTransactionId;
     }
 
     public int getStockTransactionId() {
@@ -120,6 +122,7 @@ public class StockTransaction {
                 ", stockId=" + stockId +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", customerId=" + customerId +
+                ", fromTransactionId=" + fromTransactionId +
                 ", quantity=" + quantity +
                 ", status='" + status + '\'' +
                 ", buyPrice=" + buyPrice +

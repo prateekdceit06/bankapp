@@ -43,11 +43,11 @@ public class AccountNewSecurity extends Account {
         return success;
     }
 
-    public boolean sellStock(Stock stock,  String accountNumber,int quantity, User loggedInUser){
+    public boolean sellStock(Stock stock,  String accountNumber,int quantity, User loggedInUser, int fromTransactionId){
         boolean success;
         SellStock sellStock = new SellStock();
         success = sellStock.sellStock(stock.getStockId(), loggedInUser.getId(), accountNumber, quantity,
-                Data.StockStatus.SOLD.toString(), stock.getCurrentPrice(), loggedInUser);
+                Data.StockStatus.SOLD.toString(), stock.getCurrentPrice(), loggedInUser, fromTransactionId);
         return success;
     }
 

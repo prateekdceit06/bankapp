@@ -4,12 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Data {
-
-    public static void pause(){
-        System.out.print("[MESSAGE] Press enter to continue.\n");
-        Scanner s = new Scanner(System.in);
-        s.nextLine();
-    }
     public enum AccountTypes {CHECKING, SAVINGS, LOAN, NEW_SECURITY};
     public enum TransactionTypes {TRANSACTION_FEE, ACCOUNT_CREATION_FEE, ACCOUNT_CLOSING_FEE, WITHDRAWAL_FEES, LOAN_TRANSFER,
         LOAN_PAYMENT, DEPOSIT, WITHDRAWAL, TRANSFER, BUY_STOCK, SELL_STOCK, INTEREST_PAYMENT};
