@@ -62,9 +62,22 @@ public class Stocks {
         }
     }
 
-    public void updateStocks(Logger logger, Statement stmt) throws SQLException, IOException {
+    public void updateStocks() throws SQLException, IOException {
+        Connect connect = new Connect();
+        Connection connection = connect.createConnection();
+        Logger logger = Logger.getLogger(Stocks.class.getName());
         HelperStockFunctions helperStockFunctions = new HelperStockFunctions();
-        helperStockFunctions.updateAll(stmt, logger);
+        try{
+            Statement stmt = connection.createStatement();
+            stmt.setQueryTimeout(30);  // set timeout to 30 sec.
+            helperStockFunctions.updateAll(stmt, logger);
+            stmt.close();
+        } catch (SQLException | IOException e) {
+            logger.log(Level.SEVERE, "Error in initializing stocks", e);
+        } finally {
+            if(connection!=null)
+                connection.close();
+        }
     }
 
     private double getPrice(String ticker) {

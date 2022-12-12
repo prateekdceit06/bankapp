@@ -7,10 +7,12 @@ import org.backend.controllers.user.StockTransaction;
 import org.backend.staticdata.Data;
 import org.backend.controllers.manager.Stocks;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Manager {
     private List<User> users;
@@ -30,7 +32,7 @@ public class Manager {
     private String bankAccountNumber;
 
 
-    public Manager() throws SQLException {
+    public Manager() throws SQLException, InterruptedException, IOException {
         this.users = new ArrayList<>();
         this.customers = new ArrayList<>();
         this.savingsAccounts = new ArrayList<>();
@@ -55,6 +57,9 @@ public class Manager {
         loadStockTransactions();
         Stocks stocks = new Stocks();
         stocks.initializeStocks();
+        TimeUnit.MINUTES.sleep(2);
+        stocks.updateStocks();
+
     }
 
 
