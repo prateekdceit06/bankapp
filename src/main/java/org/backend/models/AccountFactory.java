@@ -17,6 +17,9 @@ public class AccountFactory {
         } else if (accountType.equals(Data.AccountTypes.LOAN.toString())) {
             return new AccountLoan(customerId, accountNumber, accountType, accountBalance, accountStatus,
                     accountCreationDate, accountLastUpdatedDate);
+        } else if (accountType.equals(Data.AccountTypes.NEW_SECURITY.toString())){
+            return new AccountNewSecurity(customerId, accountNumber, accountType, accountBalance, accountStatus,
+                    accountCreationDate, accountLastUpdatedDate);
         }
         return null;
     }

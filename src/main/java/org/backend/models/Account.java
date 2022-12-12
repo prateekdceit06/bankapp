@@ -116,10 +116,10 @@ public abstract class Account {
                 "accountLastUpdatedDate=" + accountLastUpdatedDate + "]\n";
     }
 
-    public boolean createAccount(User loggedInUser, List<String> accountNumbers) {
+    public boolean createAccount(User loggedInUser, List<String> accountNumbers, String fromCurrency) {
         boolean accountCreated = false;
         CreateAccount createAccount = new CreateAccount();
-        accountCreated = createAccount.createAccount(this, loggedInUser, accountNumbers);
+        accountCreated = createAccount.createAccount(this, loggedInUser, accountNumbers, fromCurrency);
         return accountCreated;
     }
 

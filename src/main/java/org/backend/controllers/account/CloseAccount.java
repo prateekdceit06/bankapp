@@ -19,7 +19,7 @@ public class CloseAccount {
         if (connection != null) {
             try {
                 double remainingBalance = 0;
-                remainingBalance = Data.checkingAccountClosingFees;
+                remainingBalance = Data.accountClosingFees;
                 PreparedStatement ps = connection.prepareStatement("UPDATE account_details SET is_active = ?," +
                         "updated_date=?, balance=? " +
                         "WHERE account_no = ?");

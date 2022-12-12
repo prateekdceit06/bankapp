@@ -38,14 +38,14 @@ public class AccountLoan extends Account {
         return success;
     }
 
-    public boolean payLoan(int loanId, double amount, String toAccountNumber, User loggedInUser) {
+    public boolean payLoan(int loanId, double amount, String toAccountNumber, User loggedInUser, String fromCurrency) {
         boolean success =false;
         PayLoan payLoan = new PayLoan();
         if(amount >0){
             double amountDeposited = payLoan.payLoan(loanId, amount, loggedInUser);
             Deposit deposit = new Deposit();
             success = deposit.deposit(amountDeposited, 0, toAccountNumber,
-                    Data.TransactionTypes.LOAN_PAYMENT.toString(), loggedInUser);
+                    Data.TransactionTypes.LOAN_PAYMENT.toString(), loggedInUser, fromCurrency);
         }
         return success;
     }

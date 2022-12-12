@@ -2,14 +2,17 @@ package org.backend.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Customer extends User {
 
-    List<Account> accounts;
-    List<Loan> loans;
+    private List<Account> accounts;
+    private List<Loan> loans;
 
-    List<ApprovedLoan> approvedLoans;
+    private List<ApprovedLoan> approvedLoans;
+
+    private HashMap<Integer, Integer> stockCount;
 
     //default constructor
     public Customer() {
@@ -17,6 +20,7 @@ public class Customer extends User {
         this.accounts = new ArrayList<>();
         this.loans = new ArrayList<>();
         this.approvedLoans = new ArrayList<>();
+        this.stockCount = new HashMap<>();
     }
     public Customer(int id, String firstName, String lastName, String phone, String address,
                     String email, String userName, int isActive, int isAdmin, int isEmployee,
@@ -27,6 +31,7 @@ public class Customer extends User {
         this.accounts = new ArrayList<>();
         this.loans = new ArrayList<>();
         this.approvedLoans = new ArrayList<>();
+        this.stockCount = new HashMap<>();
     }
 
     public List<Account> getAccounts() {
@@ -50,6 +55,14 @@ public class Customer extends User {
     }
     public void setApprovedLoans(List<ApprovedLoan> approvedLoans) {
         this.approvedLoans = approvedLoans;
+    }
+
+    public HashMap<Integer, Integer> getStockCount() {
+        return stockCount;
+    }
+
+    public void setStockCount(HashMap<Integer, Integer> stockCount) {
+        this.stockCount = stockCount;
     }
 
     @Override

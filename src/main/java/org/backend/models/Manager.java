@@ -1,9 +1,13 @@
 package org.backend.models;
 
 
+import org.backend.controllers.account.Transfer;
 import org.backend.controllers.manager.*;
+import org.backend.controllers.user.StockTransaction;
+import org.backend.staticdata.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Manager {
@@ -17,6 +21,9 @@ public class Manager {
     private List<Transaction> ledger;
     private List<Loan> loans;
     private List<ApprovedLoan> approvedLoans;
+    private List<Stock> stocks;
+    private List<Stock> buyableStocks;
+    private List<StockTransaction> stockTransactions;
     private User loggedInUser;
     private String bankAccountNumber;
 
@@ -33,12 +40,17 @@ public class Manager {
         this.loans = new ArrayList<>();
         this.approvedLoans = new ArrayList<>();
         this.loanAccounts = new ArrayList<>();
+        this.stocks = new ArrayList<>();
+        this.buyableStocks = new ArrayList<>();
+        this.stockTransactions = new ArrayList<>();
         initializeBank();
         loadAccounts();
         loadUserData();
         loadTransactions();
         loadLoans();
         loadApprovedLoansData();
+        loadStockData();
+        loadStockTransactions();
     }
 
 
@@ -90,6 +102,30 @@ public class Manager {
         this.loans = loans;
     }
 
+    public List<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
+    }
+
+    public List<Stock> getBuyableStocks() {
+        return buyableStocks;
+    }
+
+    public void setBuyableStocks(List<Stock> buyableStocks) {
+        this.buyableStocks = buyableStocks;
+    }
+
+    public List<StockTransaction> getStockTransactions() {
+        return stockTransactions;
+    }
+
+    public void setStockTransactions(List<StockTransaction> stockTransactions) {
+        this.stockTransactions = stockTransactions;
+    }
+
     private void loadAccounts() {
         savingsAccounts.clear();
         checkingAccounts.clear();
@@ -101,7 +137,7 @@ public class Manager {
 
         if (accounts != null && accounts.size() > 0) {
             for (Account account : accounts) {
-                if(account instanceof AccountSavings) {
+                if (account instanceof AccountSavings) {
                     savingsAccounts.add((AccountSavings) account);
                 } else if (account instanceof AccountChecking) {
                     checkingAccounts.add((AccountChecking) account);
@@ -205,7 +241,10 @@ public class Manager {
         loadTransactions();
         loadLoans();
         loadApprovedLoansData();
+        loadStockData();
+        loadStockTransactions();
     }
+
 
     private void loadApprovedLoansData() {
         approvedLoans.clear();
@@ -219,9 +258,9 @@ public class Manager {
                     if (approvedLoan.getCustomerId() == customer.getId()) {
                         if (customer.getApprovedLoans() != null) {
                             customer.getApprovedLoans().add(approvedLoan);
-                            if(customer.getLoans()!=null){
-                                for(Loan loan : customer.getLoans()){
-                                    if(loan.getLoanId() == approvedLoan.getLoanId()){
+                            if (customer.getLoans() != null) {
+                                for (Loan loan : customer.getLoans()) {
+                                    if (loan.getLoanId() == approvedLoan.getLoanId()) {
                                         approvedLoan.setLoan(loan);
                                     }
                                 }
@@ -231,5 +270,99 @@ public class Manager {
                 }
             }
         }
+    }
+
+
+    private void loadStockData() {
+        stocks.clear();
+        buyableStocks.clear();
+        LoadStockData loadStockData = new LoadStockData();
+        stocks = loadStockData.loadStockData();
+        for (Stock stock : stocks) {
+            if (stock.getTradable() == 1) {
+                buyableStocks.add(stock);
+            }
+        }
+
+    }
+
+
+    private void loadStockTransactions() {
+        stockTransactions.clear();
+        LoadStockTransactions loadStockTransactions = new LoadStockTransactions();
+        stockTransactions = loadStockTransactions.loadStockTransactions();
+        //add stock transactions to accounts
+        for (Account account : accounts) {
+            if (account instanceof AccountNewSecurity) {
+                for (StockTransaction stockTransaction : stockTransactions) {
+                    if (stockTransaction.getAccountNumber().equals(account.getAccountNumber())) {
+                        if (((AccountNewSecurity) account).getStockTransactions() != null) {
+                            ((AccountNewSecurity) account).getStockTransactions().add(stockTransaction);
+                        }
+                    }
+                }
+            }
+        }
+
+        HashMap<Integer, Integer> stockBought = new HashMap<>();
+        HashMap<Integer, Integer> stockSold = new HashMap<>();
+
+        for (Customer customer : customers) {
+            stockSold.clear();
+            stockBought.clear();
+            for (Account account : customer.getAccounts()) {
+                if (account instanceof AccountNewSecurity) {
+                    for (StockTransaction stockTransaction : stockTransactions) {
+                        if (stockTransaction.getSold_flag() == 0) {
+                            if (stockBought.containsKey(stockTransaction.getStockId())) {
+                                stockBought.put(stockTransaction.getStockId(), stockBought.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
+                            } else {
+                                stockBought.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
+                            }
+                        } else {
+                            if (stockSold.containsKey(stockTransaction.getStockId())) {
+                                stockSold.put(stockTransaction.getStockId(), stockSold.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
+                            } else {
+                                stockSold.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
+                            }
+                        }
+                    }
+                    for (Integer key : stockBought.keySet()) {
+                        if (stockSold.containsKey(key)) {
+                            customer.getStockCount().put(key, stockBought.get(key) - stockSold.get(key));
+                        } else {
+                            customer.getStockCount().put(key, stockBought.get(key));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean payInterest(double interestRate, User loggedInUser) {
+        boolean success = true;
+        for (Account account : accounts) {
+            if (account instanceof AccountSavings) {
+                if (account.getAccountStatus() == 1 && account.getCustomerId() != 1) {
+                    if (account.getAccountBalance() > 0) {
+                        GetInterestDuration getInterestDuration = new GetInterestDuration();
+                        int numberOfMonths = getInterestDuration.getInterestDuration(loggedInUser);
+                        double interest = account.getAccountBalance() * numberOfMonths * interestRate / 100;
+                        boolean transferSuccess = false;
+                        Transfer transfer = new Transfer();
+                        transferSuccess = transfer.transfer(interest, 0, account.getAccountNumber(),
+                                Data.TransactionTypes.INTEREST_PAYMENT.toString(),
+                                bankAccountNumber, loggedInUser);
+                        success = success && transferSuccess;
+                    }
+                }
+            }
+        }
+        boolean result = false;
+        if(success){
+            UpdateInterestPaidDate updateInterestPaidDate = new UpdateInterestPaidDate();
+            result = updateInterestPaidDate.updateInterestPaidDate(loggedInUser);
+        }
+        return (success && result);
     }
 }

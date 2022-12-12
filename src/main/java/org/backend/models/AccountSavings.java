@@ -8,6 +8,9 @@ import org.backend.staticdata.Data;
 import java.time.LocalDateTime;
 
 public class AccountSavings extends Account{
+    //default constructor
+    public AccountSavings() {
+    }
     public AccountSavings(int customerId, String accountType, double accountBalance, int accountStatus) {
         super(customerId, accountType, accountBalance, accountStatus);
     }
@@ -35,11 +38,12 @@ public class AccountSavings extends Account{
         return success;
     }
 
-    public boolean deposit(double amount, String fromAccountNumber, User loggedInUser) {
+    public boolean deposit(double amount, String fromAccountNumber, User loggedInUser, String fromCurrency) {
         boolean success = false;
         if (this.getAccountStatus() ==1) {
             Deposit deposit = new Deposit();
-            success = deposit.deposit(amount, 0,fromAccountNumber, Data.TransactionTypes.DEPOSIT.toString(), loggedInUser);
+            success = deposit.deposit(amount, 0,fromAccountNumber,
+                    Data.TransactionTypes.DEPOSIT.toString(), loggedInUser, fromCurrency);
         }
         return success;
     }

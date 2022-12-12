@@ -27,6 +27,11 @@ public class Menu {
         System.out.println("23 Approve/Reject Loan");
         System.out.println("24 Pay loan by cash");
         System.out.println("25 Pay loan by transfer");
+        System.out.println("26 Create a new securities account");
+        System.out.println("27 Buy a stock");
+        System.out.println("28 Sell a stock");
+        System.out.println("29 Update a stock");
+        System.out.println("30 Pay Interest");
         System.out.println("99 Exit");
 
     }

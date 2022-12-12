@@ -35,7 +35,7 @@ public class AccountChecking extends Account{
 
     public boolean withdraw(double amount, String fromAccountNumber,
                             String bankAccountNumber, User loggedInUser) {
-        double transactionFee = amount*Data.checkingAccountTransferTransactionFees;
+        double transactionFee = amount*Data.checkingAccountWithdrawalFees;
         amount = amount + transactionFee;
         boolean success = false;
         if (this.getAccountBalance() >= amount && this.getAccountStatus() ==1) {
@@ -51,14 +51,14 @@ public class AccountChecking extends Account{
     }
 
     public boolean deposit(double amount, String fromAccountNumber,
-                            String bankAccountNumber, User loggedInUser) {
+                            String bankAccountNumber, User loggedInUser, String fromCurrency) {
         double transactionFee = amount*Data.checkingAccountTransferTransactionFees;
         amount = amount + transactionFee;
         boolean success = false;
         if (this.getAccountStatus() ==1) {
             Deposit deposit = new Deposit();
             boolean withdrawAmountSuccess = deposit.deposit(amount, transactionFee,
-                    fromAccountNumber, Data.TransactionTypes.DEPOSIT.toString(), loggedInUser);
+                    fromAccountNumber, Data.TransactionTypes.DEPOSIT.toString(), loggedInUser, fromCurrency);
             Transfer transfer = new Transfer();
             boolean transferTransactionFeeSuccess = transfer.transfer(transactionFee,0,
                     fromAccountNumber, Data.TransactionTypes.TRANSACTION_FEE.toString(), bankAccountNumber , loggedInUser);

@@ -15,12 +15,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class CreateAccount {
-    public boolean createAccount(Account account, User loggedInUser, List<String> accountNumbers) {
+    public boolean createAccount(Account account, User loggedInUser, List<String> accountNumbers, String fromCurrency) {
         boolean accountCreated = false;
         Connect connect = new Connect();
         Connection connection = connect.createConnection();
         GenerateAccountNumber generateAccountNumber = new GenerateAccountNumber();
         String accountNumber = generateAccountNumber.generateAccountNumber();
+        CurrencyConversion currencyConversion = new CurrencyConversion();
+        account.setAccountBalance(currencyConversion.convertCurrency(account.getAccountBalance(), fromCurrency));
         if(accountNumbers != null && accountNumbers.size()>0){
             while (true) {
                 if (accountNumbers.contains(accountNumber)) {

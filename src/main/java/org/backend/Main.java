@@ -269,7 +269,8 @@ public class Main {
                             Account savingsAccount = new AccountSavings(loggedInUser.getId(),
                                     Data.AccountTypes.SAVINGS.toString(), accountBalance, 1);
                             List<String> accountNumbers = manager.getAccountNumbers();
-                            createSavingsAccountSuccess = savingsAccount.createAccount(loggedInUser, accountNumbers);
+                            String fromCurrency = "USD";
+                            createSavingsAccountSuccess = savingsAccount.createAccount(loggedInUser, accountNumbers, fromCurrency);
                             if (createSavingsAccountSuccess) {
                                 System.out.println("Account created successfully");
                                 Transfer transfer = new Transfer();
@@ -296,7 +297,8 @@ public class Main {
                             List<String> accountNumbers = manager.getAccountNumbers();
                             Account checkingAccount = new AccountChecking(loggedInUser.getId(),
                                     Data.AccountTypes.CHECKING.toString(), accountBalance, 1);
-                            createCheckingAccountSuccess = checkingAccount.createAccount(loggedInUser, accountNumbers);
+                            String fromCurrency = "USD";
+                            createCheckingAccountSuccess = checkingAccount.createAccount(loggedInUser, accountNumbers, fromCurrency);
                             if (createCheckingAccountSuccess) {
                                 System.out.println("Account created successfully");
                                 Transfer transfer = new Transfer();
@@ -381,7 +383,7 @@ public class Main {
                                         if (closeAccountSuccess) {
                                             System.out.println("Account closed successfully");
                                             Transfer transfer = new Transfer();
-                                            transfer.transfer(Data.checkingAccountClosingFees,
+                                            transfer.transfer(Data.accountClosingFees,
                                                     0,
                                                     account.getAccountNumber(), Data.TransactionTypes.ACCOUNT_CLOSING_FEE.toString(),
                                                     manager.getBankAccountNumber(), loggedInUser);
@@ -576,7 +578,9 @@ public class Main {
                                     if (accountSavings.getCustomerId() == loggedInUser.getId() &&
                                             accountSavings.getAccountNumber().equals(accountNumber)) {
                                         //deposit money
-                                        boolean depositMoneySuccess = accountSavings.deposit(amount, accountNumber, loggedInUser);
+                                        String fromCurrency = "USD";
+                                        boolean depositMoneySuccess = accountSavings.deposit(amount,
+                                                accountNumber, loggedInUser, fromCurrency);
                                         if (depositMoneySuccess) {
                                             System.out.println("Money deposited successfully");
                                         } else {
@@ -588,8 +592,9 @@ public class Main {
                                     if (checkingAccount.getCustomerId() == loggedInUser.getId() &&
                                             checkingAccount.getAccountNumber().equals(accountNumber)) {
                                         //deposit money
+                                        String fromCurrency = "USD";
                                         boolean depositMoneySuccess = checkingAccount.deposit(amount, accountNumber,
-                                                manager.getBankAccountNumber(), loggedInUser);
+                                                manager.getBankAccountNumber(), loggedInUser, fromCurrency);
                                         if (depositMoneySuccess) {
                                             System.out.println("Money deposited successfully");
                                         } else {
@@ -733,7 +738,8 @@ public class Main {
                                                             break;
                                                         }
                                                     }
-                                                    loanAccount.createAccount(loggedInUser, manager.getAccountNumbers());
+                                                    String fromCurrency = "USD";
+                                                    loanAccount.createAccount(loggedInUser, manager.getAccountNumbers(), fromCurrency);
                                                     double sanctionAmount = 10000;
                                                     double interestRate = 10;
                                                     int loanDurationInMonths = 12;
@@ -795,8 +801,9 @@ public class Main {
                                         for (AccountLoan loanAccount : manager.getLoanAccounts()) {
                                             if (loanAccount.getAccountNumber().equals(approvedLoan.getAccountNumber())) {
                                                 //pay loan
+                                                String fromCurrency = "USD";
                                                 boolean loanPaid = loanAccount.payLoan(loanId, amount,
-                                                        manager.getBankAccountNumber(), customer);
+                                                        manager.getBankAccountNumber(), customer, fromCurrency);
                                                 if (loanPaid) {
                                                     System.out.println("Loan Paid");
                                                 } else {
@@ -834,8 +841,8 @@ public class Main {
                                 }
                             }
                             Account tempAccount = null;
-                            for(Account account: manager.getAccounts()){
-                                if(account.getAccountNumber().equals(fromAccountNo)){
+                            for (Account account : manager.getAccounts()) {
+                                if (account.getAccountNumber().equals(fromAccountNo)) {
                                     tempAccount = account;
                                     break;
                                 }
@@ -866,7 +873,220 @@ public class Main {
                             }
                         }
                         break;
+                    case 26: //create new securities account
+                        if (loggedInUser != null) {
+                            boolean createNewSecurityAccountSuccess = false;
+                            System.out.println("Enter Account Details");
+                            System.out.print("Account Number: ");
+                            String accountNumber = br.readLine();
+                            System.out.print("Initial Balance: ");
+                            double initialBalance = Double.parseDouble(Data.df.format(Double.parseDouble(br.readLine())));
+                            //find account in manager accounts
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            Account moneyTransferAccount = new AccountSavings();
+                            int totalSavingAccountBalance = 0;
+                            for (Account account : manager.getAccounts()) {
+                                if (loggedInUser.getId() == account.getCustomerId() &&
+                                        account.getAccountStatus() == 1) {
+                                    //create new securities account
+                                    if (account instanceof AccountSavings) {
+                                        totalSavingAccountBalance += account.getAccountBalance();
+                                    }
+                                }
+                            }
+                            if (totalSavingAccountBalance > (Data.minimumSavingsBalanceForNewSecurityAccount +
+                                    initialBalance)) {
+                                for (Account account : manager.getAccounts()) {
+                                    if (loggedInUser.getId() == account.getCustomerId() &&
+                                            account.getAccountNumber().equals(accountNumber)) {
+                                        //create new securities account
+                                        if (account instanceof AccountSavings && initialBalance >=
+                                                Data.minimumTransferBalanceForNewSecurities && initialBalance <=
+                                                account.getAccountBalance()) {
+                                            moneyTransferAccount = account;
+                                            Account newSecurityAccount = new AccountNewSecurity(loggedInUser.getId(),
+                                                    Data.AccountTypes.NEW_SECURITY.toString(), 0, 1);
+                                            List<String> accountNumbers = manager.getAccountNumbers();
+                                            String fromCurrency = "USD";
+                                            createNewSecurityAccountSuccess = newSecurityAccount.createAccount(loggedInUser,
+                                                    accountNumbers, fromCurrency);
+                                            if (createNewSecurityAccountSuccess) {
+                                                boolean success = ((AccountSavings) moneyTransferAccount).transfer(initialBalance,
+                                                        moneyTransferAccount.getAccountNumber(),
+                                                        newSecurityAccount.getAccountNumber(), loggedInUser);
+                                                if (success) {
+                                                    Transfer transfer = new Transfer();
+                                                    transfer.transfer(Data.savingsAccountCreationFees,
+                                                            0,
+                                                            newSecurityAccount.getAccountNumber(), Data.TransactionTypes.ACCOUNT_CREATION_FEE.toString(),
+                                                            manager.getBankAccountNumber(), loggedInUser);
+                                                    System.out.println("New Securities Account Created");
+                                                } else {
+                                                    System.out.println("Something went wrong. New Securities Account Creation Failed.");
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
 
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
+                    case 27: //buy stock
+                        if (loggedInUser != null) {
+                            boolean buyStockSuccess = false;
+                            System.out.println("Enter Stock Details");
+                            System.out.print("Stock Id: ");
+                            int stockId = Integer.parseInt(br.readLine());
+                            System.out.print("Quantity: ");
+                            int quantity = Integer.parseInt(br.readLine());
+                            System.out.print("Account Number: ");
+                            String accountNumber = br.readLine();
+                            //find account in manager accounts
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            //find stock in manager buyableStocks
+                            for (Stock buyableStock : manager.getBuyableStocks()) {
+                                if (buyableStock.getStockId() == stockId) {
+                                    //find account in manager accounts
+                                    for (Account account : manager.getAccounts()) {
+                                        if (account instanceof AccountNewSecurity) {
+                                            if (account.getAccountNumber().equals(accountNumber)) {
+                                                //buy stock
+                                                if (account.getAccountBalance() >= (buyableStock.getCurrentPrice() * quantity)) {
+                                                    buyStockSuccess = ((AccountNewSecurity) account).buyStock(buyableStock,
+                                                            account.getAccountNumber(), quantity, loggedInUser);
+                                                    if (buyStockSuccess) {
+                                                        System.out.println("Stock Bought");
+                                                    } else {
+                                                        System.out.println("Something went wrong. Stock Buying Failed.");
+                                                    }
+                                                    break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("Please login first");
+                        }
+
+                        break;
+                    case 28: //sell stock
+                        if (loggedInUser != null) {
+                            boolean sellStockSuccess = false;
+                            System.out.println("Enter Stock Details");
+                            System.out.print("Stock Id: ");
+                            int stockId = Integer.parseInt(br.readLine());
+                            System.out.print("Quantity: ");
+                            int quantity = Integer.parseInt(br.readLine());
+                            System.out.print("Account Number: ");
+                            String accountNumber = br.readLine();
+                            //find account in manager accounts
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            //find stock in manager buyableStocks
+                            Customer customer = new Customer();
+                            for (Customer cust : manager.getCustomers()) {
+                                if (cust.getId() == loggedInUser.getId()) {
+                                    customer = cust;
+                                    break;
+                                }
+                            }
+                            Stock tempStock = null;
+                            //find stockId in managers stocks
+                            for (Stock stock : manager.getStocks()) {
+                                if (stock.getStockId() == stockId) {
+                                    tempStock = stock;
+                                    break;
+                                }
+                            }
+                            if (tempStock != null) {
+                                if(customer.getStockCount().containsKey(stockId)
+                                        && customer.getStockCount().get(stockId) >= quantity) {
+                                    for (Account account : customer.getAccounts()) {
+                                        if (account instanceof AccountNewSecurity) {
+                                            if (account.getAccountNumber().equals(accountNumber)) {
+                                                //buy stock
+                                                sellStockSuccess = ((AccountNewSecurity) account).sellStock(tempStock,
+                                                        account.getAccountNumber(), quantity, loggedInUser);
+                                                if (sellStockSuccess) {
+                                                    System.out.println("Stock Sold");
+                                                } else {
+                                                    System.out.println("Something went wrong. Stock Buying Failed.");
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("Please login first");
+                        }
+
+                        break;
+                    case 29: //update stocks
+                        if (loggedInUser != null && loggedInUser.getId() == 1) {
+                            boolean updateStocksSuccess = false;
+                            System.out.println("Enter Stock Details");
+                            System.out.print("Stock Id: ");
+                            int stockId = Integer.parseInt(br.readLine());
+                            System.out.print("New Stock Price: ");
+                            double newStockPrice = Double.parseDouble(br.readLine());
+                            System.out.print("Tradable: ");
+                            int tradable = Integer.parseInt(br.readLine());
+                            Stock updatedStock = new Stock(stockId, newStockPrice, tradable);
+                            //find stock in manager stocks
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            for (Stock stock : manager.getStocks()) {
+                                if (stock.getStockId() == stockId) {
+                                    //update stock
+                                    updateStocksSuccess = stock.updateStock(loggedInUser, updatedStock);
+                                    if (updateStocksSuccess) {
+                                        System.out.println("Stock Updated");
+                                    } else {
+                                        System.out.println("Something went wrong. Stock Update Failed.");
+                                    }
+                                    break;
+                                }
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
+                    case 30: //pay interest
+                        if(loggedInUser!=null && loggedInUser.getId() == 1) {
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                            double interestRate = 10;
+                            boolean success = manager.payInterest(interestRate, loggedInUser);
+                            if(success) {
+                                System.out.println("Interest Paid");
+                            } else {
+                                System.out.println("Something went wrong. Interest Payment Failed.");
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
                     case 99: //exit
                         System.out.println("Thank you for using our application");
                         System.exit(0);

@@ -10,11 +10,13 @@ import java.sql.*;
 
 public class Deposit {
     public static boolean deposit(double amount, double transactionFees, String fromAccountNumber,
-                                  String transactionType, User loggedInUser) {
+                                  String transactionType, User loggedInUser, String fromCurrency) {
         boolean isDeposit = false;
         Connect connect = new Connect();
         Connection connection = connect.createConnection();
         String token = loggedInUser.getToken();
+        CurrencyConversion currencyConversion = new CurrencyConversion();
+        amount  = currencyConversion.convertCurrency(amount, fromCurrency);
         if (token.equals(loggedInUser.getToken())) {
             if (connection != null) {
                 try {
