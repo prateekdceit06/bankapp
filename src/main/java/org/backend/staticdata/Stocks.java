@@ -26,22 +26,24 @@ public class Stocks {
     HashMap tickerToPriceMap;
     Logger logger = Logger.getLogger(Stocks.class.getName());
 
-    public Stocks() {
-        tickerList = new String[]{"AAPL", "MSFT", "AMZN", "GOOG", "FB", "TSLA", "BRK.B", "JPM", "JNJ", "V", "PG", "UNH", "HD", "MA", "DIS", "VZ", "NVDA", "PYPL", "ADBE", "CMCSA", "NFLX", "CRM", "INTC", "T", "PEP", "BAC", "CSCO", "KO", "ABT", "NKE", "XOM", "WMT", "TMO", "MRK", "PFE", "ABBV", "ACN", "AVGO", "COST", "CVX", "DHR", "DOW", "DUK", "MDT", "MCD", "NEE"};
+    public Stocks() throws IOException {
+        tickerList = new String[]{"AAPL", "MSFT", "AMZN", "GOOG", "TSLA", "JPM", "JNJ", "V", "PG", "UNH", "HD", "MA", "DIS", "VZ", "NVDA", "PYPL", "ADBE", "CMCSA", "NFLX", "CRM", "INTC", "T", "PEP", "BAC", "CSCO", "KO", "ABT", "NKE", "XOM", "WMT", "TMO", "MRK", "PFE", "ABBV", "ACN", "AVGO", "COST", "CVX", "DHR", "DOW", "DUK", "MDT", "MCD", "NEE"};
         tickerToPriceMap = new HashMap();
         for (String ticker : tickerList) {
             tickerToPriceMap.put(ticker, 0.0);
         }
+        getAllCurrentPrices();
     }
 
     public static void main(String[] args) throws IOException {
-
         Stocks stocks = new Stocks();
-        System.out.println(stocks.getAllCurrentPrices());
-        // print ticketToPriceMap here
-        for (String ticker : stocks.tickerList) {
-            System.out.println(ticker + ": " + stocks.tickerToPriceMap.get(ticker));
-        }
+        HelperStockFunctions helperStockFunctions = new HelperStockFunctions();
+        helperStockFunctions.runUpdates(stocks);
+    }
+
+    public double getPrice(String ticker) {
+        Double price = Double.valueOf((Integer) tickerToPriceMap.get(ticker));
+        return price;
     }
 
     public int getAllCurrentPrices() throws IOException {
@@ -58,7 +60,7 @@ public class Stocks {
         return counter;
     }
 
-    public Object getStock(String ticker) throws IOException {
+    public int getStock(String ticker) throws IOException {
         String API_URL = "https://query1.finance.yahoo.com/v11/finance/quoteSummary/" + ticker + "?modules=financialData";
         logger.info("API_URL: " + API_URL);
 
@@ -77,7 +79,10 @@ public class Stocks {
         reader.close();
         JSONObject jsonObject = new JSONObject(response.toString());
 
-        return jsonObject.getJSONObject("quoteSummary").getJSONArray("result").getJSONObject(0).getJSONObject("financialData").getJSONObject("currentPrice").get("raw");
+        Object raw = jsonObject.getJSONObject("quoteSummary").getJSONArray("result").getJSONObject(0).getJSONObject("financialData").getJSONObject("currentPrice").get("raw");
+        Double prefinal = raw.toString().equals("null") ? 0.0 : Double.parseDouble(raw.toString());
+        int finalPrice = (int) Math.round(prefinal);
+        return finalPrice;
     }
 
     public static class HelperStockFunctions {
@@ -179,6 +184,31 @@ public class Stocks {
                 stmt.executeUpdate(sql);
                 return true;
             } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean updatePriceAndTimestamp(Statement stmt, String ticker, int price, Timestamp timestamp) throws SQLException {
+            try {
+                String sql = "UPDATE stocks SET price = " + price + ", price_update_date = '" + timestamp + "' WHERE ticker = '" + ticker + "'";
+                stmt.executeUpdate(sql);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public boolean runUpdates(Stocks stocks) {
+            try {
+                String sql = "";
+                for (String ticker : stocks.tickerList) {
+                    // write a SQL query to add the stock to the database
+                    sql = "INSERT INTO stocks (stock_id, stock_name, price, tradeable, ticker, price_update_date) VALUES ('" + 0 + "', '" + ticker + "', " + (double) stocks.tickerToPriceMap.get(ticker) + ", 0, '" + ticker + "', '" + new Timestamp(System.currentTimeMillis()) + "')";
+                }
+                return true;
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
