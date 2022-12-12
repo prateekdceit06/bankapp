@@ -44,7 +44,12 @@ public class Stocks {
         }
     }
 
-    public static void initialize(Logger logger, Statement stmt) throws SQLException, IOException {
+    public static void initialize() throws SQLException, IOException {
+        Connect c = new Connect();
+        Connection conn = c.createConnection();
+        Statement stmt = conn.createStatement();
+        stmt.setQueryTimeout(30);  // set timeout to 30 sec.
+        Logger logger = Logger.getLogger(Stocks.class.getName());
         HelperStockFunctions helperStockFunctions = new HelperStockFunctions();
         helperStockFunctions.clearTable(stmt);
         helperStockFunctions.addAll(stmt, logger);
@@ -191,8 +196,13 @@ public class Stocks {
             }
         }
 
-        public boolean updatePriceAndTimestamp(Statement stmt, String ticker, int price, Timestamp timestamp) throws SQLException {
+        public boolean updatePriceAndTimestamp(String ticker, int price, Timestamp timestamp) throws SQLException {
             try {
+                Connect c = new Connect();
+                Connection conn = c.createConnection();
+                Statement stmt = conn.createStatement();
+                stmt.setQueryTimeout(30);  // set timeout to 30 sec.
+                Logger logger = Logger.getLogger(Stocks.class.getName());
                 String sql = "UPDATE stock SET price = " + price + ", price_update_date = '" + timestamp + "' WHERE ticker = '" + ticker + "'";
                 stmt.executeUpdate(sql);
                 return true;
@@ -216,6 +226,15 @@ public class Stocks {
                 e.printStackTrace();
                 return false;
             }
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Stocks stocks = new Stocks();
+        try {
+            stocks.initialize();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
