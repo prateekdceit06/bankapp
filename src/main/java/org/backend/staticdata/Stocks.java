@@ -200,23 +200,12 @@ public class Stocks {
             }
         }
 
-        public int tickerToID(String ticker) {
-            int sum = 0;
-            for (int i = 0; i < ticker.length(); i++) {
-                sum += ticker.charAt(i);
-            }
-
-            return sum;
-        }
-
-
-
         public boolean runUpdates(Statement stmt, Logger logger) throws SQLException, IOException {
             Stocks stocks = new Stocks();
             try {
                 String sql = "";
                 for (String ticker : stocks.tickerList) {
-                    sql = "INSERT INTO stock (stock_id, stock_name, current_price, tradable, ticker, price_update_date) VALUES ('" + tickerToID(ticker) + "', '" + ticker + "', " + stocks.getPrice(ticker) + ", 0, '" + ticker + "', '" + new Timestamp(System.currentTimeMillis()) + "')";
+                    sql = "INSERT INTO stock (stock_name, current_price, tradable, ticker, price_update_date) VALUES ('" + ticker + "', " + stocks.getPrice(ticker) + ", 0, '" + ticker + "', '" + new Timestamp(System.currentTimeMillis()) + "')";
                     logger.log(Level.INFO, sql);
                     stmt.executeUpdate(sql);
                 }
