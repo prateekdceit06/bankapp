@@ -1,6 +1,7 @@
 package org.backend.controllers.manager;
 
 import org.backend.Connect;
+import org.backend.allevents.AddToAllEvents;
 import org.backend.staticdata.ConvertDate;
 import org.backend.staticdata.Data;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Stocks {
+public class UpdateStocks {
     String[] tickerList = new String[]{"AAPL", "MSFT", "AMZN", "GOOG", "TSLA", "JPM", "V",
             "PG", "UNH", "HD", "MA", "DIS", "VZ", "NVDA", "PYPL", "ADBE", "CMCSA", "NFLX",
             "CRM", "INTC", "T", "BAC", "CSCO", "KO", "ABT", "XOM", "WMT", "TMO", "PFE", "ABBV",
@@ -69,9 +70,9 @@ public class Stocks {
         }
     };
     HashMap<String, Double> tickerToPriceMap;
-    Logger logger = Logger.getLogger(Stocks.class.getName());
+    Logger logger = Logger.getLogger(UpdateStocks.class.getName());
 
-    public Stocks() {
+    public UpdateStocks() {
         tickerToPriceMap = new HashMap();
         for (String ticker : tickerList) {
             tickerToPriceMap.put(ticker, 0.0);
@@ -96,6 +97,8 @@ public class Stocks {
             helperStockFunctions.clearTable(stmt);
             success = helperStockFunctions.addAll(stmt);
             stmt.close();
+            AddToAllEvents addToAllEvents = new AddToAllEvents();
+            addToAllEvents.addToAllEvents(connection,"Stocks prices updated(online).");
         } catch (SQLException | IOException e) {
             logger.log(Level.SEVERE, "Error in initializing stocks", e);
         }
@@ -135,14 +138,14 @@ public class Stocks {
     private class HelperStockFunctions {
 
         private boolean addAll(Statement stmt) throws SQLException, IOException {
-            Stocks stocks = new Stocks();
+            UpdateStocks updateStocks = new UpdateStocks();
             try {
                 int counter = 0;
                 String sql = "";
-                for (String ticker : stocks.tickerList) {
+                for (String ticker : updateStocks.tickerList) {
                     counter++;
                     sql = "INSERT INTO stock (stock_id, stock_name, current_price, tradable, ticker, price_update_date) VALUES " +
-                            "(" + counter + ",'" + tickerMap.get(ticker) + "', " + stocks.getPrice(ticker) + ", 0, '" + ticker + "', '" +
+                            "(" + counter + ",'" + tickerMap.get(ticker) + "', " + updateStocks.getPrice(ticker) + ", 0, '" + ticker + "', '" +
                             ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis())) + "')";
 //                    logger.log(Level.INFO, sql);
                     stmt.executeUpdate(sql);

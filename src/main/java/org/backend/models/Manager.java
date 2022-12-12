@@ -6,7 +6,6 @@ import org.backend.controllers.manager.*;
 import org.backend.controllers.user.StockTransaction;
 import org.backend.staticdata.Data;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -370,8 +369,8 @@ public class Manager {
 
     public boolean updateStocks() {
         boolean updateStockSuccess = false;
-        Stocks stocks = new Stocks();
-        updateStockSuccess = stocks.updateStocks();
+        UpdateStocks updateStocks = new UpdateStocks();
+        updateStockSuccess = updateStocks.updateStocks();
         return updateStockSuccess;
     }
 }

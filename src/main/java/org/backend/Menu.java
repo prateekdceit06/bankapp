@@ -32,6 +32,7 @@ public class Menu {
         System.out.println("28 Sell a stock");
         System.out.println("29 Update a stock");
         System.out.println("30 Pay Interest");
+        System.out.println("31 Update Stocks Prices Online");
         System.out.println("99 Exit");
 
     }

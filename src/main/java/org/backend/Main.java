@@ -1090,6 +1090,21 @@ public class Main {
                             System.out.println("Please login first");
                         }
                         break;
+                    case 31: //update stocks prices online
+                        if (loggedInUser != null && loggedInUser.getId() == 1) {
+                            boolean success = manager.updateStocks();
+                            if (success) {
+                                System.out.println("Stocks Prices Updated");
+                            } else {
+                                System.out.println("Something went wrong. Stocks Prices Update Failed.");
+                            }
+                            manager.loadAllData();
+                            loggedInUser = manager.getLoggedInUser(loggedInUser.getId());
+                        } else {
+                            System.out.println("Please login first");
+                        }
+                        break;
+
                     case 99: //exit
                         System.out.println("Thank you for using our application");
                         System.exit(0);
