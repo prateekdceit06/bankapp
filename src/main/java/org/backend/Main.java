@@ -8,7 +8,6 @@ import org.backend.staticdata.Data;
 import org.backend.staticdata.SHA256;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, InterruptedException, IOException {
+    public static void main(String[] args) {
         Manager manager = new Manager();
         Menu menu = new Menu();
         User loggedInUser = null;

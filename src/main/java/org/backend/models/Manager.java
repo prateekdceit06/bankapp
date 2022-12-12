@@ -5,14 +5,11 @@ import org.backend.controllers.account.Transfer;
 import org.backend.controllers.manager.*;
 import org.backend.controllers.user.StockTransaction;
 import org.backend.staticdata.Data;
-import org.backend.controllers.manager.Stocks;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class Manager {
     private List<User> users;
@@ -32,7 +29,7 @@ public class Manager {
     private String bankAccountNumber;
 
 
-    public Manager() throws SQLException, InterruptedException, IOException {
+    public Manager() {
         this.users = new ArrayList<>();
         this.customers = new ArrayList<>();
         this.savingsAccounts = new ArrayList<>();
@@ -55,11 +52,7 @@ public class Manager {
         loadApprovedLoansData();
         loadStockData();
         loadStockTransactions();
-        Stocks stocks = new Stocks();
-        stocks.initializeStocks();
-//        TimeUnit.MINUTES.sleep(2);
-//        stocks.updateStocks();
-
+        updateStocks();
     }
 
 
@@ -368,10 +361,17 @@ public class Manager {
             }
         }
         boolean result = false;
-        if(success){
+        if (success) {
             UpdateInterestPaidDate updateInterestPaidDate = new UpdateInterestPaidDate();
             result = updateInterestPaidDate.updateInterestPaidDate(loggedInUser);
         }
         return (success && result);
+    }
+
+    public boolean updateStocks() {
+        boolean updateStockSuccess = false;
+        Stocks stocks = new Stocks();
+        updateStockSuccess = stocks.updateStocks();
+        return updateStockSuccess;
     }
 }
