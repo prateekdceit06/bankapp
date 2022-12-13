@@ -66,7 +66,8 @@ public class BuyStocks extends javax.swing.JDialog {
         accountNumber3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setResizable(false);
+        
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         formTitle.setText("Buy Stocks");
 

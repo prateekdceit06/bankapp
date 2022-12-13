@@ -70,7 +70,7 @@ public class ShowPoorCustomers extends javax.swing.JDialog {
         content.setBackground(new java.awt.Color(0, 153, 153));
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        formTitle.setText("Poor Customers");
+        formTitle.setText("Impecunious Customers");
 
         customerDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

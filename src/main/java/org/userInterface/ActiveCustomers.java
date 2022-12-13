@@ -70,7 +70,8 @@ public class ActiveCustomers extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         content.setBackground(new java.awt.Color(0, 153, 153));
-
+        setResizable(false);
+        
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         formTitle.setText("Active Customers");
 

@@ -61,7 +61,8 @@ public class DepositFunds extends javax.swing.JDialog {
         inr = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setResizable(false);
+        
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N

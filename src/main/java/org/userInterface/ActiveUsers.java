@@ -76,7 +76,8 @@ public class ActiveUsers extends javax.swing.JDialog {
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         formTitle.setText("Active Users");
-
+        setResizable(false);
+        
         customerDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

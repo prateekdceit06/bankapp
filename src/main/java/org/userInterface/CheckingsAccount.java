@@ -62,7 +62,8 @@ public class CheckingsAccount extends javax.swing.JDialog {
         inr = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setResizable(false);
+        
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         formTitle.setText("Create Checkings Account");
 

@@ -43,7 +43,8 @@ public class ApplyLoan extends javax.swing.JDialog {
         loanAmountField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setResizable(false);
+        
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N

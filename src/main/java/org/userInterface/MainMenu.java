@@ -67,7 +67,8 @@ public class MainMenu extends javax.swing.JFrame {
         edit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        setResizable(false);
+        
         Content.setBackground(new java.awt.Color(255, 255, 255));
         Content.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Content.setPreferredSize(new java.awt.Dimension(1400, 795));

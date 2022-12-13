@@ -100,6 +100,7 @@ public class BankerHome extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         setBackground(new java.awt.Color(255, 255, 255));
 
         content.setBackground(new java.awt.Color(255, 255, 255));

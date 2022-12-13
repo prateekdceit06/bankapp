@@ -56,6 +56,7 @@ public class AccountDetails extends javax.swing.JDialog {
         accountDetails = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         content.setBackground(new java.awt.Color(0, 153, 153));
 
         accountTableDetails.setModel(new javax.swing.table.DefaultTableModel(
