@@ -133,6 +133,8 @@ public class UpdateStocks {
         Object raw = jsonObject.getJSONObject("quoteSummary").getJSONArray("result").getJSONObject(0).getJSONObject("financialData").getJSONObject("currentPrice").get("raw");
         double prefinal = raw.toString().equals("null") ? 0.00 : Double.parseDouble(raw.toString());
         return Double.parseDouble(Data.df.format(prefinal));
+
+        return 1;
     }
 
     private class HelperStockFunctions {

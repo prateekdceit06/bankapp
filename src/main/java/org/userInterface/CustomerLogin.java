@@ -65,6 +65,7 @@ public class CustomerLogin extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(400, 100, 900, 600));
         setResizable(false);
 
+        
         userName.setText("Username");
 
         password.setText("Password");

@@ -51,7 +51,7 @@ public class Manager {
         loadApprovedLoansData();
         loadStockData();
         loadStockTransactions();
-        updateStocks();
+        //updateStocks();
     }
 
 
