@@ -88,6 +88,7 @@ public class BankerHome extends javax.swing.JDialog {
         poorCustomers = new javax.swing.JButton();
         showTransactionHistory = new javax.swing.JButton();
         payInterest = new javax.swing.JButton();
+        loadStocks = new javax.swing.JButton();
 
         label1.setText("label1");
 
@@ -114,18 +115,18 @@ public class BankerHome extends javax.swing.JDialog {
         });
 
         customerDetails.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object [][] {
 
-            },
-            new String [] {
-                "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
-            }
+                },
+                new String [] {
+                        "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
+                }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, false, false, false, false, false, false, false
+                    true, true, true, true, true, true, true, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -383,220 +384,229 @@ public class BankerHome extends javax.swing.JDialog {
             }
         });
 
+        loadStocks.setText("Load Stocks");
+        loadStocks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadStocksActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(getUserByUserID)
-                        .addGap(18, 18, 18)
-                        .addComponent(getUserByUserName)
-                        .addGap(18, 18, 18)
-                        .addComponent(getAllUsers)
-                        .addGap(18, 18, 18)
-                        .addComponent(showActiveUsers)
-                        .addGap(18, 18, 18)
-                        .addComponent(showInactiveUsers))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(loanApplicationApproval)
-                        .addGap(18, 18, 18)
-                        .addComponent(loanApplicationReceived)
-                        .addGap(18, 18, 18)
-                        .addComponent(updateStocks))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(showActiveCustomers)
-                        .addGap(18, 18, 18)
-                        .addComponent(showInactiveCustomers)
-                        .addGap(18, 18, 18)
-                        .addComponent(showSavingsAccount)
-                        .addGap(18, 18, 18)
-                        .addComponent(showCheckingsAccount))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(poorCustomers)
-                        .addGap(18, 18, 18)
-                        .addComponent(showTransactionHistory)
-                        .addGap(18, 18, 18)
-                        .addComponent(payInterest)))
-                .addGap(155, 155, 155)
-                .addComponent(changePassword)
-                .addGap(18, 18, 18)
-                .addComponent(logout)
-                .addGap(30, 30, 30))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(28, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(getUserByUserID)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(getUserByUserName)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(getAllUsers)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showActiveUsers)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showInactiveUsers))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(loanApplicationApproval)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(loanApplicationReceived)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(updateStocks)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(loadStocks))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(showActiveCustomers)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showInactiveCustomers)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showSavingsAccount)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showCheckingsAccount))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(poorCustomers)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(showTransactionHistory)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(payInterest)))
+                                .addGap(155, 155, 155)
+                                .addComponent(changePassword)
+                                .addGap(18, 18, 18)
+                                .addComponent(logout)
+                                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(changePassword)
-                        .addComponent(logout))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(getUserByUserName)
-                            .addComponent(getUserByUserID)
-                            .addComponent(getAllUsers)
-                            .addComponent(showActiveUsers)
-                            .addComponent(showInactiveUsers))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(showActiveCustomers)
-                            .addComponent(showInactiveCustomers)
-                            .addComponent(showSavingsAccount)
-                            .addComponent(showCheckingsAccount))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(loanApplicationApproval)
-                            .addComponent(loanApplicationReceived)
-                            .addComponent(updateStocks))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(poorCustomers)
-                    .addComponent(showTransactionHistory)
-                    .addComponent(payInterest))
-                .addGap(22, 22, 22))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(30, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(changePassword)
+                                                .addComponent(logout))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(getUserByUserName)
+                                                        .addComponent(getUserByUserID)
+                                                        .addComponent(getAllUsers)
+                                                        .addComponent(showActiveUsers)
+                                                        .addComponent(showInactiveUsers))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(showActiveCustomers)
+                                                        .addComponent(showInactiveCustomers)
+                                                        .addComponent(showSavingsAccount)
+                                                        .addComponent(showCheckingsAccount))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(loanApplicationApproval)
+                                                        .addComponent(loanApplicationReceived)
+                                                        .addComponent(updateStocks)
+                                                        .addComponent(loadStocks))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(poorCustomers)
+                                        .addComponent(showTransactionHistory)
+                                        .addComponent(payInterest))
+                                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(savingAccount)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkingsAccount)
-                        .addGap(18, 18, 18)
-                        .addComponent(securitiesAccount))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(466, 466, 466)
-                        .addComponent(updateDetails))
-                    .addComponent(personalDetailsLabel)
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(contentLayout.createSequentialGroup()
-                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(contentLayout.createSequentialGroup()
-                                    .addComponent(deposit)
-                                    .addGap(307, 307, 307))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(withdraw)
-                                        .addComponent(transferOneToOther)
-                                        .addComponent(fundTransfer))
-                                    .addGap(163, 163, 163)))
-                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(applyLoan)
-                                .addComponent(loanApplicationStatus)
-                                .addComponent(loanPaymentAccount)
-                                .addComponent(loanPaymentDepositValue))
-                            .addGap(210, 210, 210)
-                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(stockMarket)
-                                .addComponent(viewStockDetails)
-                                .addComponent(buyStock)
-                                .addComponent(sellStock))
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(viewAccountDetails)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viewTransactionDetails)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                                .addComponent(savingAccount)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkingsAccount)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(securitiesAccount))
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                                .addGap(466, 466, 466)
+                                                .addComponent(updateDetails))
+                                        .addComponent(personalDetailsLabel)
+                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(contentLayout.createSequentialGroup()
+                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(contentLayout.createSequentialGroup()
+                                                                        .addComponent(deposit)
+                                                                        .addGap(307, 307, 307))
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(withdraw)
+                                                                                .addComponent(transferOneToOther)
+                                                                                .addComponent(fundTransfer))
+                                                                        .addGap(163, 163, 163)))
+                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(jLabel3)
+                                                                .addComponent(applyLoan)
+                                                                .addComponent(loanApplicationStatus)
+                                                                .addComponent(loanPaymentAccount)
+                                                                .addComponent(loanPaymentDepositValue))
+                                                        .addGap(210, 210, 210)
+                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(stockMarket)
+                                                                .addComponent(viewStockDetails)
+                                                                .addComponent(buyStock)
+                                                                .addComponent(sellStock))
+                                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                                .addComponent(viewAccountDetails)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(viewTransactionDetails)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(personalDetailsLabel)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(updateDetails)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(savingAccount)
-                    .addComponent(checkingsAccount)
-                    .addComponent(securitiesAccount))
-                .addGap(18, 18, 18)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewAccountDetails)
-                    .addComponent(viewTransactionDetails))
-                .addGap(42, 42, 42)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(fundTransfer)
-                        .addGap(18, 18, 18)
-                        .addComponent(transferOneToOther)
-                        .addGap(18, 18, 18)
-                        .addComponent(withdraw))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(stockMarket))
-                        .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(applyLoan)
-                            .addComponent(buyStock))
-                        .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(loanApplicationStatus)
-                            .addComponent(sellStock))))
-                .addGap(18, 18, 18)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deposit)
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(loanPaymentDepositValue)
-                        .addComponent(viewStockDetails)))
-                .addGap(18, 18, 18)
-                .addComponent(loanPaymentAccount)
-                .addContainerGap(36, Short.MAX_VALUE))
+                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(personalDetailsLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(updateDetails)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(savingAccount)
+                                        .addComponent(checkingsAccount)
+                                        .addComponent(securitiesAccount))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(viewAccountDetails)
+                                        .addComponent(viewTransactionDetails))
+                                .addGap(42, 42, 42)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                                .addComponent(fundTransfer)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(transferOneToOther)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(withdraw))
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(stockMarket))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(applyLoan)
+                                                        .addComponent(buyStock))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(loanApplicationStatus)
+                                                        .addComponent(sellStock))))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(deposit)
+                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(loanPaymentDepositValue)
+                                                .addComponent(viewStockDetails)))
+                                .addGap(18, 18, 18)
+                                .addComponent(loanPaymentAccount)
+                                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>                        
 
-         
-    private void savingAccountActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void savingAccountActionPerformed(java.awt.event.ActionEvent evt) {
         SavingsAccount savingsAccount = new SavingsAccount(this, true, loggedInUserGlobal);
         savingsAccount.setVisible(true);
-    }                                             
+    }
 
-    private void checkingsAccountActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void checkingsAccountActionPerformed(java.awt.event.ActionEvent evt) {
         CheckingsAccount checkingsAccount = new CheckingsAccount(this, true, loggedInUserGlobal);
         checkingsAccount.setVisible(true);
-    }                                                
+    }
 
-    private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {
         ChangePasswordPrompt changePassword = new ChangePasswordPrompt(this, true, loggedInUserGlobal);
         changePassword.setVisible(true);
-    }                                              
+    }
 
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
 
         if (loggedInUserGlobal != null) {
             Logout logout = new Logout();
@@ -609,7 +619,7 @@ public class BankerHome extends javax.swing.JDialog {
 
                 //close the Jdialog once logged out
                 this.dispose();
-                
+
             } else {
                 System.out.println("Something went wrong. Logout failed.");
                 JOptionPane.showMessageDialog(null, "Something went wrong. Logout failed.");
@@ -618,9 +628,9 @@ public class BankerHome extends javax.swing.JDialog {
             System.out.println("Please login first");
             JOptionPane.showMessageDialog(null, "Please login first");
         }
-    }                                      
+    }
 
-    private void updateDetailsActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void updateDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         DefaultTableModel model =(DefaultTableModel) customerDetails.getModel();
         int selectedRow = customerDetails.getSelectedRow();
 
@@ -638,7 +648,7 @@ public class BankerHome extends javax.swing.JDialog {
         int isCustomer = (int)model.getValueAt(selectedRow, 11);
         int hasCollateral = (int)model.getValueAt(selectedRow, 12);
         int hasLoan = (int)model.getValueAt(selectedRow, 13);
-        
+
         User updatedUserDetails;
 
         //User updatedUserDetails = new User(firstName, lastName, mobile, address, email, username, is_active, is_admin, is_employee, hasCollateral, hasLoan, isCustomer);
@@ -658,10 +668,10 @@ public class BankerHome extends javax.swing.JDialog {
             if (response.containsKey("status")) {
                 if (response.get("status").equals("success")) {
                     updatedUserDetails = new User(id, firstName, lastName, mobile, address, email,
-                    username, is_active, is_admin, is_employee, loggedInUserGlobal.getToken(), loggedInUserGlobal.getCreatedAt(),
-                    loggedInUserGlobal.getUpdatedAt(), hasCollateral, hasLoan, isCustomer);
-                        
-                    
+                            username, is_active, is_admin, is_employee, loggedInUserGlobal.getToken(), loggedInUserGlobal.getCreatedAt(),
+                            loggedInUserGlobal.getUpdatedAt(), hasCollateral, hasLoan, isCustomer);
+
+
                     System.out.println(updatedUserDetails.toString());
                     UpdateUser updateUser = new UpdateUser();
                     boolean updateSuccess = updateUser.updateUser(loggedInUserGlobal, updatedUserDetails);
@@ -681,156 +691,161 @@ public class BankerHome extends javax.swing.JDialog {
             } else {
                 System.out.println("Incorrect ID");
                 JOptionPane.showMessageDialog(null, "Incorrect ID");
-            }  
-            
+            }
+
         } else {
             System.out.println("Please login first");
             JOptionPane.showMessageDialog(null, "Please login first");
         }
-    }                                             
+    }
 
-    private void getUserByUserIDActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void getUserByUserIDActionPerformed(java.awt.event.ActionEvent evt) {
         GetUserByUserID guid = new GetUserByUserID(this, true, loggedInUserGlobal);
         guid.setVisible(true);
-    }                                               
+    }
 
-    private void getUserByUserNameActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void getUserByUserNameActionPerformed(java.awt.event.ActionEvent evt) {
         GetUserByUserName guid = new GetUserByUserName(this, true, loggedInUserGlobal);
         guid.setVisible(true);
-    }                                                 
+    }
 
-    private void getAllUsersActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void getAllUsersActionPerformed(java.awt.event.ActionEvent evt) {
         GetAllUsersDisplay gAll = new GetAllUsersDisplay(this, true, loggedInUserGlobal);
         gAll.setVisible(true);
-    }                                           
+    }
 
-    private void showActiveUsersActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void showActiveUsersActionPerformed(java.awt.event.ActionEvent evt) {
         ActiveUsers activeUsers = new ActiveUsers(this, true, loggedInUserGlobal);
         activeUsers.setVisible(true);
-    }                                               
+    }
 
-    private void showInactiveUsersActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void showInactiveUsersActionPerformed(java.awt.event.ActionEvent evt) {
         InactiveUsers inactiveUsers = new InactiveUsers(this, true, loggedInUserGlobal);
         inactiveUsers.setVisible(true);
-    }                                                 
+    }
 
-    private void showActiveCustomersActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    private void showActiveCustomersActionPerformed(java.awt.event.ActionEvent evt) {
         ActiveCustomers activeCustomers = new ActiveCustomers(this, true, loggedInUserGlobal);
         activeCustomers.setVisible(true);
-    }                                                   
+    }
 
-    private void showInactiveCustomersActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+    private void showInactiveCustomersActionPerformed(java.awt.event.ActionEvent evt) {
         InactiveCustomers inActiveCustomers = new InactiveCustomers(this, true, loggedInUserGlobal);
         inActiveCustomers.setVisible(true);
-    }                                                     
+    }
 
-    private void showSavingsAccountActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void showSavingsAccountActionPerformed(java.awt.event.ActionEvent evt) {
         ShowSavingsAccounts showSavingsAccount = new ShowSavingsAccounts(this, true, loggedInUserGlobal);
         showSavingsAccount.setVisible(true);
-    }                                                  
+    }
 
-    private void showCheckingsAccountActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    private void showCheckingsAccountActionPerformed(java.awt.event.ActionEvent evt) {
         ShowCheckingsAccounts showCheckingsAccount = new ShowCheckingsAccounts(this, true, loggedInUserGlobal);
         showCheckingsAccount.setVisible(true);
     }
 
-    private void viewAccountDetailsActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void viewAccountDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         AccountDetails vad = new AccountDetails(this, true, loggedInUserGlobal);
         vad.setVisible(true);
     }
 
-    private void viewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+    private void viewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         TransactionDetails transactionDetails = new TransactionDetails(this, true, loggedInUserGlobal);
-        transactionDetails.setVisible(true);    
-    }                                                      
+        transactionDetails.setVisible(true);
+    }
 
-    private void viewStockDetailsActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void viewStockDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         StockDetails stockDetails = new StockDetails(this, true, loggedInUserGlobal);
-        stockDetails.setVisible(true);    
-    }  
+        stockDetails.setVisible(true);
+    }
 
-    private void transferOneToOtherActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void transferOneToOtherActionPerformed(java.awt.event.ActionEvent evt) {
         TransferFunds transferFunds = new TransferFunds(this, true, loggedInUserGlobal);
-        transferFunds.setVisible(true);    
-    }                                                  
+        transferFunds.setVisible(true);
+    }
 
-    private void withdrawActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void withdrawActionPerformed(java.awt.event.ActionEvent evt) {
         WithdrawFunds withdrawFunds = new WithdrawFunds(this, true, loggedInUserGlobal);
-        withdrawFunds.setVisible(true);    
-    }                                        
+        withdrawFunds.setVisible(true);
+    }
 
-    private void depositActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void depositActionPerformed(java.awt.event.ActionEvent evt) {
         DepositFunds depositFunds = new DepositFunds(this, true, loggedInUserGlobal);
         depositFunds.setVisible(true);
-    }                                       
+    }
 
-    private void applyLoanActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void applyLoanActionPerformed(java.awt.event.ActionEvent evt) {
         ApplyLoan applyLoan = new ApplyLoan(this, true, loggedInUserGlobal);
-        applyLoan.setVisible(rootPaneCheckingEnabled);    }                                         
+        applyLoan.setVisible(rootPaneCheckingEnabled);    }
 
-    private void loanApplicationStatusActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+    private void loanApplicationStatusActionPerformed(java.awt.event.ActionEvent evt) {
         LoanApplicationStatus loanStatus = new LoanApplicationStatus(this, true, loggedInUserGlobal);
-        loanStatus.setVisible(true);    }                                                     
+        loanStatus.setVisible(true);    }
 
-    private void loanApplicationApprovalActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void loanApplicationApprovalActionPerformed(java.awt.event.ActionEvent evt) {
         LoanApplicationApproval loanApplicationApproval = new LoanApplicationApproval(this, true, loggedInUserGlobal);
         loanApplicationApproval.setVisible(true);
-    }                                                       
+    }
 
-    private void loanApplicationReceivedActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void loanApplicationReceivedActionPerformed(java.awt.event.ActionEvent evt) {
         LoanApplicationReceived loanApplicationReceived = new LoanApplicationReceived(this, true, loggedInUserGlobal);
         loanApplicationReceived.setVisible(true);
-    }                                                  
+    }
 
-    private void loanPaymentAccountActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void loanPaymentAccountActionPerformed(java.awt.event.ActionEvent evt) {
         LoanPaymentAccount loanPaymentAccount = new LoanPaymentAccount(this, true, loggedInUserGlobal);
         loanPaymentAccount.setVisible(true);
-    }                                                  
+    }
 
-    private void loanPaymentDepositActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void loanPaymentDepositActionPerformed(java.awt.event.ActionEvent evt) {
         LoanPaymentDeposit loanPaymentDeposit = new LoanPaymentDeposit(this, true, loggedInUserGlobal);
         loanPaymentDeposit.setVisible(true);
-    }                                                  
+    }
 
-    private void updateStocksActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void updateStocksActionPerformed(java.awt.event.ActionEvent evt) {
         UpdateStocks updateStocks = new UpdateStocks(this, true, loggedInUserGlobal);
         updateStocks.setVisible(true);
-    }                                            
+    }
 
-    private void loanPaymentDepositValueActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void loanPaymentDepositValueActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                                       
+    }
 
-    private void showTransactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+    private void showTransactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {
         BankerTransactionDetails bankTransactionHistory = new BankerTransactionDetails(this, true, loggedInUserGlobal);
         bankTransactionHistory.setVisible(true);
-    }                                                      
+    }
 
-    private void poorCustomersActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void poorCustomersActionPerformed(java.awt.event.ActionEvent evt) {
         ShowPoorCustomers poorCustomers = new ShowPoorCustomers(this, true, loggedInUserGlobal);
         poorCustomers.setVisible(true);
-    }                                             
+    }
 
-    private void payInterestActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void payInterestActionPerformed(java.awt.event.ActionEvent evt) {
         PayInterest payInterest = new PayInterest(this, true, loggedInUserGlobal);
         payInterest.setVisible(true);
     }
 
-    private void buyStockActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void buyStockActionPerformed(java.awt.event.ActionEvent evt) {
         BuyStocks buyStocks  = new BuyStocks(this, true, loggedInUserGlobal);
         buyStocks.setVisible(true);
-    }                                        
-
-    private void sellStockActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        SellStocks sellStocks  = new SellStocks(this, true, loggedInUserGlobal);
-        sellStocks.setVisible(true);    
     }
-    
-    private void securitiesAccountActionPerformed(java.awt.event.ActionEvent evt) {                                          
+
+    private void sellStockActionPerformed(java.awt.event.ActionEvent evt) {
+        SellStocks sellStocks  = new SellStocks(this, true, loggedInUserGlobal);
+        sellStocks.setVisible(true);
+    }
+
+    private void securitiesAccountActionPerformed(java.awt.event.ActionEvent evt) {
         SecuritiesAccount securitiesAccount = new SecuritiesAccount(this, true, loggedInUserGlobal);
         securitiesAccount.setVisible(true);
     }
-                               
+
+    private void loadStocksActionPerformed(java.awt.event.ActionEvent evt) {
+        Manager manager = new Manager();
+        manager.updateStocks();
+        JOptionPane.showMessageDialog(null, "Stocks fetched");
+    }
 
     /**
      * @param args the command line arguments
@@ -839,7 +854,7 @@ public class BankerHome extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -894,6 +909,7 @@ public class BankerHome extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
+    private javax.swing.JButton loadStocks;
     private javax.swing.JButton loanApplicationApproval;
     private javax.swing.JButton loanApplicationReceived;
     private javax.swing.JButton loanApplicationStatus;
@@ -923,11 +939,11 @@ public class BankerHome extends javax.swing.JDialog {
     private javax.swing.JButton viewTransactionDetails;
     private javax.swing.JButton withdraw;
     // End of variables declaration
-    
+
     public void addData(){
 
         String[] columns = new String [] {
-            "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
+                "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
         };
 
         DefaultTableModel model = (DefaultTableModel)customerDetails.getModel();

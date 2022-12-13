@@ -102,6 +102,7 @@ public class CheckingsAccount extends javax.swing.JDialog {
         inr.setText("INR");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setBackground(new java.awt.Color(0, 153, 153));
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

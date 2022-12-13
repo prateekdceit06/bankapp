@@ -117,7 +117,7 @@ public class SignUp extends javax.swing.JDialog {
 
         content.setName("Sign In"); // NOI18N
 
-        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setBackground(new java.awt.Color(0, 153, 153));
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         formTitle.setText("BankApp Registration");

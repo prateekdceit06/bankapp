@@ -57,7 +57,7 @@ public class BankerTransactionDetails extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         formTitle.setText("Transaction Details");

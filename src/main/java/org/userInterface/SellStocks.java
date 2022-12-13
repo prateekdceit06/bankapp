@@ -71,6 +71,8 @@ public class SellStocks extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
         accountTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

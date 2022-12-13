@@ -59,7 +59,7 @@ public class LoanPaymentAccount extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        loanAmount.setBackground(new java.awt.Color(255, 255, 255));
+        loanAmount.setBackground(new java.awt.Color(0, 153, 153));
         
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("Loan Payment from Account");

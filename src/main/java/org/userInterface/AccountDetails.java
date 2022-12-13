@@ -56,7 +56,7 @@ public class AccountDetails extends javax.swing.JDialog {
         accountDetails = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setBackground(new java.awt.Color(0, 153, 153));
 
         accountTableDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,7 +186,7 @@ public class AccountDetails extends javax.swing.JDialog {
 
         if (manager.getAccounts() != null) {
             for (Account account : manager.getAccounts()) {
-                if ((account.getCustomerId() == loggedInUserGlobal.getId() || loggedInUserGlobal.getIsAdmin() == 1) ) {
+                if ((account.getCustomerId() == loggedInUserGlobal.getId()) ) {
                     System.out.println("Pranesh");
                     System.out.println(account.getCustomerId());
                     System.out.println(account.getAccountType());

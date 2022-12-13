@@ -103,6 +103,7 @@ public class SavingsAccount extends javax.swing.JDialog {
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
+        content.setBackground(new java.awt.Color(0, 153, 153));
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()

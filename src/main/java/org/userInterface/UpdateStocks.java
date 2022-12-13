@@ -53,6 +53,8 @@ public class UpdateStocks extends javax.swing.JDialog {
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         formTitle.setText("Update Stocks");
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
         update.setText("Update");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +252,7 @@ public class UpdateStocks extends javax.swing.JDialog {
             loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
             for (Stock stock : manager.getStocks()) {
                 //update stock
+                System.out.println(stock.getStockId());
 
                 Vector<Object> vector = new Vector<>();
                 vector.add(stock.getStockId());

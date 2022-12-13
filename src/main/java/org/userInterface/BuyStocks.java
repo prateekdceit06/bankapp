@@ -36,19 +36,9 @@ public class BuyStocks extends javax.swing.JDialog {
         loggedInUserGlobal = loggedInUser;
         initComponents();
         setLocationRelativeTo(null);
-        try {
-            addStockData();
-        } catch (SQLException | InterruptedException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        addStockData();
         addAccountData();
-        try {
-            addOpenPositions();
-        } catch (SQLException | InterruptedException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        addOpenPositions();
     }
 
     /**
@@ -183,6 +173,8 @@ public class BuyStocks extends javax.swing.JDialog {
         accountNumber3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         accountNumber3.setText("Account Number");
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -296,6 +288,9 @@ public class BuyStocks extends javax.swing.JDialog {
                                     if (buyStockSuccess) {
                                         System.out.println("Stock Bought");
                                         JOptionPane.showMessageDialog(null, "Stock Bought: "+buyableStock.getStockName());
+
+                                        DefaultTableModel model = (DefaultTableModel)openTableData.getModel();
+                                        model.setRowCount(0);
                                         addOpenPositions();
                                     } else {
                                         System.out.println("Something went wrong. Stock Buying Failed.");
@@ -391,7 +386,7 @@ public class BuyStocks extends javax.swing.JDialog {
     private javax.swing.JButton withdrawFunds2;
     // End of variables declaration
     
-    public void addStockData() throws SQLException, InterruptedException, IOException{
+    public void addStockData(){
         if (loggedInUserGlobal != null) {
             //boolean updateStocksSuccess = false;
             System.out.println("Enter Stock Details");
@@ -475,7 +470,7 @@ public class BuyStocks extends javax.swing.JDialog {
         }
     }
 
-    public void addOpenPositions() throws SQLException, InterruptedException, IOException{
+    public void addOpenPositions(){
         if (loggedInUserGlobal != null) {
             //boolean updateStocksSuccess = false;
             System.out.println("Enter Stock Details");
@@ -487,6 +482,7 @@ public class BuyStocks extends javax.swing.JDialog {
             };
 
             DefaultTableModel model = (DefaultTableModel)openTableData.getModel();
+            //model.setRowCount(0);
             model.setColumnIdentifiers(columns);
             
             //find stock in manager stocks
