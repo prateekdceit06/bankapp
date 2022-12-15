@@ -9,8 +9,6 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import org.backend.controllers.user.StockTransaction;
-import org.backend.models.Account;
-import org.backend.models.Customer;
 import org.backend.models.Manager;
 import org.backend.models.User;
 
@@ -18,20 +16,13 @@ import org.backend.models.User;
  *
  * @author praneshjayasundar
  */
-public class StockDetails extends javax.swing.JDialog {
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JPanel content;
-    private javax.swing.JLabel formTitle;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable stockDetails;
+public class ViewClosedPostions extends javax.swing.JDialog {
 
     static User loggedInUserGlobal;
-    // End of variables declaration 
     /**
      * Creates new form StockDetails
      */
-    public StockDetails(javax.swing.JDialog parent, boolean modal, User loggedInUser) {
+    public ViewClosedPostions(javax.swing.JDialog parent, boolean modal, User loggedInUser) {
         super(parent, modal);
         loggedInUserGlobal = loggedInUser;
         initComponents();
@@ -50,13 +41,12 @@ public class StockDetails extends javax.swing.JDialog {
 
         content = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        stockDetails = new javax.swing.JTable();
+        OpenPositions = new javax.swing.JTable();
         formTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        content.setBackground(new java.awt.Color(0, 153, 153));
-        
-        stockDetails.setModel(new javax.swing.table.DefaultTableModel(
+
+        OpenPositions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -79,11 +69,11 @@ public class StockDetails extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        stockDetails.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(stockDetails);
+        OpenPositions.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(OpenPositions);
 
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        formTitle.setText("Stock Details");
+        formTitle.setText("Closed Positions");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -143,20 +133,23 @@ public class StockDetails extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StockDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewClosedPostions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StockDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewClosedPostions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StockDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewClosedPostions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StockDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewClosedPostions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                StockDetails dialog = new StockDetails(new javax.swing.JDialog(), true, loggedInUserGlobal);
+                ViewClosedPostions dialog = new ViewClosedPostions(new javax.swing.JDialog(), true, loggedInUserGlobal);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -168,6 +161,13 @@ public class StockDetails extends javax.swing.JDialog {
         });
     }
 
+    // Variables declaration - do not modify                     
+    private javax.swing.JTable OpenPositions;
+    private javax.swing.JPanel content;
+    private javax.swing.JLabel formTitle;
+    private javax.swing.JScrollPane jScrollPane1;
+    // End of variables declaration
+    
     public void addStockData(){
         if (loggedInUserGlobal != null) {
             //boolean updateStocksSuccess = false;
@@ -179,7 +179,7 @@ public class StockDetails extends javax.swing.JDialog {
                 "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
             };
 
-            DefaultTableModel model = (DefaultTableModel)stockDetails.getModel();
+            DefaultTableModel model = (DefaultTableModel)OpenPositions.getModel();
             model.setColumnIdentifiers(columns);
             
             //find stock in manager stocks
@@ -211,5 +211,4 @@ public class StockDetails extends javax.swing.JDialog {
             System.out.println("Please login first");
         }
     }
-                      
 }

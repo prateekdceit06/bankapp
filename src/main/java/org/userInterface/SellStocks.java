@@ -252,6 +252,8 @@ public class SellStocks extends javax.swing.JDialog {
         } else {
             System.out.println("Please login first");
         }
+
+        this.dispose();
     }                                             
 
     /**

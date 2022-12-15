@@ -671,6 +671,7 @@ public class ActiveCustomers extends javax.swing.JDialog {
             for (Customer cust : manager.getCustomers()) {
                 if (cust.getId() ==  selectedCustomerId) {
                     customer = cust;
+                    cust.getOpenPosition();
                     System.out.println("Inside Gunner");
                     break;
                 }

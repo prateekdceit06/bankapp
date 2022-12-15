@@ -89,6 +89,9 @@ public class BankerHome extends javax.swing.JDialog {
         showTransactionHistory = new javax.swing.JButton();
         payInterest = new javax.swing.JButton();
         loadStocks = new javax.swing.JButton();
+        openPositions = new javax.swing.JButton();
+        viewClosedPositions = new javax.swing.JButton();
+        viewStockTransactions = new javax.swing.JButton();
 
         label1.setText("label1");
 
@@ -100,7 +103,6 @@ public class BankerHome extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
         setBackground(new java.awt.Color(255, 255, 255));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -116,19 +118,19 @@ public class BankerHome extends javax.swing.JDialog {
         });
 
         customerDetails.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+            new Object [][] {
 
-                },
-                new String [] {
-                        "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
-                }
-        ) {
-            Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                    true, true, true, true, true, true, true, false, false, false, false, false, false, false
-            };
+            },
+            new String [] {
+                "ID", "First Name", "Last Name", "Phone", "Address", "Email", "Username", "Password", "Active", "Employee", "Admin", "Customer", "Collateral", "Loan"
+        }
+    ) {
+        Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+        };
+        boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, false, false, false, false, false, false, false
+        };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
@@ -395,198 +397,229 @@ public class BankerHome extends javax.swing.JDialog {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(28, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(getUserByUserID)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(getUserByUserName)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(getAllUsers)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showActiveUsers)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showInactiveUsers))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(loanApplicationApproval)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(loanApplicationReceived)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(updateStocks)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(loadStocks))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(showActiveCustomers)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showInactiveCustomers)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showSavingsAccount)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showCheckingsAccount))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(poorCustomers)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(showTransactionHistory)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(payInterest)))
-                                .addGap(155, 155, 155)
-                                .addComponent(changePassword)
-                                .addGap(18, 18, 18)
-                                .addComponent(logout)
-                                .addGap(30, 30, 30))
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(getUserByUserID)
+                        .addGap(18, 18, 18)
+                        .addComponent(getUserByUserName)
+                        .addGap(18, 18, 18)
+                        .addComponent(getAllUsers)
+                        .addGap(18, 18, 18)
+                        .addComponent(showActiveUsers)
+                        .addGap(18, 18, 18)
+                        .addComponent(showInactiveUsers))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(loanApplicationApproval)
+                        .addGap(18, 18, 18)
+                        .addComponent(loanApplicationReceived)
+                        .addGap(18, 18, 18)
+                        .addComponent(updateStocks)
+                        .addGap(18, 18, 18)
+                        .addComponent(loadStocks))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(showActiveCustomers)
+                        .addGap(18, 18, 18)
+                        .addComponent(showInactiveCustomers)
+                        .addGap(18, 18, 18)
+                        .addComponent(showSavingsAccount)
+                        .addGap(18, 18, 18)
+                        .addComponent(showCheckingsAccount))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(poorCustomers)
+                        .addGap(18, 18, 18)
+                        .addComponent(showTransactionHistory)
+                        .addGap(18, 18, 18)
+                        .addComponent(payInterest)))
+                .addGap(155, 155, 155)
+                .addComponent(changePassword)
+                .addGap(18, 18, 18)
+                .addComponent(logout)
+                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(30, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(changePassword)
-                                                .addComponent(logout))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(getUserByUserName)
-                                                        .addComponent(getUserByUserID)
-                                                        .addComponent(getAllUsers)
-                                                        .addComponent(showActiveUsers)
-                                                        .addComponent(showInactiveUsers))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(showActiveCustomers)
-                                                        .addComponent(showInactiveCustomers)
-                                                        .addComponent(showSavingsAccount)
-                                                        .addComponent(showCheckingsAccount))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(loanApplicationApproval)
-                                                        .addComponent(loanApplicationReceived)
-                                                        .addComponent(updateStocks)
-                                                        .addComponent(loadStocks))))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(poorCustomers)
-                                        .addComponent(showTransactionHistory)
-                                        .addComponent(payInterest))
-                                .addGap(22, 22, 22))
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(changePassword)
+                        .addComponent(logout))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(getUserByUserName)
+                            .addComponent(getUserByUserID)
+                            .addComponent(getAllUsers)
+                            .addComponent(showActiveUsers)
+                            .addComponent(showInactiveUsers))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(showActiveCustomers)
+                            .addComponent(showInactiveCustomers)
+                            .addComponent(showSavingsAccount)
+                            .addComponent(showCheckingsAccount))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loanApplicationApproval)
+                            .addComponent(loanApplicationReceived)
+                            .addComponent(updateStocks)
+                            .addComponent(loadStocks))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(poorCustomers)
+                    .addComponent(showTransactionHistory)
+                    .addComponent(payInterest))
+                .addGap(22, 22, 22))
         );
+
+        openPositions.setText("View Open Positions");
+        openPositions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openPositionsActionPerformed(evt);
+            }
+        });
+
+        viewClosedPositions.setText("View Closed Positions");
+        viewClosedPositions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewClosedPositionsActionPerformed(evt);
+            }
+        });
+
+        viewStockTransactions.setText("View Stock Transactions");
+        viewStockTransactions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStockTransactionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(savingAccount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkingsAccount)
+                        .addGap(18, 18, 18)
+                        .addComponent(securitiesAccount))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(466, 466, 466)
+                        .addComponent(updateDetails))
+                    .addComponent(personalDetailsLabel)
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(contentLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addGroup(contentLayout.createSequentialGroup()
-                                                .addComponent(savingAccount)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkingsAccount)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(securitiesAccount))
-                                        .addGroup(contentLayout.createSequentialGroup()
-                                                .addGap(466, 466, 466)
-                                                .addComponent(updateDetails))
-                                        .addComponent(personalDetailsLabel)
-                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(contentLayout.createSequentialGroup()
-                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(contentLayout.createSequentialGroup()
-                                                                        .addComponent(deposit)
-                                                                        .addGap(307, 307, 307))
-                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(withdraw)
-                                                                                .addComponent(transferOneToOther)
-                                                                                .addComponent(fundTransfer))
-                                                                        .addGap(163, 163, 163)))
-                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel3)
-                                                                .addComponent(applyLoan)
-                                                                .addComponent(loanApplicationStatus)
-                                                                .addComponent(loanPaymentAccount)
-                                                                .addComponent(loanPaymentDepositValue))
-                                                        .addGap(210, 210, 210)
-                                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(stockMarket)
-                                                                .addComponent(viewStockDetails)
-                                                                .addComponent(buyStock)
-                                                                .addComponent(sellStock))
-                                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addGroup(contentLayout.createSequentialGroup()
-                                                .addComponent(viewAccountDetails)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(viewTransactionDetails)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(contentLayout.createSequentialGroup()
+                                    .addComponent(deposit)
+                                    .addGap(307, 307, 307))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(withdraw)
+                                        .addComponent(transferOneToOther)
+                                        .addComponent(fundTransfer))
+                                    .addGap(163, 163, 163)))
+                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(applyLoan)
+                                .addComponent(loanApplicationStatus)
+                                .addComponent(loanPaymentAccount)
+                                .addComponent(loanPaymentDepositValue))
+                            .addGap(210, 210, 210)
+                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(stockMarket)
+                                .addGroup(contentLayout.createSequentialGroup()
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(buyStock)
+                                        .addComponent(sellStock)
+                                        .addComponent(viewStockDetails))
+                                    .addGap(36, 36, 36)
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(viewStockTransactions)
+                                        .addComponent(viewClosedPositions)
+                                        .addComponent(openPositions))))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(viewAccountDetails)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewTransactionDetails)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(personalDetailsLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(updateDetails)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(savingAccount)
-                                        .addComponent(checkingsAccount)
-                                        .addComponent(securitiesAccount))
-                                .addGap(18, 18, 18)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(viewAccountDetails)
-                                        .addComponent(viewTransactionDetails))
-                                .addGap(42, 42, 42)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(contentLayout.createSequentialGroup()
-                                                .addComponent(fundTransfer)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(transferOneToOther)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(withdraw))
-                                        .addGroup(contentLayout.createSequentialGroup()
-                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel3)
-                                                        .addComponent(stockMarket))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(applyLoan)
-                                                        .addComponent(buyStock))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(loanApplicationStatus)
-                                                        .addComponent(sellStock))))
-                                .addGap(18, 18, 18)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(deposit)
-                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(loanPaymentDepositValue)
-                                                .addComponent(viewStockDetails)))
-                                .addGap(18, 18, 18)
-                                .addComponent(loanPaymentAccount)
-                                .addContainerGap(36, Short.MAX_VALUE))
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(personalDetailsLabel)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(updateDetails)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(savingAccount)
+                    .addComponent(checkingsAccount)
+                    .addComponent(securitiesAccount))
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewAccountDetails)
+                    .addComponent(viewTransactionDetails))
+                .addGap(42, 42, 42)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(fundTransfer)
+                        .addGap(18, 18, 18)
+                        .addComponent(transferOneToOther)
+                        .addGap(18, 18, 18)
+                        .addComponent(withdraw))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(stockMarket))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(applyLoan)
+                            .addComponent(buyStock)
+                            .addComponent(openPositions))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loanApplicationStatus)
+                            .addComponent(sellStock)
+                            .addComponent(viewClosedPositions))))
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deposit)
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(loanPaymentDepositValue)
+                        .addComponent(viewStockDetails)
+                        .addComponent(viewStockTransactions)))
+                .addGap(18, 18, 18)
+                .addComponent(loanPaymentAccount)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -847,6 +880,22 @@ public class BankerHome extends javax.swing.JDialog {
         manager.updateStocks();
         JOptionPane.showMessageDialog(null, "Stocks fetched");
     }
+                                                 
+
+    private void openPositionsActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        ViewOpenPostions openPositions = new ViewOpenPostions(this, true, loggedInUserGlobal);
+        openPositions.setVisible(true);    
+    }                                             
+
+    private void viewClosedPositionsActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        ViewClosedPostions closedPositions = new ViewClosedPostions(this, true, loggedInUserGlobal);
+        closedPositions.setVisible(true);
+    }                                                   
+
+    private void viewStockTransactionsActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+        ViewStockTransactions stockTransactions = new ViewStockTransactions(this, true, loggedInUserGlobal);
+        stockTransactions.setVisible(true);    
+    }                                                     
 
     /**
      * @param args the command line arguments
@@ -855,7 +904,7 @@ public class BankerHome extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -918,6 +967,7 @@ public class BankerHome extends javax.swing.JDialog {
     private javax.swing.JButton loanPaymentDeposit;
     private javax.swing.JButton loanPaymentDepositValue;
     private javax.swing.JButton logout;
+    private javax.swing.JButton openPositions;
     private javax.swing.JButton payInterest;
     private javax.swing.JLabel personalDetailsLabel;
     private javax.swing.JButton poorCustomers;
@@ -936,11 +986,13 @@ public class BankerHome extends javax.swing.JDialog {
     private javax.swing.JButton updateDetails;
     private javax.swing.JButton updateStocks;
     private javax.swing.JButton viewAccountDetails;
+    private javax.swing.JButton viewClosedPositions;
     private javax.swing.JButton viewStockDetails;
+    private javax.swing.JButton viewStockTransactions;
     private javax.swing.JButton viewTransactionDetails;
     private javax.swing.JButton withdraw;
     // End of variables declaration
-
+    
     public void addData(){
 
         String[] columns = new String [] {

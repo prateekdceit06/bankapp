@@ -331,6 +331,8 @@ public class SecuritiesAccount extends javax.swing.JDialog {
         } else {
             System.out.println("Please login first");
         }
+
+        this.dispose();
     }                                            
 
     private void customerIdValueActionPerformed(java.awt.event.ActionEvent evt) {                                                

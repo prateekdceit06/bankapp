@@ -81,6 +81,9 @@ public class CustomerHome extends javax.swing.JDialog {
         changePassword = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         securitiesAccount = new javax.swing.JButton();
+        openPositions = new javax.swing.JButton();
+        viewClosedPositions = new javax.swing.JButton();
+        viewStockTransactions = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -205,7 +208,7 @@ public class CustomerHome extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel4.setText("Accounts & Transactions");
@@ -293,11 +296,11 @@ public class CustomerHome extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(changePassword)
-                        .addComponent(logout)))
+                        .addComponent(logout))
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(savingAccount)
@@ -309,6 +312,27 @@ public class CustomerHome extends javax.swing.JDialog {
                     .addComponent(viewTransactionDetails))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
+
+        openPositions.setText("View Open Positions");
+        openPositions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openPositionsActionPerformed(evt);
+            }
+        });
+
+        viewClosedPositions.setText("View Closed Positions");
+        viewClosedPositions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewClosedPositionsActionPerformed(evt);
+            }
+        });
+
+        viewStockTransactions.setText("View Stock Transactions");
+        viewStockTransactions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStockTransactionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -330,7 +354,7 @@ public class CustomerHome extends javax.swing.JDialog {
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contentLayout.createSequentialGroup()
                                 .addComponent(loanPaymentAccount)
-                                .addGap(550, 550, 550))
+                                .addContainerGap(742, Short.MAX_VALUE))
                             .addGroup(contentLayout.createSequentialGroup()
                                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(loanPaymentDeposit)
@@ -340,10 +364,17 @@ public class CustomerHome extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(stockMarket)
-                                    .addComponent(viewStockDetails1)
-                                    .addComponent(buyStock)
-                                    .addComponent(sellStock))
-                                .addGap(149, 149, 149))))
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(viewStockDetails1)
+                                            .addComponent(buyStock)
+                                            .addComponent(sellStock))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(viewStockTransactions)
+                                            .addComponent(viewClosedPositions)
+                                            .addComponent(openPositions))))
+                                .addGap(66, 66, 66))))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -394,7 +425,13 @@ public class CustomerHome extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(sellStock)
                                 .addGap(18, 18, 18)
-                                .addComponent(viewStockDetails1)))
+                                .addComponent(viewStockDetails1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                                .addComponent(openPositions)
+                                .addGap(18, 18, 18)
+                                .addComponent(viewClosedPositions)
+                                .addGap(18, 18, 18)
+                                .addComponent(viewStockTransactions)))
                         .addGap(18, 18, 18)
                         .addComponent(loanPaymentAccount)))
                 .addContainerGap(141, Short.MAX_VALUE))
@@ -607,6 +644,21 @@ public class CustomerHome extends javax.swing.JDialog {
         securitiesAccount.setVisible(true);    
     }                                                 
 
+    private void openPositionsActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        ViewOpenPostions openPositions = new ViewOpenPostions(this, true, loggedInUserGlobal);
+        openPositions.setVisible(true);      
+    }                                             
+
+    private void viewClosedPositionsActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        ViewClosedPostions closedPositions = new ViewClosedPostions(this, true, loggedInUserGlobal);
+        closedPositions.setVisible(true);    
+    }                                                   
+
+    private void viewStockTransactionsActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+        ViewStockTransactions stockTransactions = new ViewStockTransactions(this, true, loggedInUserGlobal);
+        stockTransactions.setVisible(true);    
+    }                                                     
+
     /**
      * @param args the command line arguments
      */
@@ -668,6 +720,7 @@ public class CustomerHome extends javax.swing.JDialog {
     private javax.swing.JButton loanPaymentAccount;
     private javax.swing.JButton loanPaymentDeposit;
     private javax.swing.JButton logout;
+    private javax.swing.JButton openPositions;
     private javax.swing.JButton savingAccount;
     private javax.swing.JButton securitiesAccount;
     private javax.swing.JButton sellStock;
@@ -675,7 +728,9 @@ public class CustomerHome extends javax.swing.JDialog {
     private javax.swing.JButton transferOneToOther;
     private javax.swing.JButton updateDetails;
     private javax.swing.JButton viewAccountDetails;
+    private javax.swing.JButton viewClosedPositions;
     private javax.swing.JButton viewStockDetails1;
+    private javax.swing.JButton viewStockTransactions;
     private javax.swing.JButton viewTransactionDetails;
     private javax.swing.JButton withdraw;
     // End of variables declaration
@@ -725,5 +780,4 @@ public class CustomerHome extends javax.swing.JDialog {
         model.addRow(vector);
         System.out.println("Pranesh: "+ID);
     }
-
 }
