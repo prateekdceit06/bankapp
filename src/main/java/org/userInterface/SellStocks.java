@@ -18,6 +18,7 @@ import org.backend.models.Customer;
 import org.backend.models.Manager;
 import org.backend.models.Stock;
 import org.backend.models.User;
+import org.backend.staticdata.Data;
 
 /**
  *
@@ -78,14 +79,14 @@ public class SellStocks extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Price", "Buy Amount", "Unsettled Profit", "Transaction Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -204,6 +205,7 @@ public class SellStocks extends javax.swing.JDialog {
                     break;
                 }
             }
+            System.out.println("Pranesh");
             Stock tempStock = null;
             //find stockId in managers stocks
             for (Stock stock : manager.getStocks()) {
@@ -212,7 +214,10 @@ public class SellStocks extends javax.swing.JDialog {
                     break;
                 }
             }
+
+            System.out.println("gunner");
             if (tempStock != null) {
+                System.out.println("Pranesh - 1");
                 if(customer.getStockCount().containsKey(stockId)
                         && customer.getStockCount().get(stockId) >= quantity) {
                     for (Account account : customer.getAccounts()) {
@@ -233,14 +238,20 @@ public class SellStocks extends javax.swing.JDialog {
                         }
                     }
                 }
+                else{
+                    System.out.println("Something went wrong. Stock Buying Failed.");
+                    JOptionPane.showMessageDialog(null, "Please enter the correct quantity of shares to be sold");
+                }
+            }
+            else{
+                System.out.println("Something went wrong. Stock Buying Failed.");
+                JOptionPane.showMessageDialog(null, "All the shares are already sold");
             }
             manager.loadAllData();
             loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
         } else {
             System.out.println("Please login first");
         }
-
-        this.dispose();
     }                                             
 
     /**
@@ -313,7 +324,7 @@ public class SellStocks extends javax.swing.JDialog {
             
             
             String[] columns = new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Price", "Buy Amount", "Unsettled Profit", "Transaction Date"
             };
 
             DefaultTableModel model = (DefaultTableModel)accountTable.getModel();
@@ -326,15 +337,20 @@ public class SellStocks extends javax.swing.JDialog {
             loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
             for (StockTransaction stockTransaction : manager.getStockTransactions()) {
                 //update stock
-                if(stockTransaction.getCustomerId() == loggedInUserGlobal.getId()){
+                if(stockTransaction.getCustomerId() == loggedInUserGlobal.getId()
+                &&
+                !stockTransaction.getStatus().equals(Data.StockStatus.SOLD.toString())){
+
+                    Double buyPrice = stockTransaction.getBuyPrice()/stockTransaction.getQuantity();
                     Vector<Object> vector = new Vector<>();
                     vector.add(stockTransaction.getStockTransactionId());
                     vector.add(stockTransaction.getStockId());
                     vector.add(stockTransaction.getAccountNumber());
                     vector.add(stockTransaction.getQuantity());
                     vector.add(stockTransaction.getStatus());
+                    vector.add(buyPrice);
                     vector.add(stockTransaction.getBuyPrice());
-                    vector.add(stockTransaction.getSellPrice());
+                    vector.add(0);
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

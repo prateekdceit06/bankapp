@@ -53,22 +53,21 @@ public class StockDetails extends javax.swing.JDialog {
         formTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
         content.setBackground(new java.awt.Color(0, 153, 153));
-
+        
         stockDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                    "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
             }
         ) {
             Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,8 +101,8 @@ public class StockDetails extends javax.swing.JDialog {
                 .addGap(44, 44, 44)
                 .addComponent(formTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(387, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,7 +175,7 @@ public class StockDetails extends javax.swing.JDialog {
             
             
             String[] columns = new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
             };
 
             DefaultTableModel model = (DefaultTableModel)stockDetails.getModel();
@@ -198,6 +197,7 @@ public class StockDetails extends javax.swing.JDialog {
                     vector.add(stockTransaction.getStatus());
                     vector.add(stockTransaction.getBuyPrice());
                     vector.add(stockTransaction.getSellPrice());
+                    vector.add(0); //profit logic
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

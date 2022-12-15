@@ -351,9 +351,8 @@ public class Manager {
                         double interest = account.getAccountBalance() * numberOfMonths * interestRate / 100;
                         boolean transferSuccess = false;
                         Transfer transfer = new Transfer();
-                        transferSuccess = transfer.transfer(interest, 0, account.getAccountNumber(),
-                                Data.TransactionTypes.INTEREST_PAYMENT.toString(),
-                                bankAccountNumber, loggedInUser);
+                        transferSuccess = transfer.transfer(interest, 0, bankAccountNumber, 
+                        Data.TransactionTypes.INTEREST_PAYMENT.toString(), account.getAccountNumber(), loggedInUser);
                         success = success && transferSuccess;
                     }
                 }

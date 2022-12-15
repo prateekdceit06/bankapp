@@ -145,7 +145,7 @@ public class UpdateStocks {
                 for (String ticker : updateStocks.tickerList) {
                     counter++;
                     sql = "INSERT INTO stock (stock_id, stock_name, current_price, tradable, ticker, price_update_date) VALUES " +
-                            "(" + counter + ",'" + tickerMap.get(ticker) + "', " + updateStocks.getPrice(ticker) + ", 0, '" + ticker + "', '" +
+                            "(" + counter + ",'" + tickerMap.get(ticker) + "', " + updateStocks.getPrice(ticker) + ", 1, '" + ticker + "', '" +
                             ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis())) + "')";
 //                    logger.log(Level.INFO, sql);
                     stmt.executeUpdate(sql);
