@@ -51,7 +51,6 @@ public class Manager {
         loadApprovedLoansData();
         loadStockData();
         loadStockTransactions();
-        updateStocks();
     }
 
 
@@ -308,35 +307,37 @@ public class Manager {
         HashMap<Integer, Integer> stockBought = new HashMap<>();
         HashMap<Integer, Integer> stockSold = new HashMap<>();
 
+
         for (Customer customer : customers) {
             stockSold.clear();
             stockBought.clear();
-            for (Account account : customer.getAccounts()) {
-                if (account instanceof AccountNewSecurity) {
-                    for (StockTransaction stockTransaction : stockTransactions) {
-                        if (stockTransaction.getSold_flag() == 0) {
-                            if (stockBought.containsKey(stockTransaction.getStockId())) {
-                                stockBought.put(stockTransaction.getStockId(), stockBought.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
-                            } else {
-                                stockBought.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
-                            }
+            for (StockTransaction stockTransaction : stockTransactions) {
+                if (stockTransaction.getCustomerId() == customer.getId()) {
+                    customer.getStockTransactions().add(stockTransaction);
+                    if (stockTransaction.getSold_flag() == 0) {
+                        if (stockBought.containsKey(stockTransaction.getStockId())) {
+                            stockBought.put(stockTransaction.getStockId(), stockBought.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
                         } else {
-                            if (stockSold.containsKey(stockTransaction.getStockId())) {
-                                stockSold.put(stockTransaction.getStockId(), stockSold.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
-                            } else {
-                                stockSold.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
-                            }
+                            stockBought.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
                         }
-                    }
-                    for (Integer key : stockBought.keySet()) {
-                        if (stockSold.containsKey(key)) {
-                            customer.getStockCount().put(key, stockBought.get(key) - stockSold.get(key));
+                    } else {
+                        if (stockSold.containsKey(stockTransaction.getStockId())) {
+                            stockSold.put(stockTransaction.getStockId(), stockSold.get(stockTransaction.getStockId()) + stockTransaction.getQuantity());
                         } else {
-                            customer.getStockCount().put(key, stockBought.get(key));
+                            stockSold.put(stockTransaction.getStockId(), stockTransaction.getQuantity());
                         }
+
                     }
                 }
             }
+            for (Integer key : stockBought.keySet()) {
+                if (stockSold.containsKey(key)) {
+                    customer.getStockCount().put(key, stockBought.get(key) - stockSold.get(key));
+                } else {
+                    customer.getStockCount().put(key, stockBought.get(key));
+                }
+            }
+            customer.getOpenPosition();
         }
     }
 
@@ -372,5 +373,15 @@ public class Manager {
         UpdateStocks updateStocks = new UpdateStocks();
         updateStockSuccess = updateStocks.updateStocks();
         return updateStockSuccess;
+    }
+
+    //find stock by fromTransactionId
+    public StockTransaction findStockTransactionByFromTransactionId(int fromTransactionId) {
+        for (StockTransaction stockTransaction : stockTransactions) {
+            if (stockTransaction.getStockTransactionId() == fromTransactionId) {
+                return stockTransaction;
+            }
+        }
+        return null;
     }
 }

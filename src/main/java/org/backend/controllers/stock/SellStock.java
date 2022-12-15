@@ -54,7 +54,7 @@ public class SellStock {
                             "VALUES (?, ?, ?, ?, ?)");
                     ps.setString(1, accountNumber);
                     ps.setString(2, Data.TransactionTypes.SELL_STOCK.toString());
-                    ps.setDouble(3, Double.parseDouble(Data.df.format(stockPrice*quantity)));
+                    ps.setDouble(3, Double.parseDouble(Data.df.format(stockPrice)));
                     ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                     ps.setString(4, ts);
                     ps.setInt(5, loggedInUser.getId());
