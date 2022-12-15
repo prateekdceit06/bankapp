@@ -4,7 +4,7 @@ import org.backend.Connect;
 import org.backend.allevents.AddToAllEvents;
 import org.backend.staticdata.ConvertDate;
 import org.backend.staticdata.Data;
-//import org.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -128,13 +128,11 @@ public class UpdateStocks {
             response.append(line);
         }
         reader.close();
-        // JSONObject jsonObject = new JSONObject(response.toString());
+        JSONObject jsonObject = new JSONObject(response.toString());
 
-        // Object raw = jsonObject.getJSONObject("quoteSummary").getJSONArray("result").getJSONObject(0).getJSONObject("financialData").getJSONObject("currentPrice").get("raw");
-        // double prefinal = raw.toString().equals("null") ? 0.00 : Double.parseDouble(raw.toString());
-        // return Double.parseDouble(Data.df.format(prefinal));
-
-        return 1.0;
+        Object raw = jsonObject.getJSONObject("quoteSummary").getJSONArray("result").getJSONObject(0).getJSONObject("financialData").getJSONObject("currentPrice").get("raw");
+        double prefinal = raw.toString().equals("null") ? 0.00 : Double.parseDouble(raw.toString());
+        return Double.parseDouble(Data.df.format(prefinal));
     }
 
     private class HelperStockFunctions {
