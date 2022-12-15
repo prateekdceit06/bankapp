@@ -90,8 +90,8 @@ Connect.java - Connects to the database and returns a connection instance.
 
 ---------------------------------------------------------------------------
 
-
-
+Bonus
+- We take live stock prices from NYSE and update them whenever the manager wants
 
 ## How to compile and run
 
