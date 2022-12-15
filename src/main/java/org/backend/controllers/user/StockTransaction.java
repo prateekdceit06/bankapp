@@ -114,6 +114,11 @@ public class StockTransaction {
         this.transactionDate = transactionDate;
     }
 
+    public int getFromTransactionId() {
+        return fromTransactionId;
+    }
+
+
     //override toString() method
     @Override
     public String toString() {
