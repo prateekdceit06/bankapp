@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Backend logic for applying for a loan
+ */
 public class ApplyForLoan {
     public boolean applyForLoan(String loanStatus, double loanAmount, double collateralValue,User loggedInUser) {
         Connect c = new Connect();

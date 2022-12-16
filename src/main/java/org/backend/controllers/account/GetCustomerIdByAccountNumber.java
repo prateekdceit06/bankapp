@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is used to get customer id by account number.
+ */
 public class GetCustomerIdByAccountNumber {
     public int getCustomerIdByAccountNumber(Connection connection, String accountNumber) {
         int customerId = 0;

@@ -8,6 +8,9 @@ import org.backend.staticdata.Data;
 
 import java.sql.*;
 
+/**
+ * Get the interest duration of a user
+ */
 public class GetInterestDuration {
     public int getInterestDuration(User loggedInUser) {
         int payInterestForMonths = 0;

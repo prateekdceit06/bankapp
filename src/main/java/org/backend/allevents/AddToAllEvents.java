@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Events are used to store all the events that happen in the bank. For sake of recordkeeping.
+ */
 public class AddToAllEvents {
     public boolean addToAllEvents(Connection connection, String event) {
         boolean success = false;

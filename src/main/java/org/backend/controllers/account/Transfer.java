@@ -8,6 +8,9 @@ import org.backend.staticdata.Data;
 
 import java.sql.*;
 
+/**
+ * This class is used to transfer money from one account to another.
+ */
 public class Transfer {
     public boolean transfer(double amount, double transactionFees, String fromAccountNumber, String transactionType, String toAccountNumber, User loggedInUser) {
         boolean isTransferred = false;

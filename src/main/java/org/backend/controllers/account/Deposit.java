@@ -8,6 +8,10 @@ import org.backend.staticdata.Data;
 
 import java.sql.*;
 
+/**
+ * This class is used to deposit money in an account.
+ */
+
 public class Deposit {
     public static boolean deposit(double amount, double transactionFees, String fromAccountNumber,
                                   String transactionType, User loggedInUser, String fromCurrency) {

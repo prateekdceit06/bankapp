@@ -12,6 +12,9 @@ import java.sql.*;
 
 import static org.backend.staticdata.Data.df;
 
+/**
+ * Backend logic for paying a loan
+ */
 public class PayLoan {
     public double payLoan(int loanId, double amount, User loggedInUser) {
         double amountDeducted = amount;

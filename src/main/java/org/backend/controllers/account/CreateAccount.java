@@ -14,6 +14,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * This class is used to create an account.
+ */
+
 public class CreateAccount {
     public boolean createAccount(Account account, User loggedInUser, List<String> accountNumbers, String fromCurrency) {
         boolean accountCreated = false;

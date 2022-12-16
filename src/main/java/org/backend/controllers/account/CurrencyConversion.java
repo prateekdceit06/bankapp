@@ -2,6 +2,9 @@ package org.backend.controllers.account;
 
 import org.backend.staticdata.Data;
 
+/**
+ * This class is used to convert currency.
+ */
 public class CurrencyConversion {
     public double convertCurrency(double amount, String fromCurrency) {
         double convertedAmount = 0;

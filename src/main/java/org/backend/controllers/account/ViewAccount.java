@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is used to get account details by account number.
+ */
 public class ViewAccount {
     public boolean viewAccount(String accountNumber, User user) {
         Connect connect = new Connect();

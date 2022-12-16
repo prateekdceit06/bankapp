@@ -12,6 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Loan reject and approve logic
+ */
+
 public class ApproveRejectLoan {
     public boolean approveLoan(int loanId, int customerId, String accountNo, double sanctionedAmount,
                                      String loanStatus, double loanInterest,

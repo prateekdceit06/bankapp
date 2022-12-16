@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all stocks from the database
+ */
 public class LoadStockData {
     public List<Stock> loadStockData(){
         List<Stock> stocks = new ArrayList<>();

@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all accounts from the database
+ */
 public class LoadAccounts {
     public List<Account> loadAccounts() {
         List<Account> accounts = new ArrayList<>();

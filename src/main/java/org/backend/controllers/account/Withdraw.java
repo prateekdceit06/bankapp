@@ -8,6 +8,9 @@ import org.backend.staticdata.Data;
 
 import java.sql.*;
 
+/**
+ * This class is used to withdraw money from an account.
+ */
 public class Withdraw {
     public static boolean withdraw(double amount, double transactionFees, String fromAccountNumber,
                                    String transactionType, User loggedInUser) {

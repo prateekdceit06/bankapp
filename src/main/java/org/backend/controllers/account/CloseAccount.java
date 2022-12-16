@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * This class is used to close an account.
+ */
 public class CloseAccount {
     public boolean closeAccount(Account account) {
         boolean isAccountClosed = false;

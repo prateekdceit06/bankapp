@@ -11,6 +11,9 @@ import org.backend.staticdata.SHA256;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
+/**
+ * Initialize the bank
+ */
 public class InitializeBank {
     public String initializeBank(){
         Connect c = new Connect();

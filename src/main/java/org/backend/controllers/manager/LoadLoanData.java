@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all loans from the database
+ */
 public class LoadLoanData {
     public List<Loan> loadLoanData() {
         List<Loan> loans = new ArrayList<>();

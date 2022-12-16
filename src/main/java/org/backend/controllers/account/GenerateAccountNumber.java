@@ -2,6 +2,9 @@ package org.backend.controllers.account;
 
 import java.util.Random;
 
+/**
+ * This class is used to generate account number.
+ */
 public class GenerateAccountNumber {
     public String generateAccountNumber() {
         int leftLimit = 49;
