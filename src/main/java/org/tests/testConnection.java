@@ -25,12 +25,6 @@ public class testConnection {
         baseCheck.add("customer_stock");
     }
 
-    public static void main(String[] args) throws SQLException {
-        String DB_URL = "jdbc:sqlite:src/bank.db";
-        testConnection test = new testConnection();
-        System.out.println(test.testAll(DB_URL));
-    }
-
     public boolean testAll(String DB_URL) throws SQLException {
         boolean testPass = false;
         if (connectToDatabase(DB_URL) != null) {
@@ -53,6 +47,7 @@ public class testConnection {
             System.out.println("Connection failed");
         }
 
+        connectToDatabase(DB_URL).close();
         return testPass;
     }
 
