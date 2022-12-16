@@ -349,7 +349,7 @@ public class SellStocks extends javax.swing.JDialog {
                 &&
                 !stockTransaction.getStatus().equals(Data.StockStatus.SOLD.toString())){
 
-                    Double buyPrice = stockTransaction.getBuyPrice()/stockTransaction.getQuantity();
+                    //Double buyPrice = stockTransaction.getBuyPrice()/stockTransaction.getQuantity();
                     Vector<Object> vector = new Vector<>();
                     vector.add(stockTransaction.getStockTransactionId());
                     vector.add(stockTransaction.getStockId());
