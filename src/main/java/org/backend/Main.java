@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * We used this to test the backend, this is not essential, but it is useful for testing.
+ */
 public class Main {
 
     public static void main(String[] args) {

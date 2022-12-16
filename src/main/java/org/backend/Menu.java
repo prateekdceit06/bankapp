@@ -1,5 +1,9 @@
 package org.backend;
 
+/**
+ * A helper class to print the menu for the backend test
+ */
+
 public class Menu {
     public void mainMenu() {
         System.out.println("1 Signin");

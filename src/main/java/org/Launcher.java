@@ -5,6 +5,10 @@ import org.tests.testConnection;
 
 import java.sql.SQLException;
 
+/**
+ * This is the main class for the program. It is used to launch the program.
+ * It also tests all databases are maintained correctly.
+ */
 public class Launcher {
     MainMenu menu = new MainMenu();
     testConnection test = new testConnection();

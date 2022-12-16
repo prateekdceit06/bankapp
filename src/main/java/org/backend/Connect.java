@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class is used to create a connection to the database.
+ */
+
 public class Connect {
     static final String DB_URL = "jdbc:sqlite:src/bank.db";
     public Connect (){}

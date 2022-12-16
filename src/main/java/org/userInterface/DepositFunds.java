@@ -21,7 +21,7 @@ import org.backend.music.Music;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI for customers to deposit funds.
  */
 public class DepositFunds extends javax.swing.JDialog {
 

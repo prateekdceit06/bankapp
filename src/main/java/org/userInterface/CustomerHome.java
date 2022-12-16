@@ -29,7 +29,7 @@ import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
 /**
  *
- * @author praneshjayasundar
+ * The home page for the customer.
  */
 public class CustomerHome extends javax.swing.JDialog {
 

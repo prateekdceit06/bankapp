@@ -18,7 +18,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI to list all transactions of a user
  */
 public class BankerTransactionDetails extends javax.swing.JDialog {
 

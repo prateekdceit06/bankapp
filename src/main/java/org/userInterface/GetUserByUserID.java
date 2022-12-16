@@ -17,7 +17,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI form to get a user by their ID.
  */
 public class GetUserByUserID extends javax.swing.JDialog {
 

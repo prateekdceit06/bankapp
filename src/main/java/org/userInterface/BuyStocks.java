@@ -23,7 +23,7 @@ import org.backend.staticdata.Data.AccountTypes;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI to buy stocks (for `rich` customers)
  */
 public class BuyStocks extends javax.swing.JDialog {
 

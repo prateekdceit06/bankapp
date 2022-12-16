@@ -10,13 +10,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Manager class. The Manager class is the main class in the backend of the application
+ * that manages all the data and operations related to the application. It
+ * stores and maintains all the users, customers, accounts, transactions,
+ * loans, approved loans, stocks, and stock transactions. It also has
+ * methods to load and save all the data, as well as methods to perform
+ * operations such as paying interest, updating stocks, and logging in
+ * users. This class is important as it is the one of the main interface to
+ * the backend and is responsible for maintaining the data and
+ * performing operations.
+ */
+
 public class Manager {
     private List<User> users;
-    private List<Customer> customers;
+    private final List<Customer> customers;
     private List<String> accountNumbers;
-    private List<AccountSavings> savingsAccounts;
-    private List<AccountChecking> checkingAccounts;
-    private List<AccountLoan> loanAccounts;
+    private final List<AccountSavings> savingsAccounts;
+    private final List<AccountChecking> checkingAccounts;
+    private final List<AccountLoan> loanAccounts;
     private List<Account> accounts;
     private List<Transaction> ledger;
     private List<Loan> loans;
@@ -159,11 +171,7 @@ public class Manager {
         if (users != null) {
             for (User user : users) {
                 if (user.getIsCustomer() == 1) {
-                    Customer customer = new Customer(user.getId(), user.getFirstName(), user.getLastName(),
-                            user.getPhone(), user.getAddress(), user.getEmail(), user.getUserName(),
-                            user.getIsActive(), user.getIsAdmin(), user.getIsEmployee(), user.getToken(),
-                            user.getCreatedAt(), user.getUpdatedAt(), user.getHasCollateral(), user.getHasLoan(),
-                            user.getIsCustomer());
+                    Customer customer = new Customer(user.getId(), user.getFirstName(), user.getLastName(), user.getPhone(), user.getAddress(), user.getEmail(), user.getUserName(), user.getIsActive(), user.getIsAdmin(), user.getIsEmployee(), user.getToken(), user.getCreatedAt(), user.getUpdatedAt(), user.getHasCollateral(), user.getHasLoan(), user.getIsCustomer());
                     customers.add(customer);
                 }
             }
@@ -353,8 +361,7 @@ public class Manager {
                         double interest = account.getAccountBalance() * numberOfMonths * interestRate / 100;
                         boolean transferSuccess = false;
                         Transfer transfer = new Transfer();
-                        transferSuccess = transfer.transfer(interest, 0, bankAccountNumber, 
-                        Data.TransactionTypes.INTEREST_PAYMENT.toString(), account.getAccountNumber(), loggedInUser);
+                        transferSuccess = transfer.transfer(interest, 0, bankAccountNumber, Data.TransactionTypes.INTEREST_PAYMENT.toString(), account.getAccountNumber(), loggedInUser);
                         success = success && transferSuccess;
                     }
                 }

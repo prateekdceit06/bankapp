@@ -27,7 +27,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI that displays all inactive customers
  */
 public class InactiveCustomers extends javax.swing.JDialog {
 

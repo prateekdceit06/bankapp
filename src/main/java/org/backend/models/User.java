@@ -7,6 +7,10 @@ import org.backend.staticdata.Data;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * This class is used to create a user object. It is used to store the user's details and to
+ * interact with the database.
+ */
 public class User {
     private int id;
     private String firstName;

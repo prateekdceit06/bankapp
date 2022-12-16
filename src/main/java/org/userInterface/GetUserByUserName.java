@@ -17,7 +17,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * A dialog to get a user by username
  */
 public class GetUserByUserName extends javax.swing.JDialog {
 

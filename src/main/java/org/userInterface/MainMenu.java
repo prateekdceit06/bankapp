@@ -13,6 +13,10 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+/**
+ * This class that is used to create the main menu for the program. The launcher calls this.
+ */
+
 public class MainMenu extends javax.swing.JFrame {
 
     static Manager managerGlobal;

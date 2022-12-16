@@ -19,7 +19,7 @@ import org.backend.staticdata.SHA256;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI to change passwords
  */
 public class ChangePasswordPrompt extends javax.swing.JDialog {
 

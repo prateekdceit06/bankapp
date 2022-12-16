@@ -14,10 +14,8 @@ import java.sql.Statement;
 import org.backend.Connect;
 import org.backend.staticdata.SHA256;
 
-
 /**
- *
- * @author praneshjayasundar
+ * This is the login page for the customer.
  */
 public class CustomerLogin extends javax.swing.JFrame {
 

@@ -19,7 +19,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * A GUI for the manager to view all the users in the system.
  */
 public class GetAllUsersDisplay extends javax.swing.JDialog {
 

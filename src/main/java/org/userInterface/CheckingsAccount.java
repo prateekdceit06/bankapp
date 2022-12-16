@@ -22,8 +22,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 /**
  *
- * @author praneshjayasundar
+ * Checking Account: This class is used to display the checking account information and for the user to deposit or withdraw money. It can also be used for creation.
  */
+
 public class CheckingsAccount extends javax.swing.JDialog {
 
     static User loggedInUserGlobal;

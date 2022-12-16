@@ -18,7 +18,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * The GUI for the Banker/Manager Home Page
  */
 public class BankerHome extends javax.swing.JDialog {
 

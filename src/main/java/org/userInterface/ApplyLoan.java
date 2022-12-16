@@ -10,7 +10,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * The GUI for loan application
  */
 public class ApplyLoan extends javax.swing.JDialog {
 
