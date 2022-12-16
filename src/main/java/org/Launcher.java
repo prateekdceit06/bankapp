@@ -11,7 +11,6 @@ import java.sql.SQLException;
  */
 public class Launcher {
     MainMenu menu = new MainMenu();
-    testConnection test = new testConnection();
 
     public static void main(String[] args) throws SQLException {
 //        Launcher launcher = new Launcher();
