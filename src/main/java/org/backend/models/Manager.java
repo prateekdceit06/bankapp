@@ -378,7 +378,7 @@ public class Manager {
     public boolean updateStocks() {
         boolean updateStockSuccess = false;
         UpdateStocks updateStocks = new UpdateStocks();
-        updateStockSuccess = updateStocks.updateStocks();
+        // updateStockSuccess = updateStocks.updateStocks();
         return updateStockSuccess;
     }
 
