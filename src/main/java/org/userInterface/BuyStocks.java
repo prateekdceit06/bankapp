@@ -263,6 +263,12 @@ public class BuyStocks extends javax.swing.JDialog {
                 return;
             }
 
+            if(stockTableData.getSelectionModel().isSelectionEmpty()){
+                System.out.println("Please select a share");
+                JOptionPane.showMessageDialog(null, "Please select a share");
+                return;
+            }
+
             DefaultTableModel accountModel = (DefaultTableModel)accountsTableData.getModel();
             int selectedAcccountNumber = accountsTableData.getSelectedRow();
             String accountNumber = accountModel.getValueAt(selectedAcccountNumber, 1).toString();
