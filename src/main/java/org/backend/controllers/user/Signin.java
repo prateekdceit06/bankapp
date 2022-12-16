@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Signin a user
+ */
 public class Signin {
     public HashMap<String, String> signin(String userName, String encryptedSignInPassword) {
         Connect c = new Connect();

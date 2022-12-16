@@ -6,6 +6,9 @@ import org.backend.models.User;
 import org.backend.staticdata.ConvertDate;
 import java.sql.*;
 
+/**
+ * Signup a user
+ */
 public class Signup {
     public boolean signup(String firstName, String lastName, String phone, String address, String email, String userName,
                        String encryptedPassword, int isEmployee, int isAdmin, int hasCollateral) {

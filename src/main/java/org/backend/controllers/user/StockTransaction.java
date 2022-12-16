@@ -2,6 +2,9 @@ package org.backend.controllers.user;
 
 import java.time.LocalDateTime;
 
+/**
+ * A stock transaction
+ */
 public class StockTransaction {
     private int stockTransactionId;
     private int stockId;

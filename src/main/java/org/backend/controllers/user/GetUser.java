@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * Get user
+ */
 public class GetUser {
     public HashMap<String, String> getUser(int id, User user) {
         HashMap<String, String> response = new HashMap<>();

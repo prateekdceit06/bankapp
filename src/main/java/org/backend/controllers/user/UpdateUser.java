@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Update user details
+ */
 public class UpdateUser {
 
     public boolean updateUser(User loggedInUser, User updatedUser) {

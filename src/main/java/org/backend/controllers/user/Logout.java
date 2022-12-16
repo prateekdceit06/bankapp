@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Logout a user, expires token
+ */
 public class Logout {
     public boolean logout(User loggedInUser) {
         boolean isLogoutSuccessful = false;

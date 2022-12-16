@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all users from the database
+ */
 public class GetAllUsers {
     public List<User> getAllUsers(User loggedInUser) {
         List<User> users = new ArrayList<>();

@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Get token of a user, used for sessions
+ */
 public class GetToken {
     public String getToken(User user) {
         Connect connect = new Connect();

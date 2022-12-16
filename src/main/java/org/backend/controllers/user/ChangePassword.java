@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Change password of a user
+ */
 public class ChangePassword {
     public boolean changePassword(String oldPassword, String newPassword, User loggedInUser) {
         boolean isPasswordChanged = false;
