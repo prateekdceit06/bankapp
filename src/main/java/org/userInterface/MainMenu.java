@@ -290,7 +290,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel14.setText("jLabel13");
 
-        jLabel15.setIcon(new javax.swing.ImageIcon("/Users/praneshjayasundar/Downloads/icons8-merchant-account-100.png")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon("src/main/java/org/backend/images/merchant-icon.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
