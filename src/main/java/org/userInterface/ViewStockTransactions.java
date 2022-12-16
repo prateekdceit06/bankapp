@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import org.backend.controllers.user.StockTransaction;
+import org.backend.models.Customer;
 import org.backend.models.Manager;
 import org.backend.models.User;
 
@@ -19,6 +20,8 @@ import org.backend.models.User;
 public class ViewStockTransactions extends javax.swing.JDialog {
 
     static User loggedInUserGlobal;
+    double realisedProfitValue = 0;
+    double unrealisedProfitValue = 0;
     /**
      * Creates new form StockDetails
      */
@@ -43,6 +46,8 @@ public class ViewStockTransactions extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         OpenPositions = new javax.swing.JTable();
         formTitle = new javax.swing.JLabel();
+        realisedProfit = new javax.swing.JLabel();
+        unrealisedProfit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,6 +80,24 @@ public class ViewStockTransactions extends javax.swing.JDialog {
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         formTitle.setText("Stock Transactions");
 
+        Manager manager = new Manager();
+        Customer customer = new Customer();
+        for(Customer cust: manager.getCustomers()){
+            if(cust.getId() == loggedInUserGlobal.getId()){
+                customer = cust;
+                System.out.println("Test ID"+customer.getId());
+                break;
+            }
+        }
+
+        realisedProfitValue = customer.calculateRealisedProfit();
+        realisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        realisedProfit.setText("Unrealised Profit: " + unrealisedProfitValue);
+
+        unrealisedProfitValue = customer.calculateUnrealisedProfit();
+        unrealisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        unrealisedProfit.setText("Unrealised Profit: " + unrealisedProfitValue);
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -84,6 +107,8 @@ public class ViewStockTransactions extends javax.swing.JDialog {
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(formTitle)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(realisedProfit)
+                    .addComponent(unrealisedProfit)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
@@ -93,6 +118,10 @@ public class ViewStockTransactions extends javax.swing.JDialog {
                 .addComponent(formTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(realisedProfit)
+                    .addGap(18, 18, 18)
+                    .addComponent(unrealisedProfit)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -165,6 +194,8 @@ public class ViewStockTransactions extends javax.swing.JDialog {
     private javax.swing.JTable OpenPositions;
     private javax.swing.JPanel content;
     private javax.swing.JLabel formTitle;
+    private javax.swing.JLabel realisedProfit;
+    private javax.swing.JLabel unrealisedProfit;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
     
@@ -198,7 +229,7 @@ public class ViewStockTransactions extends javax.swing.JDialog {
                     vector.add(stockTransaction.getStatus());
                     vector.add(stockTransaction.getBuyPrice());
                     vector.add(stockTransaction.getSellPrice());
-                    vector.add(0); //profit logic
+//                    vector.add(0); //profit logic
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

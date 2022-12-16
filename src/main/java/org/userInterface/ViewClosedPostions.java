@@ -21,7 +21,8 @@ import org.backend.models.User;
 public class ViewClosedPostions extends javax.swing.JDialog {
 
     static User loggedInUserGlobal;
-    double profitValue = 0;
+    double realisedProfitValue = 0;
+    double unrealisedProfitValue = 0;
     /**
      * Creates new form StockDetails
      */
@@ -46,7 +47,8 @@ public class ViewClosedPostions extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         OpenPositions = new javax.swing.JTable();
         formTitle = new javax.swing.JLabel();
-        profit = new JLabel();
+        unrealisedProfit = new JLabel();
+        realisedProfit = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,9 +90,15 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 break;
             }
         }
-        profitValue = customer.calculateRealisedProfit();
-        profit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        profit.setText("Realised Profit: " + profitValue);
+
+        realisedProfitValue = customer.calculateRealisedProfit();
+        realisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        realisedProfit.setText("Realised Profit: " + realisedProfitValue);
+
+        unrealisedProfitValue = customer.calculateRealisedProfit();
+        unrealisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        unrealisedProfit.setText("Unrealised Profit: " + unrealisedProfitValue);
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -100,7 +108,8 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(formTitle)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(profit)
+                    .addComponent(realisedProfit)
+                    .addComponent(unrealisedProfit)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
@@ -111,7 +120,9 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(profit)
+                    .addComponent(realisedProfit)
+                    .addGap(18,18,18)
+                    .addComponent(unrealisedProfit)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -184,7 +195,8 @@ public class ViewClosedPostions extends javax.swing.JDialog {
     private javax.swing.JTable OpenPositions;
     private javax.swing.JPanel content;
     private javax.swing.JLabel formTitle;
-    private javax.swing.JLabel profit;
+    private javax.swing.JLabel realisedProfit;
+    private javax.swing.JLabel unrealisedProfit;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
     
@@ -228,8 +240,6 @@ public class ViewClosedPostions extends javax.swing.JDialog {
 
                 model.addRow(vector);
             }
-            customer.getClosedPositions();
-            System.out.println(customer.getClosedPositions());
             manager.loadAllData();
             loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
 
