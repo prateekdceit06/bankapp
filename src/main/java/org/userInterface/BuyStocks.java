@@ -507,15 +507,16 @@ public class BuyStocks extends javax.swing.JDialog {
                 //update stock
                 if(stockTransaction.getCustomerId() == loggedInUserGlobal.getId() && stockTransaction.getSold_flag() == 0){
 
-                    Double buyPrice = stockTransaction.getBuyPrice()/stockTransaction.getQuantity();
+                    //Double buyPrice = stockTransaction.getBuyPrice()/stockTransaction.getQuantity();
                     Vector<Object> vector = new Vector<>();
                     vector.add(stockTransaction.getStockTransactionId());
                     vector.add(stockTransaction.getStockId());
                     vector.add(stockTransaction.getAccountNumber());
                     vector.add(stockTransaction.getQuantity());
                     vector.add(stockTransaction.getStatus());
-                    vector.add(buyPrice);
+                    //vector.add(buyPrice);
                     vector.add(stockTransaction.getBuyPrice());
+                    vector.add(stockTransaction.getBuyPrice()*stockTransaction.getQuantity());
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

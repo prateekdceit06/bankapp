@@ -356,8 +356,9 @@ public class SellStocks extends javax.swing.JDialog {
                     vector.add(stockTransaction.getAccountNumber());
                     vector.add(stockTransaction.getQuantity());
                     vector.add(stockTransaction.getStatus());
-                    vector.add(buyPrice);
+                    //vector.add(buyPrice);
                     vector.add(stockTransaction.getBuyPrice());
+                    vector.add(stockTransaction.getBuyPrice()*stockTransaction.getQuantity());
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

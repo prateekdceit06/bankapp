@@ -88,7 +88,7 @@ public class ViewOpenPostions extends javax.swing.JDialog {
                 break;
             }
         }
-        profitValue = customer.calculateRealisedProfit();
+        profitValue = customer.calculateUnrealisedProfit();
         profit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         profit.setText("Unrealised Profit: " + profitValue);
 

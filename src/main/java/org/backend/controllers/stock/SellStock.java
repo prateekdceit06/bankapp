@@ -34,7 +34,7 @@ public class SellStock {
                     pstmt.setInt(3, customerId);
                     pstmt.setInt(4, quantity);
                     pstmt.setString(5, stockStatus);
-                    pstmt.setDouble(6, Double.parseDouble(Data.df.format(stockPrice*quantity)));
+                    pstmt.setDouble(6, Double.parseDouble(Data.df.format(stockPrice)));
                     String ts = ConvertDate.convertDateToString(new Timestamp(System.currentTimeMillis()));
                     pstmt.setString(7, ts);
                     pstmt.setInt(8, 1);
