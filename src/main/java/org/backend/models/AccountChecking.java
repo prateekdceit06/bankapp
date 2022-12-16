@@ -7,6 +7,9 @@ import org.backend.staticdata.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for a checking account.
+ */
 public class AccountChecking extends Account{
     public AccountChecking(int customerId, String accountType, double accountBalance, int accountStatus) {
         super(customerId, accountType, accountBalance, accountStatus);

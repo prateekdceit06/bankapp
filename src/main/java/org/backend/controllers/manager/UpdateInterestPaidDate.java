@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
+/**
+ * Update the interest paid date
+ */
 public class UpdateInterestPaidDate {
     public boolean updateInterestPaidDate(User loggedInUser) {
         boolean success = false;

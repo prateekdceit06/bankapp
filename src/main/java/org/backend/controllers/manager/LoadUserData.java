@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all users from the database
+ */
 public class LoadUserData {
     public List<User> loadUserData() {
         List<User> activeUsers = new ArrayList<>();

@@ -14,6 +14,9 @@ import java.sql.Timestamp;
 
 import static org.backend.staticdata.Data.df;
 
+/**
+ * BuyStock class to let select users buy stocks
+ */
 public class SellStock {
     public boolean sellStock(int stockId, int customerId, String accountNumber, int quantity, String stockStatus,
                             double stockPrice, User loggedInUser, int fromTransactionId){

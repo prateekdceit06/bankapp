@@ -4,6 +4,9 @@ import org.backend.staticdata.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for an account factory. This is the root of the factory pattern.
+ */
 public class AccountFactory {
     public Account createAccount(int customerId, String accountNumber, String accountType,
                                  double accountBalance, int accountStatus,

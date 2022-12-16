@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * UpdateStock class to update stock details
+ */
 public class UpdateStock {
     public boolean updateStock(User loggedInUser, Stock stock) {
         boolean success = false;

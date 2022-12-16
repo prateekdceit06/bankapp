@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Load all transactions from the database
+ */
 public class LoadTransactions {
     public List<Transaction>  loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();

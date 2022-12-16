@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * GetCurrentSellingPrice class to get current selling price of a stock
+ */
 public class GetCurrentSellingPrice {
     public double getCurrentSellingPrice(int stockId) {
         double currentSellingPrice = 0.0;

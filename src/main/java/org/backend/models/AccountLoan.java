@@ -8,6 +8,9 @@ import org.backend.staticdata.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for a loan account.
+ */
 public class AccountLoan extends Account {
 
     public AccountLoan(int customerId, String accountType, double accountBalance, int accountStatus) {
