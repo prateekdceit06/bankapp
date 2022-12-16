@@ -16,7 +16,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * GUI for the manager to view all accounts
  */
 public class AccountDetails extends javax.swing.JDialog {
 

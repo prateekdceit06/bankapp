@@ -29,7 +29,7 @@ import org.backend.models.User;
 
 /**
  *
- * @author praneshjayasundar
+ * GUI for the manager to view all accounts
  */
 public class ActiveUsers extends javax.swing.JDialog {
 

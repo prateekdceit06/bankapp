@@ -7,6 +7,9 @@ import org.backend.staticdata.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * A proxy for a savings account from AccountFactory.
+ */
 public class AccountSavings extends Account{
     //default constructor
     public AccountSavings() {

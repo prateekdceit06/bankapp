@@ -2,6 +2,9 @@ package org.backend.models;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for a transaction.
+ */
 public class Transaction {
     private int transactionId;
     private String accountNumber;

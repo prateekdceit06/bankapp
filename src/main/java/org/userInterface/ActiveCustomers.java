@@ -27,7 +27,7 @@ import org.backend.staticdata.Data;
 
 /**
  *
- * @author praneshjayasundar
+ * GUI for the manager to view all accounts
  */
 public class ActiveCustomers extends javax.swing.JDialog {
 

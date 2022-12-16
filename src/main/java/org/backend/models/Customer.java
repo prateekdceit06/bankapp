@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Base customer class.
+ */
 public class Customer extends User {
 
     private List<Account> accounts;

@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A model for an account for security: trading stocks etc.
+ */
+
 public class AccountNewSecurity extends Account {
 
     List<StockTransaction> stockTransactions;

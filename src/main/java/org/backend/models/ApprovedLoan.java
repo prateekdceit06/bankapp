@@ -1,5 +1,8 @@
 package org.backend.models;
 
+/**
+ * A model for an approved loan.
+ */
 public class ApprovedLoan {
     private int loanId;
     private String accountNumber;

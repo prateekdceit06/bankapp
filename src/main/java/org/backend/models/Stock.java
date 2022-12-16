@@ -4,6 +4,9 @@ import org.backend.controllers.stock.UpdateStock;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for a stock.
+ */
 public class Stock {
     int stockId;
     String stockName;

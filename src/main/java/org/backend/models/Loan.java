@@ -5,6 +5,9 @@ import org.backend.controllers.loan.ApproveRejectLoan;
 
 import java.time.LocalDateTime;
 
+/**
+ * A model for a loan.
+ */
 public class Loan {
     private int loanId;
     private int customerId;
