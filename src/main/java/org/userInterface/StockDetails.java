@@ -61,14 +61,14 @@ public class StockDetails extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -176,7 +176,7 @@ public class StockDetails extends javax.swing.JDialog {
             
             
             String[] columns = new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
             };
 
             DefaultTableModel model = (DefaultTableModel)stockDetails.getModel();
@@ -198,7 +198,6 @@ public class StockDetails extends javax.swing.JDialog {
                     vector.add(stockTransaction.getStatus());
                     vector.add(stockTransaction.getBuyPrice());
                     vector.add(stockTransaction.getSellPrice());
-                    vector.add(0); //profit logic
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);

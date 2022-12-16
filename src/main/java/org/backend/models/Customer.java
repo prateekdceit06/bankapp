@@ -90,6 +90,14 @@ public class Customer extends User {
         this.stockTransactions = stockTransactions;
     }
 
+    public List<StockTransaction> getOpenPositions() {
+        return openPositions;
+    }
+
+    public List<StockTransaction> getClosedPositions() {
+        return closedPositions;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "\n Customer{" +

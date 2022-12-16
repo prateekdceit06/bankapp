@@ -6,9 +6,11 @@ package org.userInterface;
 
 import java.util.Vector;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import org.backend.controllers.user.StockTransaction;
+import org.backend.models.Customer;
 import org.backend.models.Manager;
 import org.backend.models.User;
 
@@ -19,6 +21,7 @@ import org.backend.models.User;
 public class ViewClosedPostions extends javax.swing.JDialog {
 
     static User loggedInUserGlobal;
+    double profitValue = 0;
     /**
      * Creates new form StockDetails
      */
@@ -43,6 +46,7 @@ public class ViewClosedPostions extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         OpenPositions = new javax.swing.JTable();
         formTitle = new javax.swing.JLabel();
+        profit = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,14 +55,14 @@ public class ViewClosedPostions extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -75,6 +79,18 @@ public class ViewClosedPostions extends javax.swing.JDialog {
         formTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         formTitle.setText("Closed Positions");
 
+        Manager manager = new Manager();
+        Customer customer = new Customer();
+        for(Customer cust: manager.getCustomers()){
+            if(cust.getId() == loggedInUserGlobal.getId()){
+                customer = cust;
+                System.out.println("Test ID"+customer.getId());
+                break;
+            }
+        }
+        profitValue = customer.calculateRealisedProfit();
+        profit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        profit.setText("Realised Profit: " + profitValue);
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -84,6 +100,7 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(formTitle)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(profit)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
@@ -93,6 +110,8 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 .addComponent(formTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(profit)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -165,6 +184,7 @@ public class ViewClosedPostions extends javax.swing.JDialog {
     private javax.swing.JTable OpenPositions;
     private javax.swing.JPanel content;
     private javax.swing.JLabel formTitle;
+    private javax.swing.JLabel profit;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
     
@@ -176,7 +196,7 @@ public class ViewClosedPostions extends javax.swing.JDialog {
             
             
             String[] columns = new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Net Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status", "Buy Amount", "Sell Amount", "Transaction Date"
             };
 
             DefaultTableModel model = (DefaultTableModel)OpenPositions.getModel();
@@ -186,27 +206,33 @@ public class ViewClosedPostions extends javax.swing.JDialog {
 
             Manager manager = new Manager();
             manager.loadAllData();
-            loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
-            for (StockTransaction stockTransaction : manager.getStockTransactions()) {
-                //update stock
-                if(stockTransaction.getCustomerId() == loggedInUserGlobal.getId()){
-                    Vector<Object> vector = new Vector<>();
-                    vector.add(stockTransaction.getStockTransactionId());
-                    vector.add(stockTransaction.getStockId());
-                    vector.add(stockTransaction.getAccountNumber());
-                    vector.add(stockTransaction.getQuantity());
-                    vector.add(stockTransaction.getStatus());
-                    vector.add(stockTransaction.getBuyPrice());
-                    vector.add(stockTransaction.getSellPrice());
-                    vector.add(0); //profit logic
-                    vector.add(stockTransaction.getTransactionDate().toString());
-                    
-                    model.addRow(vector);
+            Customer customer = new Customer();
+            for(Customer cust: manager.getCustomers()){
+                if(cust.getId() == loggedInUserGlobal.getId()){
+                    customer = cust;
+                    break;
                 }
-                
             }
+            loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
+            for(int i=0; i<customer.getClosedPositions().size(); i++){
+                Vector<Object> vector = new Vector<>();
+                vector.add(customer.getClosedPositions().get(i).getStockTransactionId());
+                vector.add(customer.getClosedPositions().get(i).getStockId());
+                vector.add(customer.getClosedPositions().get(i).getAccountNumber());
+                vector.add(customer.getClosedPositions().get(i).getQuantity());
+                vector.add(customer.getClosedPositions().get(i).getStatus());
+                vector.add(customer.getClosedPositions().get(i).getBuyPrice());
+                vector.add(customer.getClosedPositions().get(i).getSellPrice());
+                vector.add(0);
+                vector.add(customer.getClosedPositions().get(i).getTransactionDate());
+
+                model.addRow(vector);
+            }
+            customer.getClosedPositions();
+            System.out.println(customer.getClosedPositions());
             manager.loadAllData();
             loggedInUserGlobal = manager.getLoggedInUser(loggedInUserGlobal.getId());
+
         } else {
             System.out.println("Please login first");
         }

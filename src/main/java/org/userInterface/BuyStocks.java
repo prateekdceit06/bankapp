@@ -91,14 +91,14 @@ public class BuyStocks extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status","Buy Price", "Buy Amount", "Unsettled Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status","Buy Price", "Buy Amount", "Transaction Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -256,6 +256,12 @@ public class BuyStocks extends javax.swing.JDialog {
             //int quantity = Integer.parseInt(br.readLine());
             
             //String accountNumber = br.readLine();
+
+            if(accountsTableData.getSelectionModel().isSelectionEmpty()){
+                System.out.println("Please select an account");
+                JOptionPane.showMessageDialog(null, "Please select an account");
+                return;
+            }
 
             DefaultTableModel accountModel = (DefaultTableModel)accountsTableData.getModel();
             int selectedAcccountNumber = accountsTableData.getSelectedRow();
@@ -479,7 +485,7 @@ public class BuyStocks extends javax.swing.JDialog {
             
             
             String[] columns = new String [] {
-                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status","Buy Price", "Buy Amount", "Unsettled Profit", "Transaction Date"
+                "Transaction ID", "Stock ID", "Account Number", "Quantity", "Status","Buy Price", "Buy Amount", "Transaction Date"
             };
 
             DefaultTableModel model = (DefaultTableModel)openTableData.getModel();
@@ -504,7 +510,6 @@ public class BuyStocks extends javax.swing.JDialog {
                     vector.add(stockTransaction.getStatus());
                     vector.add(buyPrice);
                     vector.add(stockTransaction.getBuyPrice());
-                    vector.add(0); //profit logic
                     vector.add(stockTransaction.getTransactionDate().toString());
                     
                     model.addRow(vector);
