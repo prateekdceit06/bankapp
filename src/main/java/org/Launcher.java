@@ -14,14 +14,15 @@ public class Launcher {
     testConnection test = new testConnection();
 
     public static void main(String[] args) throws SQLException {
-        Launcher launcher = new Launcher();
-        boolean testPass = launcher.test.testAll("jdbc:sqlite:src/bank.db");
-        System.out.println("Starting application");
-        System.out.println("Database test: " + testPass);
-        if (testPass) {
-            MainMenu.main(args);
-        } else {
-            System.out.println("Database test failed, please check database");
-        }
+//        Launcher launcher = new Launcher();
+//        boolean testPass = launcher.test.testAll("jdbc:sqlite:src/bank.db");
+//        System.out.println("Starting application");
+//        System.out.println("Database test: " + testPass);
+//        if (testPass) {
+//            MainMenu.main(args);
+//        } else {
+//            System.out.println("Database test failed, please check database");
+//        }
+        MainMenu.main(args);
     }
 }
