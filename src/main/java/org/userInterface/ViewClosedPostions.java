@@ -95,7 +95,7 @@ public class ViewClosedPostions extends javax.swing.JDialog {
         realisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         realisedProfit.setText("Realised Profit: " + realisedProfitValue);
 
-        unrealisedProfitValue = customer.calculateRealisedProfit();
+        unrealisedProfitValue = customer.calculateUnrealisedProfit();
         unrealisedProfit.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         unrealisedProfit.setText("Unrealised Profit: " + unrealisedProfitValue);
 
@@ -108,10 +108,10 @@ public class ViewClosedPostions extends javax.swing.JDialog {
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(formTitle)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(realisedProfit)
-                    .addComponent(unrealisedProfit)
                 .addContainerGap(30, Short.MAX_VALUE))
-        );
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(realisedProfit)
+                            .addComponent(unrealisedProfit)));
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
